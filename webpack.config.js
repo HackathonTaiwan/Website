@@ -24,6 +24,12 @@ var configs = module.exports = [
 				{ test: /\.gif$/,  loader: "url-loader?prefix=img/&limit=5000" },
 				{ test: /\.woff$/, loader: "url-loader?prefix=font/&limit=5000" }
 			]
+		},
+		resolve: {
+			alias: {
+				Source: __dirname + '/src',
+				Extension: __dirname + '/src/extensions'
+			}
 		}
 	},
 	{
@@ -44,9 +50,6 @@ var configs = module.exports = [
 		plugins: [
 			new webpack.DefinePlugin({ 'global.GENTLY': false })
 		],
-		externals: {
-			react: 'React'
-		},
 		module: {
 			loaders: [
 				{ test: /\.json$/, loader: 'json-loader' },
@@ -57,6 +60,12 @@ var configs = module.exports = [
 				{ test: /\.gif$/,  loader: "url-loader?prefix=img/&limit=5000" },
 				{ test: /\.woff$/, loader: "url-loader?prefix=font/&limit=5000" }
 			]
+		},
+		resolve: {
+			alias: {
+				Source: __dirname + '/src',
+				Extension: __dirname + '/src/extensions'
+			}
 		}
 	}
 ];
