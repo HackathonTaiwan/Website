@@ -2,6 +2,7 @@ import React from 'react';
 import Fluky from 'fluky';
 import Header from './Header.jsx';
 import I18n from './I18n.jsx';
+import HackathonMap from './HackathonMap.jsx';
 
 // Section image
 import appIcon from '../../images/app-icon.png';
@@ -47,6 +48,8 @@ class LandingPage extends React.Component {
 						<I18n sign='landing_page.entry_button'>What's this</I18n>
 					</button>
 				</div>
+
+					<HackathonMap />
 	
 				<section style={sectionStyle} ref='app_section'>
 					<div className={'ui basic center aligned very padded segment'}>
