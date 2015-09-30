@@ -1,5 +1,6 @@
 import React from 'react';
 import Fluky from 'fluky';
+import Loader from 'Extension/Loader.jsx';
 
 class HackathonMap extends React.Component {
 
@@ -9,9 +10,9 @@ class HackathonMap extends React.Component {
 		$(component).height($(window).height() * 0.8);
 
 		//CSS
-		Fluky.loader.css('https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css');
-		Fluky.loader.css('https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-minimap/v1.0.0/Control.MiniMap.css');
-		Fluky.loader.script([
+		Loader.css('https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.5/leaflet.css');
+		Loader.css('https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-minimap/v1.0.0/Control.MiniMap.css');
+		Loader.script([
 			'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.5/leaflet.js',
 			'https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-minimap/v1.0.0/Control.MiniMap.js'
 		], function() {
