@@ -42,7 +42,7 @@ class LandingPage extends React.Component {
 					<h1 className={'ui inverted header'}>
 						<span>{Fluky.getState('Service').name}</span>
 						<h2 className={'ui inverted header'}>
-							<I18n sign='landing_page.subtitle'>Isomorphic WebApp Template<br /> with ES6, Node.js, Koa, React and Webpack.</I18n>
+							<I18n sign='landing_page.subtitle'>Creativity is Bottomless</I18n>
 						</h2>
 					</h1>
 					<br />
@@ -51,7 +51,9 @@ class LandingPage extends React.Component {
 					</button>
 				</div>
 
+				<section style={sectionStyle}>
 					<HackathonMap />
+				</section>
 	
 				<section style={sectionStyle} ref='app_section'>
 					<div className={'ui basic center aligned very padded segment'}>

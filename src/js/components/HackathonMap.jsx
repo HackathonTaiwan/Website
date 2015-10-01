@@ -7,7 +7,7 @@ class HackathonMap extends React.Component {
 	componentDidMount() {
 		var component = this.refs.component.getDOMNode();
 
-		$(component).height($(window).height() * 0.8);
+		$(component).height($(window).height() * 0.6);
 
 		//CSS
 		Loader.css('https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.5/leaflet.css');
@@ -73,11 +73,9 @@ class HackathonMap extends React.Component {
 				map.fitBounds(bounds, { padding: [ 100, 100 ] });
 			})
 
-
 			// add an OpenStreetMap tile layer
 			L.tileLayer(tileUrl, {
 				subdomains: '1234',
-	//				L.tileLayer('http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
 				attribution: '<a href="https://hackathon.tw/">黑客松台灣 Hackathon Taiwan</a> | &copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 			}).addTo(map);
 		});
