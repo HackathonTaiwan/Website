@@ -16,6 +16,10 @@ module.exports = [
 		handler: LandingPage
 	},
 	{
+		path: '/HackathonMap',
+		handler: require('./components/HackathonMapPage.jsx')
+	},
+	{
 		path: '/signin',
 		handler: SignInPage
 	},
