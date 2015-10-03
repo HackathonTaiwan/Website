@@ -66,9 +66,16 @@ class LandingPage extends React.Component {
 					<h1 className={'ui inverted header'}>
 						<I18n sign='landing_page.subtitle'>Creativity is Bottomless</I18n>
 					</h1>
-					<p>
-						<I18n sign='landing_page.subtitle'>Where you can easily and beautifully share what you build, and how you make.</I18n>
-					</p>
+					<div className="ui stackable three column grid">
+						<div className="column"></div>
+						<div className="column">
+							<p>
+								<I18n sign='landing_page.subtitle'>Where you can easily and beautifully share what you build, and how you make.</I18n>
+							</p>
+						</div>
+						<div className="column"></div>
+					</div>
+					
 					<br />
 					<button className={'big ui inverted button'} onClick={this.about}>
 						<I18n sign='landing_page.entry_button'>What is this</I18n>

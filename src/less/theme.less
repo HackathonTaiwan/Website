@@ -3,6 +3,9 @@
 @import './pin';
 @import './variables';
 
+@mobile: 768px;
+@tablet: 992px;
+
 .ui.basic.segment.landing-page-header {
 	background: rgb(40, 70, 102) url('../images/cover.jpg') no-repeat center center;
 	background-size: cover;
@@ -15,7 +18,7 @@
 		font-size: 52px;
 		text-shadow: 0 0 7px rgba(0,0,0,.5);
 		margin-top: 0;
-		margin-bottom: 35px;
+		margin-bottom: 25px;
 	}
 
 	& h2 {
@@ -33,4 +36,14 @@
 
 .main-page .ui.basic.segment {
 	margin-top: 0px;
+}
+
+
+@media screen and (max-width: @mobile) {
+	.ui.basic.segment.landing-page-header {
+		padding-top: 120px;
+		& h1 {
+			margin-bottom: 0;
+		}
+	}
 }
