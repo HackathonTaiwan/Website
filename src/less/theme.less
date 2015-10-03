@@ -1,22 +1,32 @@
+@import './animate_css';
 @import './past-pin';
 @import './pin';
+@import './variables';
 
 .ui.basic.segment.landing-page-header {
-	background: url(../images/landing-page-header.jpg);
+	background: rgb(40, 70, 102) url('../images/cover.jpg') no-repeat center center;
 	background-size: cover;
-	background-position: center bottom;
-	min-height: 300px;
-	padding-top: 50px;
+	min-height: 520px;
+	padding-top: 170px;
 	margin: 0px;
+	color: white;
 
 	& h1 {
-		font-size: 72px;
+		font-size: 52px;
 		text-shadow: 0 0 7px rgba(0,0,0,.5);
+		margin-top: 0;
+		margin-bottom: 35px;
 	}
 
 	& h2 {
-		font-size: 30px;
+		font-size: 24px;
 		font-weight: normal;
+		text-shadow: 0 0 7px rgba(0,0,0,.5);
+	}
+
+	& p {
+		font-size: 18px;
+		font-weight: lighter;
 		text-shadow: 0 0 7px rgba(0,0,0,.5);
 	}
 }

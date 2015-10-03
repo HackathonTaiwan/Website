@@ -23,6 +23,25 @@ var sectionStyle = {
 };
 
 class LandingPage extends React.Component {
+	constructor() {
+		super();
+
+		this.state = {
+			'scroll': 'scroll-off'
+		}
+	}
+
+	makeScroll = () => {
+		this.setState({
+			'scroll': null
+		});
+	}
+
+	removeScroll = () => {
+		this.setState({
+			'scroll': 'scroll-off'
+		});
+	}
 
 	about = () => {
 		var $node = $(this.refs.app_section.getDOMNode());
@@ -34,28 +53,33 @@ class LandingPage extends React.Component {
 	}
 
 	render() {
+		var scrollStyle = this.state.scroll;
+
 		return (
 			<div className='main-page'>
 				<Header ref='header' />
 
 				<div className={'ui basic center aligned segment landing-page-header'}>
-					<h1 className={'ui inverted header'}>
+					<h2 className={'ui inverted header'}>
 						<span>{Fluky.getState('Service').name}</span>
-						<h2 className={'ui inverted header'}>
-							<I18n sign='landing_page.subtitle'>Creativity is Bottomless</I18n>
-						</h2>
+					</h2>
+					<h1 className={'ui inverted header'}>
+						<I18n sign='landing_page.subtitle'>Creativity is Bottomless</I18n>
 					</h1>
+					<p>
+						<I18n sign='landing_page.subtitle'>Where you can easily and beautifully share what you build, and how you make.</I18n>
+					</p>
 					<br />
-					<button className={'massive ui inverted button'} onClick={this.about}>
-						<I18n sign='landing_page.entry_button'>What's this</I18n>
+					<button className={'big ui inverted button'} onClick={this.about}>
+						<I18n sign='landing_page.entry_button'>What is this</I18n>
 					</button>
 				</div>
 
-				<section style={sectionStyle}>
-					<HackathonMap />
+				<section style={ sectionStyle } onClick={ this.makeScroll } onMouseLeave={ this.removeScroll }>
+					<HackathonMap scrollStyle={ scrollStyle } />
 				</section>
 	
-				<section style={sectionStyle} ref='app_section'>
+				<section style={ sectionStyle } ref='app_section'>
 					<div className={'ui basic center aligned very padded segment'}>
 						<div className={'ui two column middle aligned stackable grid'}>
 							<div className={'mobile only column'}>
@@ -79,7 +103,7 @@ class LandingPage extends React.Component {
 					</div>
 				</section>
 
-				<section style={sectionStyle}>
+				<section style={ sectionStyle }>
 					<div className={'ui basic aligned very padded segment'}>
 						<div className={'ui two column middle aligned stackable grid'}>
 							<div className={'column'}>
@@ -95,50 +119,6 @@ class LandingPage extends React.Component {
 									</p>
 								</div>
 							</div>
-						</div>
-					</div>
-				</section>
-
-				<section style={sectionStyle}>
-					<div className={'ui basic very padded inverted segment'}>
-						<div className={'ui three column divided inverted stackable grid'}>
-
-							<div className={'middle aligned column'}>
-								<div className={'ui basic center aligned segment'}>
-									<h2 className={'ui center aligned inverted icon header'}>
-										<img className={'ui small circular image'} src={avatar1} />
-										<br />
-										<br />
-										<div>Fred Chien</div>
-										<div className={'sub header'}>Founder</div>
-									</h2>
-								</div>
-							</div>
-
-							<div className={'middle aligned column'}>
-								<div className={'ui basic center aligned segment'}>
-									<h2 className={'ui center aligned inverted icon header'}>
-										<img className={'ui small circular image'} src={avatar2} />
-										<br />
-										<br />
-										<div>Leon Lin</div>
-										<div className={'sub header'}>Founder</div>
-									</h2>
-								</div>
-							</div>
-
-							<div className={'middle aligned column'}>
-								<div className={'ui basic center aligned segment'}>
-									<h2 className={'ui center aligned inverted icon header'}>
-										<img className={'ui small circular image'} src={avatar3} />
-										<br />
-										<br />
-										<div>Unknown</div>
-										<div className={'sub header'}>Founder</div>
-									</h2>
-								</div>
-							</div>
-							
 						</div>
 					</div>
 				</section>

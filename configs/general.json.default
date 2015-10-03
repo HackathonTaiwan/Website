@@ -1,6 +1,6 @@
 {
 	"service": {
-		"name": "Lantern",
+		"name": "Hackathon Taiwan",
 		"external_url": "http://localhost:3001"
 	},
 	"server": {
@@ -15,8 +15,8 @@
 			"refreshToken": "1/rvU5OkrToA7AujYucB9dagEHT4KoBbiXzP31aaJWweVIgOrJDtdun6zK6XiATCKT"
 		},
 		"sender": {
-			"name": "Lantern Service",
-			"address": "service@yourdomain.com"
+			"name": "Hackathon Taiwan",
+			"address": "contact@hackathon.tw"
 		}
 	},
 	"session": {
