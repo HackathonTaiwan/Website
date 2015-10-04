@@ -4,6 +4,7 @@ import I18n from 'Extension/I18n.jsx';
 
 // Components
 import Header from './Header.jsx';
+import Videos from './Videos.jsx';
 import HackathonMap from './HackathonMap.jsx';
 
 // Section image
@@ -70,17 +71,20 @@ class LandingPage extends React.Component {
 						<div className="column"></div>
 						<div className="column">
 							<p>
-								<I18n sign='landing_page.subtitle'>Where you can easily and beautifully share what you build, and how you make.</I18n>
+								<I18n sign=''>Where you can easily and beautifully share what you build, and how you make.</I18n>
 							</p>
 						</div>
 						<div className="column"></div>
 					</div>
-					
 					<br />
 					<button className={'big ui inverted button'} onClick={this.about}>
 						<I18n sign='landing_page.entry_button'>What is this</I18n>
 					</button>
 				</div>
+
+				<section style={ sectionStyle }>
+					<Videos />
+				</section>
 
 				<section style={ sectionStyle } onClick={ this.makeScroll } onMouseLeave={ this.removeScroll }>
 					<HackathonMap scrollStyle={ scrollStyle } />
