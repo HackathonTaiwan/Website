@@ -8,10 +8,20 @@ var Hackathon = new mongoose.Schema({
 	end: Date,
 	location: String,
 	address: String,
+	geo: {type: [Number], index: '2d'},
 	register_url: String,
 	website: String,
 	created: { type: Date, default: Date.now },
 	updated: { type: Date, default: Date.now }
 });
+
+Hackathon.methods.findNear = function(cb) {
+	return this.model('Place').find({
+		geo: {
+			$nearSphere: this.geo,
+			$maxDistance: 0.01
+		}
+	}, cb);
+}
 
 module.exports = mongoose.model('Hackathon', Hackathon);
