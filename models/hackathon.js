@@ -6,7 +6,7 @@ var Hackathon = new mongoose.Schema({
 	desc: String,
 	start: Date,
 	end: Date,
-	location: String,
+	loc_desc: String,
 	address: String,
 	geo: {type: [Number], index: '2d'},
 	register_url: String,
