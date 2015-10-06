@@ -15,7 +15,7 @@ import Extensions from './extensions';
 Fluky.load(Actions, Stores, Extensions);
 
 // Extension Component
-//import Window from 'Extension/Window.jsx';
+import Window from 'Extension/Window.jsx';
 
 class App extends React.Component {
 
@@ -28,14 +28,10 @@ class App extends React.Component {
 		super(props, context);
 	}
 
-	componentDidMount() {
-//		React.createComponent(Window);
-	}
-
-//				<Window />
 	render() {
 		return (
 			<div>
+				<Window />
 				<RouteHandler />
 			</div>
 		);
