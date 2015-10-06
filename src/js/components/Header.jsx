@@ -11,6 +11,8 @@ import I18n from 'Extension/I18n.jsx';
 // Components
 import Avatar from './Avatar.jsx';
 
+var logo = require('../../images/logo.png');
+
 class Header extends React.Component {
 
 	constructor() {
@@ -86,9 +88,9 @@ class Header extends React.Component {
 			);
 		} else {
 			loginState = (
-				<div className={'right menu'}>
+				<div className={'right menu sign'}>
 					<Link to='/signin'>
-						<div className={'item'}>
+						<div className={'item btn'}>
 							<i className={'sign in icon'} />
 							<I18n sign='header.menu.sign_in'>Sign In</I18n>
 						</div>
@@ -98,9 +100,9 @@ class Header extends React.Component {
 		}
 
 		return (
-			<div ref='component' className={'ui top fixed inverted menu'}>
+			<div ref='component' className={'ui top fixed inverted menu nav'}>
 				<Link to='/' className={'item'} activeClassName=''>
-					<div>{this.state.service.name}</div>
+					<div><img src={ logo } /></div>
 				</Link>
 				{loginState}
 			</div>

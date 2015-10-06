@@ -41,7 +41,7 @@ class HackathonMap extends React.Component {
 			});
 
 			$.getJSON(listUrl, function(data) {
-				console.log(data);
+				// console.log(data);
 
 				var bounds = [];
 
@@ -58,8 +58,8 @@ class HackathonMap extends React.Component {
 						var startdate = '- 活動時間：' + event['gsx$startdate'].$t;
 						var loc = '- 活動地點：' + event['gsx$location'].$t + '';
 						var addr = '- 完整地址：' + event['gsx$address'].$t + '';
-						var registration = '<a href="' + event['gsx$registration'].$t + '">立即線上報名</a>';
-						var website = '<a href="' + event['gsx$website'].$t + '">更多活動資訊</a>';
+						var registration = '<a href="' + event['gsx$registration'].$t + '" target="_blank">立即線上報名</a>';
+						var website = '<a href="' + event['gsx$website'].$t + '" target="_blank">更多活動資訊</a>';
 
 						if (Date.now() - 86400000 > Date.parse(event['gsx$startdate'].$t.split(' ')[0])) {
 							bounds.splice(0, 0, pos);
@@ -85,9 +85,10 @@ class HackathonMap extends React.Component {
 	}
 
 	render() {
-		console.log(this.props);
+		var scrollStyle = this.props.scrollStyle;
+
 		return (
-			<div ref='component' style={{ width: '100%', height: this.props.height + 'px' || '600px' }}></div>
+			<div ref='component' className={ scrollStyle } style={{ width: '100%', height: '600px', overflow: 'hidden' }}></div>
 		);
 	}
 }

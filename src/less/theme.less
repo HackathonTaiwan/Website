@@ -1,26 +1,75 @@
+@import './animate_css';
 @import './past-pin';
 @import './pin';
+@import './variables';
+
+@mobile: 768px;
+@tablet: 992px;
 
 .ui.basic.segment.landing-page-header {
-	background: url(../images/landing-page-header.jpg);
+	background: rgb(21, 177, 201) url('../images/cover.jpg') no-repeat center center;
 	background-size: cover;
-	background-position: center bottom;
-	min-height: 300px;
-	padding-top: 50px;
+	min-height: 520px;
+	padding-top: 170px;
 	margin: 0px;
+	color: white;
 
 	& h1 {
-		font-size: 72px;
+		font-size: 52px;
 		text-shadow: 0 0 7px rgba(0,0,0,.5);
+		margin-top: 0;
+		margin-bottom: 25px;
 	}
 
 	& h2 {
-		font-size: 30px;
+		font-size: 24px;
 		font-weight: normal;
+		text-shadow: 0 0 7px rgba(0,0,0,.5);
+	}
+
+	& p {
+		font-size: 18px;
+		font-weight: lighter;
 		text-shadow: 0 0 7px rgba(0,0,0,.5);
 	}
 }
 
 .main-page .ui.basic.segment {
 	margin-top: 0px;
+}
+
+.nav {
+	background-color: transparent!important;
+	.item {
+		padding-top: 5px!important; 
+		padding-bottom: 5px!important; 
+	}
+	img {
+		width: 40px;
+	}
+	.sign {
+		.btn {
+			padding-top: 13px!important;
+		}
+	}
+}
+
+.videos {
+	h2 {
+		margin: 55px 0;
+		i {
+			font-size: 28px;
+			display: inline-block;
+		}
+	}
+}
+
+
+@media screen and (max-width: @mobile) {
+	.ui.basic.segment.landing-page-header {
+		padding-top: 120px;
+		& h1 {
+			margin-bottom: 0;
+		}
+	}
 }
