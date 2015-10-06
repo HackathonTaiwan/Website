@@ -102,7 +102,7 @@ class LandingPage extends React.Component {
 										<I18n sign='landing_page.app_section.title'>Make Web Application Quicker</I18n>
 									</h1>
 									<p style={descStyle}>
-										<I18n sign='landing_page.app_section.desc'>Lantern is a template that helps creating an isomorphic web application with modern technologies.</I18n>
+										<I18n sign='landing_page.app_section.desc'>Lantern is a boilerplate that helps creating an isomorphic web application with modern technologies.</I18n>
 									</p>
 								</div>
 							</div>
