@@ -3,11 +3,14 @@ import Fluky from 'fluky';
 import Loader from 'Extension/Loader.jsx';
 
 class HackathonMap extends React.Component {
+	static propTypes: {
+		height: React.propTypes.number
+	}
 
 	componentDidMount() {
 		var component = this.refs.component.getDOMNode();
 
-		$(component).height($(window).height() * 0.6);
+//		$(component).height($(window).height() * 0.6);
 
 		//CSS
 		Loader.css('https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.5/leaflet.css');
@@ -82,8 +85,9 @@ class HackathonMap extends React.Component {
 	}
 
 	render() {
+		console.log(this.props);
 		return (
-			<div ref='component' style={{ width: '100%', height: '600px' }}></div>
+			<div ref='component' style={{ width: '100%', height: this.props.height + 'px' || '600px' }}></div>
 		);
 	}
 }

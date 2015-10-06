@@ -14,6 +14,9 @@ import Extensions from './extensions';
 
 Fluky.load(Actions, Stores, Extensions);
 
+// Extension Component
+import Window from 'Extension/Window.jsx';
+
 class App extends React.Component {
 
 	static childContextTypes = {
@@ -25,9 +28,16 @@ class App extends React.Component {
 		super(props, context);
 	}
 
+	componentDidMount() {
+//		React.createComponent(Window);
+	}
+
 	render() {
 		return (
-			<RouteHandler />
+			<div>
+				<Window />
+				<RouteHandler />
+			</div>
 		);
 	}
 };
