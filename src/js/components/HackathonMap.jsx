@@ -88,7 +88,7 @@ class HackathonMap extends React.Component {
 		var scrollStyle = this.props.scrollStyle;
 
 		return (
-			<div ref='component' className={ scrollStyle } style={{ width: '100%', height: '600px', overflow: 'hidden' }}></div>
+			<div ref='component' className={ scrollStyle } style={{ width: '100%', height: this.props.height ? this.props.height + 'px' : '600px', overflow: 'hidden' }}></div>
 		);
 	}
 }

@@ -11,24 +11,26 @@ class HackathonMapPage extends React.Component {
 	constructor() {
 		super();
 
+		var win = Fluky.getState('Window');
 		this.state = {
-			winWidth: 100,
-			winHeight: 100
+			winWidth: win.width,
+			winHeight: win.height
 		};
 	}
 
-	componentDidMount() {
-		window.addEventListener('resize', this.updateDimensions);
+	componentWillMount() {
+		Fluky.on('store.Window', Fluky.bindListener(this.updateDimensions));
 	}
 
 	componentWillUnmount() {
-		window.removeEventListener('resize', this.updateDimensions);
+		Fluky.off('store.Window', this.updateDimensions);
 	}
 
 	updateDimensions = () => {
+		var win = Fluky.getState('Window');
 		this.setState({
-			winWidth: $(window).width(),
-			winHeight: $(window).height()
+			winWidth: win.width,
+			winHeight: win.height
 		});
 	}
 
