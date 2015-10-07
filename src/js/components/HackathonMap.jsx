@@ -10,8 +10,6 @@ class HackathonMap extends React.Component {
 	componentDidMount() {
 		var component = this.refs.component.getDOMNode();
 
-//		$(component).height($(window).height() * 0.6);
-
 		//CSS
 		Loader.css('https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.5/leaflet.css');
 		Loader.css('https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-minimap/v1.0.0/Control.MiniMap.css');
