@@ -32,7 +32,11 @@ class Speakers extends React.Component {
 
 		return (
 			<div className={'ui basic center aligned segment'}>
-				<h2 className="section-title">Keynote speakers, judges and mentors</h2>
+				<h2 className="section-title">
+					<I18n sign='speakers.title'>
+						Keynote speakers, judges and mentors
+					</I18n>
+				</h2>
 				<div className="ui stackable four column grid">
 					<div className="two wide column"></div>
 					<div className="twelve wide column">

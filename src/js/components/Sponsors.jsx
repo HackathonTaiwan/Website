@@ -21,7 +21,7 @@ var sivann = require('../../images/logos/sivann.png');
 var symbio = require('../../images/logos/symbio.png');
 var vivotek = require('../../images/logos/vivotek.png');
 
-class Videos extends React.Component {
+class Sponsors extends React.Component {
 	openModal = () => {
 		$('.ui.modal').modal('show');
     }
@@ -30,7 +30,11 @@ class Videos extends React.Component {
 
 		return (
 			<div className={'ui basic center aligned segment'}>
-				<h2 className="section-title">HACKATHON IS AN ACTIVITY OF CREATION</h2>
+				<h2 className="section-title">
+					<I18n sign='sponsors.title'>
+						HACKATHON IS AN ACTIVITY OF CREATION
+					</I18n>
+				</h2>
 				<div className="ui stackable three column grid">
 					<div className="three wide column"></div>
 					<div className="ten wide column">
@@ -97,4 +101,4 @@ class Videos extends React.Component {
 	}
 };
 
-export default Videos;
+export default Sponsors;

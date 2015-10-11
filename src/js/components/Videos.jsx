@@ -24,7 +24,7 @@ class Videos extends React.Component {
 		return (
 			<div className={'ui basic center aligned segment'}>
 				<Modal />
-				<h2><i className="material-icons">live_tv</i> <span className="text" onClick={ this.openModal }>Watch the Video</span></h2>
+				<h2><i className="material-icons">live_tv</i> <span className="text" onClick={ this.openModal }><I18n sign='video.title'>Watch the Video</I18n></span></h2>
 			</div>
 		);
 	};

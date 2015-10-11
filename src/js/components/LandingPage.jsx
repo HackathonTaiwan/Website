@@ -82,7 +82,7 @@ class LandingPage extends React.Component {
 					</div>
 					<br />
 					<button className={'big ui inverted button'} onClick={this.about}>
-						<I18n sign='landing_page.video.title'>What is this</I18n>
+						<I18n sign='landing_page.entry_button'>What is this</I18n>
 					</button>
 				</div>
 
@@ -115,7 +115,8 @@ class LandingPage extends React.Component {
 				</section>
 
 				<div className={'ui basic inverted center aligned segment'}>
-					<span>© Hackathon Taiwan. All rights reserved. Contact: contact@hackathon.tw</span>
+					<p>contact@hackathon.tw</p>
+					<p>© Hackathon Taiwan. All rights reserved.</p>
 				</div>
 			</div>
 		);
