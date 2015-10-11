@@ -29,6 +29,7 @@ node_modules
 # webpack
 public/assets
 locales
+build
 
 # local configuration file
 configs/general.json

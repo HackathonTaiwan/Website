@@ -7,7 +7,9 @@ import Header from './Header.jsx';
 import Videos from './Videos.jsx';
 import Introduce from './Introduce.jsx';
 import HackathonMap from './HackathonMap.jsx';
-import People from './People.jsx';
+import Photos from './Photos.jsx';
+import Works from './Works.jsx';
+import Speakers from './Speakers.jsx';
 
 // Section image
 import appIcon from 'Source/images/app-icon.png';
@@ -87,64 +89,29 @@ class LandingPage extends React.Component {
 					<Videos />
 				</section>
 
-				<section className="introduce" style={ sectionStyle }>
+				<section className="introduce section-green" style={ sectionStyle }>
 					<Introduce />
 				</section>
 
-				<section style={ sectionStyle } onClick={ this.makeScroll } onMouseLeave={ this.removeScroll }>
+				<section className="map" style={ sectionStyle } onClick={ this.makeScroll } onMouseLeave={ this.removeScroll }>
 					<HackathonMap scrollStyle={ scrollStyle } />
 				</section>
 
-				<section className="people" style={ sectionStyle }>
-					<People />
+				<section className="works section-white" style={ sectionStyle } ref='app_section'>
+					<Works />
+				</section>
+
+				<section className="photos section-green" style={ sectionStyle }>
+					<Photos />
+				</section>
+
+				<section className="photos section-white" style={ sectionStyle }>
+					<Speakers />
 				</section>
 	
-				<section style={ sectionStyle } ref='app_section'>
-					<div className={'ui basic center aligned very padded segment'}>
-						<div className={'ui two column middle aligned stackable grid'}>
-							<div className={'mobile only column'}>
-								<img src={appIcon} className={'ui centered image'} />
-							</div>
-							<div className={'column'}>
-								<div className={'ui basic left aligned segment'}>
-									<h1>
-										<I18n sign='landing_page.app_section.title'>Make Web Application Quicker</I18n>
-									</h1>
-									<p style={descStyle}>
-										<I18n sign='landing_page.app_section.desc'>Lantern is a boilerplate that helps creating an isomorphic web application with modern technologies.</I18n>
-									</p>
-								</div>
-							</div>
-							<div className={'tablet only computer only column'}>
-								<img src={appIcon} className={'ui large centered image'} />
-							</div>
-						</div>
-
-					</div>
-				</section>
-
-				<section style={ sectionStyle }>
-					<div className={'ui basic aligned very padded segment'}>
-						<div className={'ui two column middle aligned stackable grid'}>
-							<div className={'column'}>
-								<img src={techIcon} className={'ui large centered image'} />
-							</div>
-							<div className={'column'}>
-								<div className={'ui basic left aligned segment'}>
-									<h1>
-										<I18n sign='landing_page.tech_section.title'>Modern Technologies</I18n>
-									</h1>
-									<p style={descStyle}>
-										<I18n sign='landing_page.tech_section.desc'>Lantern is using ES6, Node.js, Koa, React, Semantic UI and Webpack.</I18n>
-									</p>
-								</div>
-							</div>
-						</div>
-					</div>
-				</section>
 
 				<div className={'ui basic inverted center aligned segment'}>
-					<span>Copyright &copy; 2015 Lantern Project. All Rights Reserved.</span>
+					<span>© Hackathon Taiwan. All rights reserved. Contact: contact@hackathon.tw</span>
 				</div>
 			</div>
 		);
