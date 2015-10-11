@@ -9,6 +9,7 @@ import Introduce from './Introduce.jsx';
 import HackathonMap from './HackathonMap.jsx';
 import Photos from './Photos.jsx';
 import Works from './Works.jsx';
+import Sponsors from './Sponsors.jsx';
 import Speakers from './Speakers.jsx';
 
 // Section image
@@ -75,13 +76,13 @@ class LandingPage extends React.Component {
 						<div className="column"></div>
 						<div className="column">
 							<p>
-								<I18n sign=''>Where you can easily and beautifully share what you build, and how you make.</I18n>
+								<I18n sign='landing_page.slogn'>Where you can easily and beautifully share what you build, and how you make.</I18n>
 							</p>
 						</div>
 					</div>
 					<br />
 					<button className={'big ui inverted button'} onClick={this.about}>
-						<I18n sign='landing_page.entry_button'>What is this</I18n>
+						<I18n sign='landing_page.video.title'>What is this</I18n>
 					</button>
 				</div>
 
@@ -105,10 +106,13 @@ class LandingPage extends React.Component {
 					<Photos />
 				</section>
 
-				<section className="speakers section-white" style={ sectionStyle }>
+				<section className="introduce section-green" style={ sectionStyle }>
+					<Sponsors />
+				</section>
+
+				<section className="sponsors section-white" style={ sectionStyle }>
 					<Speakers />
 				</section>
-	
 
 				<div className={'ui basic inverted center aligned segment'}>
 					<span>© Hackathon Taiwan. All rights reserved. Contact: contact@hackathon.tw</span>
