@@ -3,11 +3,15 @@ import Fluky from 'fluky';
 import I18n from 'Extension/I18n.jsx';
 
 class Profile extends React.Component {
+    componentDidMount() {
+		$('.show-prpfile').popup();
+  	}
+
 	render() {
 		var speak = this.props;
-
+		
 		return (
-			<div className="column">
+			<div className="column show-prpfile" data-content={ speak.introduce }>
 				<img className="ui medium circular image" src={ speak.img } />
 				<h3>{ speak.nameCn }<br />{ speak.nameEn }</h3>
 			</div>

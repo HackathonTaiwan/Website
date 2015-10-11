@@ -27,7 +27,7 @@ class Videos extends React.Component {
 				<h2><i className="material-icons">live_tv</i> <span className="text" onClick={ this.openModal }>Watch the Video</span></h2>
 			</div>
 		);
-	}
+	};
 };
 
 export default Videos;
