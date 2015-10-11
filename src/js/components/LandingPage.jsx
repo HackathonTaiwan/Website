@@ -5,6 +5,7 @@ import I18n from 'Extension/I18n.jsx';
 // Components
 import Header from './Header.jsx';
 import Videos from './Videos.jsx';
+import AD from './AD.jsx';
 import Introduce from './Introduce.jsx';
 import HackathonMap from './HackathonMap.jsx';
 import Photos from './Photos.jsx';
@@ -85,9 +86,13 @@ class LandingPage extends React.Component {
 						<I18n sign='landing_page.entry_button'>What is this</I18n>
 					</button>
 				</div>
-
+				
 				<section className="videos" style={ sectionStyle }>
 					<Videos />
+				</section>
+
+				<section className={'ad'} style={ sectionStyle }>
+					<AD />
 				</section>
 
 				<section className="introduce section-green" style={ sectionStyle }>
