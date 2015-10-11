@@ -101,7 +101,7 @@ class LandingPage extends React.Component {
 					<Works />
 				</section>
 
-				<section className="photos section-green" style={ sectionStyle }>
+				<section className="photos section-white" style={ sectionStyle }>
 					<Photos />
 				</section>
 

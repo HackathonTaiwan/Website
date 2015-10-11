@@ -1,11 +1,7 @@
 import React from 'react';
 import Fluky from 'fluky';
 import I18n from 'Extension/I18n.jsx';
-
-require('!file?name=photostack.css!../../css/photostack.css');
-require('!file?name=photostack-component.css!../../css/photostack-component.css');
-require('!file?name=classie.js!../photostack/classie.js');
-require('!file?name=photostack.js!../photostack/photostack.js');
+import Loader from 'Extension/Loader.jsx';
 
 var event1 = require('../../images/events/1st.jpg');
 var event2 = require('../../images/events/2nd.jpg');
@@ -21,62 +17,77 @@ var hardWare = require('../../images/skill-hard-ware.png');
 var softWare = require('../../images/skill-soft-ware.png');
 var student = require('../../images/skill-student.png');
 
-class Photostack extends React.Component {
-	render() {
-		return (
-			<section id="photostack" className="photostack">
-				<div>
-					<figure>
-						<a href="#" className="photostack-img"><img src={ event1 } alt="1st"/></a>
-						<figcaption>
-							<h2 className="photostack-title">HACKATHON TAIWAN 1ST</h2>
-							<div className="photostack-back">
-								<p>From the HanGee Smartphone Project, we came to understand that to make the goal come true, we should not endeavour alone. We, however, also found that most of the people dont join community events, or let alone create things with computer technologies. From this, the Hackathon Taiwan project was born, to attract more people to learn and create together, and to cultivate this DIY-themed community.</p>
-							</div>
-						</figcaption>
-					</figure>
-					
-					<figure data-dummy>
-						<a href="#" className="photostack-img"><img src={ event1 } alt="1st"/></a>
-						<figcaption>
-							<h2 className="photostack-title">Lovely Green</h2>
-						</figcaption>
-					</figure>
-				</div>
-			</section>
-		);
-	}
-};
-
 class Photos extends React.Component {
 	render() {
 		return (
 			<div>
 				<div className={'ui basic center aligned segment'}>
-					<h2 className="section-title">we are</h2>
-					<div className="ui stackable three column grid">
-						<div className="two wide column"></div>
-						<div className="twelve wide column">
-							<div className="ui stackable four column grid">
-								<div className="column soft-ware">
-									<img className="ui fluid rounded image skill center-block" src={ softWare } />
-								</div>
-								<div className="column hard-ware">
-									<img className="ui fluid rounded image skill center-block" src={ hardWare } />
-								</div>
-								<div className="column designer">
-									<img className="ui fluid rounded image skill center-block" src={ designer } />
-								</div>
-								<div className="column student">
-									<img className="ui fluid rounded image skill center-block" src={ student } />
-								</div>
-							</div>
+					<div className="ui stackable four column grid">
+						<div className="column soft-ware">
+							<img className="ui fluid rounded image skill center-block" src={ softWare } />
+						</div>
+						<div className="column hard-ware">
+							<img className="ui fluid rounded image skill center-block" src={ hardWare } />
+						</div>
+						<div className="column designer">
+							<img className="ui fluid rounded image skill center-block" src={ designer } />
+						</div>
+						<div className="column student">
+							<img className="ui fluid rounded image skill center-block" src={ student } />
+						</div>
+
+						<div className="column remove-padding">
+							<img className="ui fluid image" src={ event1 } />
+						</div>
+						<div className="column">
+							<h1 className="text-height"><i className="material-icons">filter_1</i><br />2014. 9/20 - 9/21</h1>
+						</div>
+						<div className="column remove-padding">
+							<img className="ui fluid image" src={ event2 } />
+						</div>
+						<div className="column">
+							<h1 className="text-height"><i className="material-icons">filter_2</i><br />2014. 11/8 - 11/9</h1>
+						</div>
+
+						<div className="column">
+							<h1 className="text-height"><i className="material-icons">filter_3</i><br />2014. 12/20 - 12/21</h1>
+						</div>
+						<div className="column remove-padding">
+							<img className="ui fluid image" src={ event3 } />
+						</div>
+						<div className="column">
+							<h1 className="text-height"><i className="material-icons">filter_4</i><br />2015. 1/31 - 2/1</h1>
+						</div>
+						<div className="column remove-padding">
+							<img className="ui fluid image" src={ event4 } />
+						</div>
+
+						<div className="column remove-padding">
+							<img className="ui fluid image" src={ event5 } />
+						</div>
+						<div className="column">
+							<h1 className="text-height"><i className="material-icons">filter_5</i><br />2015. 3/7 - 3/8</h1>
+						</div>
+						<div className="column remove-padding">
+							<img className="ui fluid image" src={ event6 } />
+						</div>
+						<div className="column">
+							<h1 className="text-height"><i className="material-icons">filter_6</i><br />2015. 4/11 - 4/12</h1>
+						</div>
+
+						<div className="column">
+							<h1 className="text-height"><i className="material-icons">filter_7</i><br />2015. 5/12 - 5/13</h1>
+						</div>
+						<div className="column remove-padding">
+							<img className="ui fluid image" src={ event7 } />
+						</div>
+						<div className="column">
+							<h1 className="text-height"><i className="material-icons">filter_8</i><br />2015. 6/13 - 6/14</h1>
+						</div>
+						<div className="column remove-padding">
+							<img className="ui fluid image" src={ event8 } />
 						</div>
 					</div>
-				</div>
-
-				<div className={'ui basic center aligned segment'}>
-					<Photostack />
 				</div>
 			</div>
 		);
