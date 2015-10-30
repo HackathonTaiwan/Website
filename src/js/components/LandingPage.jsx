@@ -91,10 +91,6 @@ class LandingPage extends React.Component {
 					<Videos />
 				</section>
 
-				<section className={'ad'} style={ sectionStyle }>
-					<AD />
-				</section>
-
 				<section className="introduce section-green" style={ sectionStyle }>
 					<Introduce />
 				</section>
