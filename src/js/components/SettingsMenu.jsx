@@ -1,14 +1,13 @@
 import React from 'react';
-import Router from 'react-router';
-import Fluky from 'fluky';
+import { Link } from 'react-router';
 
-var Link = Router.Link;
+// Decorators
+import { router, flux, i18n } from 'Decorator';
 
+@router
+@flux
+@i18n
 class SettingsMenu extends React.Component {
-
-	static contextTypes = {
-		router: React.PropTypes.func.isRequired
-	};
 
 	constructor(props, context) {
 		super(props, context);
@@ -19,11 +18,11 @@ class SettingsMenu extends React.Component {
 	}
 
 	componentWillMount = () => {
-		Fluky.on('store.User', Fluky.bindListener(this.onChange));
+		this.flux.on('state.User', this.flux.bindListener(this.onChange));
 	}
 
 	componentWillUnmount = () => {
-		Fluky.off('store.User', this.onChange);
+		this.flux.off('state.User', this.onChange);
 	}
 
 	componentDidUpdate = () => {
@@ -37,8 +36,8 @@ class SettingsMenu extends React.Component {
 
 		return (
 			<div className='ui right floated teal secondary vertical pointing menu'>
-				<Link to='/settings/profile' className='item'>Profile</Link>
-				<Link to='/settings/account' className='item'>Account Settings</Link>
+				<Link to='/settings/profile' activeClassName='active' className='item'>Profile</Link>
+				<Link to='/settings/account' activeClassName='active' className='item'>Account Settings</Link>
 			</div>
 		);
 	}

@@ -1,43 +1,42 @@
 import React from 'react';
-import {
-	Route,
-	RouteHandler,
-	NotFoundRoute,
-	Link
-} from 'react-router';
-import Fluky from 'fluky';
+import { Link } from 'react-router';
 import I18n from 'Extension/I18n.jsx';
+
+// Decorators
+import { router, flux, i18n, preAction } from 'Decorator';
 
 // Components
 import Avatar from './Avatar.jsx';
 
 var logo = require('../../images/logo.png');
 
+@flux
+@router
 class Header extends React.Component {
 
-	constructor() {
-		super();
+	constructor(props, context) {
+		super(props, context);
 
 		this.state = {
-			user: Fluky.getState('User'),
-			service: Fluky.getState('Service')
+			user: this.flux.getState('User'),
+			service: this.flux.getState('Service')
 		};
 	}
 
 	componentWillMount = () => {
-		Fluky.on('store.User', Fluky.bindListener(this.onChange));
-		Fluky.on('store.Service', Fluky.bindListener(this.onChange));
+		this.flux.on('state.User', this.flux.bindListener(this.onChange));
+		this.flux.on('state.Service', this.flux.bindListener(this.onChange));
 	}
 
 	componentWillUnmount = () => {
-		Fluky.off('store.User', this.onChange);
-		Fluky.off('store.Service', this.onChange);
+		this.flux.off('state.User', this.onChange);
+		this.flux.off('state.Service', this.onChange);
 	}
 
 	componentDidMount() {
 
 		// Enabling dropdown menu
-		$(this.refs.component.getDOMNode()).find('.ui.dropdown').dropdown({
+		$(this.refs.component).find('.ui.dropdown').dropdown({
 			on: 'hover'
 		});
 	}
@@ -45,8 +44,8 @@ class Header extends React.Component {
 	onChange = () => {
 
 		this.setState({
-			user: Fluky.getState('User'),
-			service: Fluky.getState('Service')
+			user: this.flux.getState('User'),
+			service: this.flux.getState('Service')
 		});
 	}
 

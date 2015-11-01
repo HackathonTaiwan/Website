@@ -1,6 +1,4 @@
 import React from 'react';
-import Fluky from 'fluky';
-import I18n from 'Extension/I18n.jsx';
 
 // Components
 import Header from './Header.jsx';
@@ -12,6 +10,10 @@ import Photos from './Photos.jsx';
 import Works from './Works.jsx';
 import Sponsors from './Sponsors.jsx';
 import Speakers from './Speakers.jsx';
+import I18n from 'Extension/I18n.jsx';
+
+// Decorators
+import { flux } from 'Decorator';
 
 // Section image
 import appIcon from 'Source/images/app-icon.png';
@@ -29,6 +31,7 @@ var descStyle = {
 var sectionStyle = {
 };
 
+@flux
 class LandingPage extends React.Component {
 	constructor() {
 		super();
@@ -50,6 +53,11 @@ class LandingPage extends React.Component {
 		});
 	}
 
+	constructor(props, context) {
+		super(props, context);
+//		console.log(context);
+	}
+
 	about = () => {
 		var $node = $(this.refs.app_section.getDOMNode());
 		var $header = $(React.findDOMNode(this.refs.header));
@@ -67,20 +75,12 @@ class LandingPage extends React.Component {
 				<Header ref='header' />
 
 				<div className={'ui basic center aligned segment landing-page-header'}>
-					<h2 className={'ui inverted header'}>
-						<span>{Fluky.getState('Service').name}</span>
-					</h2>
 					<h1 className={'ui inverted header'}>
-						<I18n sign='landing_page.subtitle'>Creativity is Bottomless</I18n>
+						<span>{this.flux.getState('Service').name}</span>
 					</h1>
-					<div className="ui stackable three column grid">
-						<div className="column"></div>
-						<div className="column">
-							<p>
-								<I18n sign='landing_page.slogn'>Where you can easily and beautifully share what you build, and how you make.</I18n>
-							</p>
-						</div>
-					</div>
+					<h2 className={'ui inverted header'}>
+						<I18n sign='landing_page.slogn'>Where you can easily and beautifully share what you build, and how you make.</I18n>
+					</h2>
 					<br />
 					<button className={'big ui inverted button'} onClick={this.about}>
 						<I18n sign='landing_page.entry_button'>What is this</I18n>

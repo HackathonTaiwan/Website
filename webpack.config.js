@@ -9,6 +9,7 @@ var configs = module.exports = [
 			app: './src/js/browser.jsx',
 			vendors: [
 				'react',
+				'react-dom',
 				'react-router',
 				'moment'
 			]
@@ -40,6 +41,7 @@ var configs = module.exports = [
 			alias: {
 				Source: __dirname + '/src',
 				Extension: __dirname + '/src/extensions',
+				Decorator: __dirname + '/src/decorators',
 				External: __dirname + '/src/externals'
 			}
 		}
@@ -75,12 +77,19 @@ var configs = module.exports = [
 				{ test: /\.jpg$/,  loader: "file-loader" },
 				{ test: /\.gif$/,  loader: "file-loader" },
 				{ test: /\.woff$/, loader: "file-loader" }
+			],
+			plugins: [
+				new webpack.IgnorePlugin(new RegExp('^('
+					+ fs.readdirSync('./src/externals').map(function(module) {
+						return module
+					}).join('|') + ')$'))
 			]
 		},
 		resolve: {
 			alias: {
 				Source: __dirname + '/src',
 				Extension: __dirname + '/src/extensions',
+				Decorator: __dirname + '/src/decorators',
 				External: __dirname + '/src/externals'
 			}
 		}

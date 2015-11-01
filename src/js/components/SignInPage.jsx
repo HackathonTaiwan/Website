@@ -1,21 +1,17 @@
 import React from 'react';
-import Fluky from 'fluky';
-import {
-	Route,
-	RouteHandler,
-	NotFoundRoute,
-	Link
-} from 'react-router';
+import { Link } from 'react-router';
 import I18n from 'Extension/I18n.jsx';
+
+// Decorators
+import { router, flux, i18n } from 'Decorator';
 
 // Components
 import Header from './Header.jsx';
 
+@router
+@flux
+@i18n
 class SignInPage extends React.Component {
-
-	static contextTypes = {
-		router: React.PropTypes.func.isRequired
-	};
 
 	constructor(props, context) {
 		super(props, context);
@@ -26,36 +22,36 @@ class SignInPage extends React.Component {
 	}
 
 	componentWillMount = () => {
-		Fluky.on('store.User', Fluky.bindListener(this.onChange));
+		this.flux.on('state.User', this.flux.bindListener(this.onChange));
 	}
 
 	componentWillUnmount = () => {
-		Fluky.off('store.User', this.onChange);
+		this.flux.off('state.User', this.onChange);
 	}
 
 	signIn = () => {
-		Fluky.dispatch('action.User.signIn',
-			this.refs.email.getDOMNode().value,
-			this.refs.password.getDOMNode().value);
+		this.flux.dispatch('action.User.signIn',
+			this.refs.email.value,
+			this.refs.password.value);
 	}
 
 	onChange = () => {
 
-		var user = Fluky.getState('User');
+		var user = this.flux.getState('User');
 
 		// No need to sign in if logined already
 		if (user.logined) {
-			this.context.router.transitionTo('/');
+			this.history.pushState(null, '/');
 			return;
 		}
 
 		if (user.status == 'login-failed') {
 
 			// Clear password inputbox
-			this.refs.password.getDOMNode().value = ''; 
+			this.refs.password.value = ''; 
 
 			// Focus on email inputbox
-			this.refs.email.getDOMNode().select();
+			this.refs.email.select();
 
 			this.setState({
 				error: true
@@ -109,13 +105,13 @@ class SignInPage extends React.Component {
 									<div className={fieldClass}>
 										<div className={'ui left icon input'}>
 											<i className={'user icon'} />
-											<input type='text' ref='email' name='email' placeholder={I18n.getMessage('sign_in.email', 'E-mail address')} autoFocus={true} />
+											<input type='text' ref='email' name='email' placeholder={this.i18n.getMessage('sign_in.email', 'E-mail address')} autoFocus={true} />
 										</div>
 									</div>
 									<div className={fieldClass}>
 										<div className={'ui left icon input'}>
 											<i className={'lock icon'} />
-											<input type='password' ref='password' name='password' placeholder={I18n.getMessage('sign_in.password', 'Password')} onKeyDown={this.onKeyDown} />
+											<input type='password' ref='password' name='password' placeholder={this.i18n.getMessage('sign_in.password', 'Password')} onKeyDown={this.onKeyDown} />
 										</div>
 									</div>
 									<div className='field'>
