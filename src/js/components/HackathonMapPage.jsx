@@ -1,17 +1,20 @@
 import React from 'react';
-import Fluky from 'fluky';
 import I18n from 'Extension/I18n.jsx';
 
 // Components
 import Header from './Header.jsx';
 import HackathonMap from './HackathonMap.jsx';
 
+// Decorators
+import { flux } from 'Decorator';
+
+@flux
 class HackathonMapPage extends React.Component {
 
-	constructor() {
+	constructor(props, context) {
 		super();
 
-		var win = Fluky.getState('Window');
+		var win = context.flux.getState('Window');
 		this.state = {
 			winWidth: win.width,
 			winHeight: win.height
@@ -19,15 +22,15 @@ class HackathonMapPage extends React.Component {
 	}
 
 	componentWillMount() {
-		Fluky.on('store.Window', Fluky.bindListener(this.updateDimensions));
+		this.flux.on('state.Window', this.flux.bindListener(this.updateDimensions));
 	}
 
 	componentWillUnmount() {
-		Fluky.off('store.Window', this.updateDimensions);
+		this.flux.off('state.Window', this.updateDimensions);
 	}
 
 	updateDimensions = () => {
-		var win = Fluky.getState('Window');
+		var win = this.flux.getState('Window');
 		this.setState({
 			winWidth: win.width,
 			winHeight: win.height

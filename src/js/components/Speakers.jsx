@@ -1,6 +1,8 @@
 import React from 'react';
-import Fluky from 'fluky';
 import I18n from 'Extension/I18n.jsx';
+
+// Decorators
+import { flux } from 'Decorator';
 
 class Profile extends React.Component {
     componentDidMount() {
@@ -19,11 +21,13 @@ class Profile extends React.Component {
 	};
 };
 
+@flux
 class Speakers extends React.Component {
-	constructor() {
+	constructor(props, context) {
 		super();
 
-		var speakerStore = Fluky.getState('Speakers');
+		var speakerStore = context.flux.getState('Speakers');
+
 		this.state = speakerStore;
 	}
 

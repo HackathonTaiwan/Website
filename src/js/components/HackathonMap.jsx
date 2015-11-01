@@ -1,5 +1,4 @@
 import React from 'react';
-import Fluky from 'fluky';
 import Loader from 'Extension/Loader.jsx';
 
 class HackathonMap extends React.Component {

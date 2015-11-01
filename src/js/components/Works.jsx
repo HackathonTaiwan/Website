@@ -1,5 +1,4 @@
 import React from 'react';
-import Fluky from 'fluky';
 import I18n from 'Extension/I18n.jsx';
 
 class Works extends React.Component {

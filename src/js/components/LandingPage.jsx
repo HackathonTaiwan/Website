@@ -53,11 +53,6 @@ class LandingPage extends React.Component {
 		});
 	}
 
-	constructor(props, context) {
-		super(props, context);
-//		console.log(context);
-	}
-
 	about = () => {
 		var $node = $(this.refs.app_section.getDOMNode());
 		var $header = $(React.findDOMNode(this.refs.header));
