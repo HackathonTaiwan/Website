@@ -1,18 +1,21 @@
 import React from 'react';
-import Loader from 'Extension/Loader.jsx';
 
+// Decorators
+import { loader } from 'Decorator';
+
+@loader
 class HackathonMap extends React.Component {
 	static propTypes: {
 		height: React.propTypes.number
 	}
 
 	componentDidMount() {
-		var component = this.refs.component.getDOMNode();
+		var component = this.refs.component;
 
 		//CSS
-		Loader.css('https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.5/leaflet.css');
-		Loader.css('https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-minimap/v1.0.0/Control.MiniMap.css');
-		Loader.script([
+		this.loader.css('https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.5/leaflet.css');
+		this.loader.css('https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-minimap/v1.0.0/Control.MiniMap.css');
+		this.loader.script([
 			'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.5/leaflet.js',
 			'https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-minimap/v1.0.0/Control.MiniMap.js'
 		], function() {
