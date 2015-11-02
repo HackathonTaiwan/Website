@@ -1,17 +1,19 @@
 import React from 'react';
-import I18n from 'Extension/I18n.jsx';
 
-//import DateRangePicker from 'External/daterangepicker';
+import 'External/datepicker';
+
+import I18n from 'Extension/I18n.jsx';
 import Loader from 'Extension/Loader.jsx';
 
 // Components
 import Header from './Header.jsx';
 
 // Decorators
-import { flux, i18n } from 'Decorator';
+import { flux, i18n, loader } from 'Decorator';
 
 @flux
 @i18n
+@loader
 class HackathonRegPage extends React.Component {
 
 	constructor(props, context) {
@@ -28,11 +30,12 @@ class HackathonRegPage extends React.Component {
 		this.flux.on('store.Window', this.flux.bindListener(this.updateDimensions));
 	}
 
-	componmentDidMount() {
-		//Loader.script('daterangepicker');
-
-
-//		$('input[type="daterange"]').daterangepicker();
+	componentDidMount() {
+		new Kalendae.Input(this.refs.startdate, {
+			months: 2,
+			mode: 'range',
+			selected: [ window.moment(), window.moment().add(1, 'days') ]
+		});
 	}
 
 	componentWillUnmount() {
@@ -65,54 +68,74 @@ class HackathonRegPage extends React.Component {
 					<div className='ui two column centered stackable grid'>
 						<div className='column'>
 							<h1 className='ui header'>
-								<i className='sign in icon' />
+								<i className='send icon' />
 								<div className='content'>
 									<I18n sign='hackathon_reg.header'>Register Your Hackathon</I18n>
 									<div className='sub header'>Hey Organizer, submit your event now!</div>
 								</div>
 							</h1>
 
-							<div className={'ui basic segment'}>
+							<div className={'ui segment'}>
 
 								<div className='ui form'>
 
+									<div className='ui red ribbon label'><I18n sign='hackathon_reg.name'>Hackathon Name or Topic</I18n></div>
 									<div className={fieldClass}>
+										<label></label>
 										<div className={'ui left icon input'}>
-											<i className={'user icon'} />
-											<input type='text' ref='name' name='name' placeholder={this.i18n.getMessage('hackathon_reg.name', 'Name')} autoFocus={true} />
+											<i className={'idea icon'} />
+											<input type='text' ref='name' name='name' placeholder='Hackathon Taiwan 100th' autoFocus={true} />
 										</div>
 									</div>
+
+									<div className='ui pink ribbon label'><I18n sign='hackathon_reg.description'>Description</I18n></div>
 									<div className={fieldClass}>
-										<textarea ref='desc' name='desc' placeholder={this.i18n.getMessage('hackathon_reg', 'Description')} />
+										<label></label>
+										<textarea ref='desc' name='desc' placeholder={this.i18n.getMessage('hackathon_reg.desc_sample', 'The best hackathon we ever seen before in Taiwan')} />
 									</div>
+
+									<div className='ui blue ribbon label'>Date of Event</div>
 									<div className={fieldClass}>
+										<label></label>
 										<div className={'ui left icon input'}>
-											<i className={'info icon'} />
+											<i className={'calendar icon'} />
 											<input type='daterange' ref='startdate' name='startdate' />
 										</div>
 									</div>
+
+									<div className='ui teal ribbon label'><I18n sign='hackathon_reg.location'>Describe the Event Location</I18n></div>
 									<div className={fieldClass}>
+										<label></label>
 										<div className={'ui left icon input'}>
-											<i className={'info icon'} />
-											<input type='text' ref='loc_desc' name='loc_desc' placeholder={this.i18n.getMessage('hackathon_reg.location', 'Event Location')} />
+											<i className={'marker icon'} />
+											<input type='text' ref='loc_desc' name='loc_desc' placeholder={this.i18n.getMessage('hackathon_reg.location_sample', 'Taiwan Land Development Building (nearby MRT Yuanshan)')} />
 										</div>
 									</div>
+
+									<div className='ui teal ribbon label'><I18n sign='hackathon_reg.address'>Event Address</I18n></div>
 									<div className={fieldClass}>
+										<label></label>
 										<div className={'ui left icon input'}>
-											<i className={'info icon'} />
-											<input type='text' ref='address' name='address' placeholder={this.i18n.getMessage('hackathon_reg.address', 'Event Address')} />
+											<i className={'paw icon'} />
+											<input type='text' ref='address' name='address' placeholder={this.i18n.getMessage('hackathon_reg.address_sample', 'No. 232, Sec. 3, Chengde Rd., Datong Dist., Taipei City, Taiwan')} />
 										</div>
 									</div>
+
+									<div className='ui yellow ribbon label'><I18n sign='hackathon_reg.registration'>Registration Page</I18n></div>
 									<div className={fieldClass}>
+										<label></label>
 										<div className={'ui left icon input'}>
-											<i className={'info icon'} />
-											<input type='text' ref='registration' name='registration' placeholder={this.i18n.getMessage('hackathon_reg.registration', 'Registration Page')} />
+											<i className={'flag icon'} />
+											<input type='text' ref='registration' name='registration' placeholder='https://hackathon.tw/registration' />
 										</div>
 									</div>
+
+									<div className='ui olive ribbon label'><I18n sign='hackathon_reg.website'>Official Website</I18n></div>
 									<div className={fieldClass}>
+										<label></label>
 										<div className={'ui left icon input'}>
-											<i className={'info icon'} />
-											<input type='text' ref='website' name='website' placeholder={this.i18n.getMessage('hackathon_reg.website', 'Website')} />
+											<i className={'external square icon'} />
+											<input type='text' ref='website' name='website' placeholder='http://hackathon.tw/' />
 										</div>
 									</div>
 									<div className='field'>
