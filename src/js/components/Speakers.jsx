@@ -46,10 +46,11 @@ class Speakers extends React.Component {
 					<div className="twelve wide column">
 						<div className="ui stackable five column grid">
 							{speakers.map(({ nameCn, nameEn, introduce, img }, index) =>
-							<Profile nameCn={nameCn}
-								nameEn={nameEn}
-								introduce={introduce}
-								img={img} />
+								<Profile nameCn={nameCn}
+									nameEn={nameEn}
+									introduce={introduce}
+									img={img}
+									key={index} />
 							)}
 						</div>
 					</div>
