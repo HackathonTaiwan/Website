@@ -29,7 +29,9 @@ class HackathonMapPage extends React.Component {
 
 	componentDidMount() {
 		var $header = $(ReactDOM.findDOMNode(this.refs.header));
-		this.state.offsetHeight = $header.height();
+		this.setState({
+			offsetHeight: $header.height()
+		});
 	}
 
 	componentWillUnmount() {
@@ -50,6 +52,7 @@ class HackathonMapPage extends React.Component {
 			position: 'relative',
 			top: this.state.offsetHeight + 'px'
 		};
+
 		return (
 			<div className='main-page'>
 				<Header ref='header' />
