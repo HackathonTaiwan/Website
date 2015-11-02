@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import I18n from 'Extension/I18n.jsx';
 
 // Components
@@ -17,12 +18,18 @@ class HackathonMapPage extends React.Component {
 		var win = context.flux.getState('Window');
 		this.state = {
 			winWidth: win.width,
-			winHeight: win.height
+			winHeight: win.height,
+			offsetHeight: 0
 		};
 	}
 
 	componentWillMount() {
 		this.flux.on('state.Window', this.flux.bindListener(this.updateDimensions));
+	}
+
+	componentDidMount() {
+		var $header = $(ReactDOM.findDOMNode(this.refs.header));
+		this.state.offsetHeight = $header.height();
 	}
 
 	componentWillUnmount() {
@@ -31,6 +38,7 @@ class HackathonMapPage extends React.Component {
 
 	updateDimensions = () => {
 		var win = this.flux.getState('Window');
+
 		this.setState({
 			winWidth: win.width,
 			winHeight: win.height
@@ -38,11 +46,16 @@ class HackathonMapPage extends React.Component {
 	}
 
 	render() {
-		console.log(this.state.winHeight);
+		var style = {
+			position: 'relative',
+			top: this.state.offsetHeight + 'px'
+		};
 		return (
 			<div className='main-page'>
-				<Header />
-				<HackathonMap height={this.state.winHeight} />
+				<Header ref='header' />
+				<div style={style}>
+					<HackathonMap height={this.state.winHeight - this.state.offsetHeight} />
+				</div>
 			</div>
 		);
 	}
