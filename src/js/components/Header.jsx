@@ -26,11 +26,13 @@ class Header extends React.Component {
 	componentWillMount = () => {
 		this.flux.on('state.User', this.flux.bindListener(this.onChange));
 		this.flux.on('state.Service', this.flux.bindListener(this.onChange));
+		this.flux.on('state.Window', this.flux.bindListener(this.onWindowUpdated));
 	}
 
 	componentWillUnmount = () => {
 		this.flux.off('state.User', this.onChange);
 		this.flux.off('state.Service', this.onChange);
+		this.flux.off('state.Window', this.onWindowUpdated);
 	}
 
 	componentDidMount() {
@@ -39,6 +41,25 @@ class Header extends React.Component {
 		$(this.refs.component).find('.ui.dropdown').dropdown({
 			on: 'hover'
 		});
+
+		$(this.refs.component).css({
+			background: 'transparent'
+		});
+	}
+
+	onWindowUpdated = () => {
+		var store = this.flux.getState('Window');
+		var component = $(this.refs.component);
+
+		if (store.scrollTop <= component.height()) {
+			$(this.refs.component).css({
+				background: 'transparent'
+			});
+		} else if (store.scrollTop > component.height()) {
+			$(this.refs.component).css({
+				background: ''
+			});
+		}
 	}
 
 	onChange = () => {
