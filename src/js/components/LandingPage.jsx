@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 
 // Components
 import Header from './Header.jsx';
@@ -80,6 +81,16 @@ class LandingPage extends React.Component {
 					<button className={'big ui inverted button'} onClick={this.about}>
 						<I18n sign='landing_page.entry_button'>What is this</I18n>
 					</button>
+					<Link to='/HackathonMap'>
+						<button className={'big ui inverted button'}>
+							<I18n sign='landing_page.map_button'>Hackathon Map</I18n>
+						</button>
+					</Link>
+					<Link to='/hackathon/reg'>
+						<button className={'big ui inverted button'}>
+							<I18n sign='landing_page.reg_event_button'>Register Your Event</I18n>
+						</button>
+					</Link>
 				</div>
 				
 				<section className="videos" style={ sectionStyle }>

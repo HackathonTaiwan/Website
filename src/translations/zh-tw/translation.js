@@ -5,6 +5,8 @@ module.exports = {
 	'header.menu.sign_out': '登出',
 	'landing_page.subtitle': '創意，深不見底。',
 	'landing_page.entry_button': '瞭解更多',
+	'landing_page.map_button': '哪裡有黑客松活動',
+	'landing_page.reg_event_button': '註冊你的活動',
 	'landing_page.app_section.title': '快速打造線上服務',
 	'landing_page.app_section.desc': 'Lantern 提供基礎樣板架構，協助您免折騰、快速建立最潮的 Isomorphic 網站應用程式。',
 	'landing_page.tech_section.title': '時下最潮技術',
