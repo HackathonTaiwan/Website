@@ -53,7 +53,8 @@ class Header extends React.Component {
 			this.state.backgroundColor = component.css('backgroundColor');
 			this.state.transparent = true;
 			component.css({
-				backgroundColor: 'rgba(0,0,0,0)'
+				backgroundColor: 'rgba(0,0,0,0)',
+				boxShadow: '0 7px 7px rgba(0,0,0,0.2)'
 			});
 		}
 	}
@@ -80,7 +81,7 @@ class Header extends React.Component {
 				this.state.transparent = true;
 
 				component.animate({
-					backgroundColor: 'rgba(0,0,0,0)'
+					backgroundColor: 'rgba(0,0,0,0)',
 				}, 400, 'easeOutCubic');
 			}
 		}
