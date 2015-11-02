@@ -5,9 +5,10 @@ import I18n from 'Extension/I18n.jsx';
 import Header from './Header.jsx';
 
 // Decorators
-import { flux } from 'Decorator';
+import { flux, i18n } from 'Decorator';
 
 @flux
+@i18n
 class HackathonRegPage extends React.Component {
 
 	constructor(props, context) {
@@ -63,13 +64,13 @@ class HackathonRegPage extends React.Component {
 									<div className={fieldClass}>
 										<div className={'ui left icon input'}>
 											<i className={'user icon'} />
-											<input type='text' ref='email' name='email' placeholder={I18n.getMessage('sign_in.email', 'E-mail address')} autoFocus={true} />
+											<input type='text' ref='email' name='email' placeholder={this.i18n.getMessage('sign_in.email', 'E-mail address')} autoFocus={true} />
 										</div>
 									</div>
 									<div className={fieldClass}>
 										<div className={'ui left icon input'}>
 											<i className={'lock icon'} />
-											<input type='password' ref='password' name='password' placeholder={I18n.getMessage('sign_in.password', 'Password')} onKeyDown={this.onKeyDown} />
+											<input type='password' ref='password' name='password' placeholder={this.i18n.getMessage('sign_in.password', 'Password')} onKeyDown={this.onKeyDown} />
 										</div>
 									</div>
 									<div className='field'>
