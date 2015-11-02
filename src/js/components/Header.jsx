@@ -19,7 +19,9 @@ class Header extends React.Component {
 
 		this.state = {
 			user: this.flux.getState('User'),
-			service: this.flux.getState('Service')
+			service: this.flux.getState('Service'),
+			backgroundColor: 'transparent',
+			transparent: false
 		};
 	}
 
@@ -37,28 +39,50 @@ class Header extends React.Component {
 
 	componentDidMount() {
 
+		var component = $(this.refs.component);
+
 		// Enabling dropdown menu
-		$(this.refs.component).find('.ui.dropdown').dropdown({
+		component.find('.ui.dropdown').dropdown({
 			on: 'hover'
 		});
 
-		$(this.refs.component).css({
-			background: 'transparent'
-		});
+		// Auto transform when scrolling
+		if (this.props.autoTransform) {
+
+			// Set transparent by default
+			this.state.backgroundColor = component.css('backgroundColor');
+			this.state.transparent = true;
+			component.css({
+				backgroundColor: 'rgba(0,0,0,0)'
+			});
+		}
 	}
 
 	onWindowUpdated = () => {
+
+		if (!this.props.autoTransform)
+			return;
+
 		var store = this.flux.getState('Window');
 		var component = $(this.refs.component);
 
-		if (store.scrollTop <= component.height()) {
-			$(this.refs.component).css({
-				background: 'transparent'
-			});
-		} else if (store.scrollTop > component.height()) {
-			$(this.refs.component).css({
-				background: ''
-			});
+		// Change background when scrolling
+		if (this.state.transparent) {
+			if (store.scrollTop > component.height()) {
+				this.state.transparent = false;
+
+				component.animate({
+					backgroundColor: this.state.backgroundColor
+				}, 400, 'easeOutCubic');
+			}
+		} else {
+			if (store.scrollTop <= component.height()) {
+				this.state.transparent = true;
+
+				component.animate({
+					backgroundColor: 'rgba(0,0,0,0)'
+				}, 400, 'easeOutCubic');
+			}
 		}
 	}
 

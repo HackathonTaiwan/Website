@@ -67,7 +67,7 @@ class LandingPage extends React.Component {
 
 		return (
 			<div className='main-page'>
-				<Header ref='header' />
+				<Header ref='header' autoTransform={true} />
 
 				<div className={'ui basic center aligned segment landing-page-header'}>
 					<h1 className={'ui inverted header'}>
