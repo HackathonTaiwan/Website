@@ -63,6 +63,11 @@ class EventList extends React.Component {
 			zIndex: 10000
 		};
 
+		var listviewStyle = {
+			height: this.props.height,
+			overflowX: 'auto',
+		};
+
 		var list = [];
 		this.state.events.map(function(e, index) {
 			list.push(
@@ -95,7 +100,7 @@ class EventList extends React.Component {
 		return (
 			<div style={style} className='ui inverted segment'>
 				<div className='ui blue ribbon label'>Upcoming Hackathons</div>
-				<div className='ui inverted divided list'>
+				<div style={listviewStyle} className='ui inverted divided list'>
 					{list}
 				</div>
 			</div>
@@ -152,7 +157,7 @@ class HackathonMapPage extends React.Component {
 				<Header ref='header' />
 				<div style={style}>
 					<HackathonMap height={this.state.winHeight - this.state.offsetHeight} />
-					<EventList />
+					<EventList height={this.state.winHeight - this.state.offsetHeight - 100} />
 				</div>
 			</div>
 		);
