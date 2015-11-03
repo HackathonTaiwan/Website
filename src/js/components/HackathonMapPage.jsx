@@ -38,13 +38,14 @@ class EventList extends React.Component {
 					//var addr = '- 完整地址：' + event['gsx$address'].$t + '';
 					//var registration = '<a href="' + event['gsx$registration'].$t + '" target="_blank">立即線上報名</a>';
 					//var website = '<a href="' + event['gsx$website'].$t + '" target="_blank">更多活動資訊</a>';
-					var expired = true;
+					var expired = false;
 					if (Date.now() - 86400000 > Date.parse(event['gsx$startdate'].$t.split(' ')[0]))
-						expired = false;
+						expired = true;
 
 					self.state.events.unshift({
 						name: event['gsx$name'].$t,
 						startdate: event['gsx$startdate'].$t.split(' ')[0],
+						registration: event['gsx$registration'].$t,
 						expired: expired
 					});
 				})();
@@ -67,13 +68,26 @@ class EventList extends React.Component {
 			list.push(
 				<div className='item' key={index}>
 					<div className='left floated content'>
-						<div className={'ui ' + (e.expired ? 'teal' : 'grey') + ' small label'}>
+						<div className={'ui ' + (e.expired ? 'grey' : 'teal') + ' small label'}>
 							{e.startdate}
 						</div>
 					</div>
 					<div className='left floated content'>
 						{e.name}
 					</div>
+					{(() => {
+						if (!e.expired)
+							return (
+								<div className='right floated content'>
+									<a href={e.registration}>
+										<div className={'ui green small label'}>
+											<i className='plus icon' />
+											Register
+										</div>
+									</a>
+								</div>
+							);
+					})()}
 				</div>
 			);
 		});
