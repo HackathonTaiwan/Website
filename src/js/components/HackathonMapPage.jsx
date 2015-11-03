@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Link } from 'react-router';
 import I18n from 'Extension/I18n.jsx';
 
 // Components
@@ -102,6 +103,12 @@ class EventList extends React.Component {
 		return (
 			<div style={style} className='ui inverted segment'>
 				<div className='ui blue ribbon label'>Upcoming Hackathons</div>
+				<Link to='/hackathon/reg'>
+					<div className='right floated mini circular ui orange icon button'>
+						<i className='send icon' />
+						<span> Post Your Hackathon</span>
+					</div>
+				</Link>
 				<div style={listviewStyle} className='ui inverted divided list'>
 					{list}
 				</div>
