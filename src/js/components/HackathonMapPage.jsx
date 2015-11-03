@@ -60,12 +60,14 @@ class EventList extends React.Component {
 			position: 'absolute',
 			left: '30px',
 			top: 0,
-			zIndex: 10000
+			zIndex: 10000,
+			background: 'rgba(0,0,0,0.8)',
+			boxShadow: '0 0 3px rgba(255,255,255,0.8)'
 		};
 
 		var listviewStyle = {
 			height: this.props.height,
-			overflowX: 'auto',
+			overflowX: 'auto'
 		};
 
 		var list = [];
