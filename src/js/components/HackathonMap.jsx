@@ -40,7 +40,8 @@ class HackathonMap extends React.Component {
 			var tileUrl = 'http://otile{s}.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpg';
 
 			// Initialzing map
-			var map = L.map(component).setView([23.5, 121.518508], 8);
+			var zoomControl = L.control.zoom({ position: 'topright' });
+			var map = L.map(component, { zoomControl: false }).setView([23.5, 121.518508], 8).addControl(zoomControl);
 			var osm2 = new L.TileLayer(tileUrl, { subdomains: '1234', minZoom: 5, detectRetina: true });
 			var miniMap = new L.Control.MiniMap(osm2).addTo(map);
 
@@ -73,7 +74,7 @@ class HackathonMap extends React.Component {
 						.bindPopup('<h3>' + event.name + '</h3><br />' + event.startdate + '<br />' + event.location + '<br />' + event.address + '<br /><br />' + desc + '<br /><br />' + registration + ' | ' + website, { offset: [ -5, -15 ] });
 				} else {
 					bounds.push(event.pos);
-					marker = L.marker(event.pos, { icon: icon }).addTo(map)
+					marker = L.marker(event.pos, { icon: icon, zIndexOffset: 1 }).addTo(map)
 						.bindPopup('<h3>' + event.name + '</h3><br />' + event.startdate + '<br />' + event.location + '<br />' + event.address + '<br /><br />' + desc + '<br /><br />' + registration + ' | ' + website, { offset: [ -5, -15 ] });
 				}
 
@@ -101,6 +102,7 @@ class HackathonMap extends React.Component {
 		var store = this.flux.getState('HackathonMap');
 		var component = ReactDOM.findDOMNode(this.refs.component);
 
+		// Change focus
 		if (store.focused) {
 			this.state.map.closePopup();
 			this.state.map.setView([
