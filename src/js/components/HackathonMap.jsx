@@ -1,18 +1,35 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 
 // Decorators
-import { loader } from 'Decorator';
+import { flux, loader, preAction } from 'Decorator';
 
+@flux
+@preAction('HackathonMap.fetch')
 @loader
 class HackathonMap extends React.Component {
 	static propTypes: {
 		height: React.propTypes.number
 	}
 
+	constructor(props, context) {
+		super();
+
+		this.state = {
+			events: context.flux.getState('HackathonMap').hackathons,
+			markers: {},
+			map: null
+		};
+	}
+
+	componentWillMount() {
+		this.flux.on('state.HackathonMap', this.flux.bindListener(this.onChange));
+	}
+
 	componentDidMount() {
 		var component = this.refs.component;
 
-		//CSS
+		// CSS
 		this.loader.css('https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.5/leaflet.css');
 		this.loader.css('https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-minimap/v1.0.0/Control.MiniMap.css');
 		this.loader.script([
@@ -22,6 +39,7 @@ class HackathonMap extends React.Component {
 			var listUrl = 'https://spreadsheets.google.com/feeds/list/1wt8JVUmTEmwBPRqPI_ZjMxjjNNDNpcLUGwxhCXzJlHY/otnjarj/public/values?alt=json';
 			var tileUrl = 'http://otile{s}.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpg';
 
+			// Initialzing map
 			var map = L.map(component).setView([23.5, 121.518508], 8);
 			var osm2 = new L.TileLayer(tileUrl, { subdomains: '1234', minZoom: 5, detectRetina: true });
 			var miniMap = new L.Control.MiniMap(osm2).addTo(map);
@@ -40,48 +58,62 @@ class HackathonMap extends React.Component {
 				html: '<div class="pin"></div><div class="pulse"></div>'
 			});
 
-			$.getJSON(listUrl, function(data) {
-				// console.log(data);
+			var bounds = [];
+			for (var index in this.state.events) {
+				var event = this.state.events[index];
 
-				var bounds = [];
+				var desc = event['desc'].replace(/\n/g, '<br />');
+				var registration = '<a href="' + event['registration'] + '" target="_blank">立即線上報名</a>';
+				var website = '<a href="' + event['website'] + '" target="_blank">更多活動資訊</a>';
 
-				for (var index in data.feed.entry) {
-					var event = data.feed.entry[index];
-					var pos = event['gsx$latlng'].$t.split(',');
-					pos[0] = parseFloat(pos[0]);
-					pos[1] = parseFloat(pos[1]);
-
-					(function() {
-						// Add a marker
-						var title = '<h3>' + event['gsx$name'].$t + '</h3>';
-						var desc = event['gsx$desc'].$t.replace(/\n/g, '<br />');
-						var startdate = '- 活動時間：' + event['gsx$startdate'].$t;
-						var loc = '- 活動地點：' + event['gsx$location'].$t + '';
-						var addr = '- 完整地址：' + event['gsx$address'].$t + '';
-						var registration = '<a href="' + event['gsx$registration'].$t + '" target="_blank">立即線上報名</a>';
-						var website = '<a href="' + event['gsx$website'].$t + '" target="_blank">更多活動資訊</a>';
-
-						if (Date.now() - 86400000 > Date.parse(event['gsx$startdate'].$t.split(' ')[0])) {
-							bounds.splice(0, 0, pos);
-							L.marker(pos, { icon: pastIcon }).addTo(map)
-								.bindPopup(title + '<br />' + startdate + '<br />' + loc + '<br />' + addr + '<br /><br />' + desc + '<br /><br />' + registration + ' | ' + website, { offset: [ -5, -15 ] });
-						} else {
-							bounds.push(pos);
-							L.marker(pos, { icon: icon }).addTo(map)
-								.bindPopup(title + '<br />' + startdate + '<br />' + loc + '<br />' + addr + '<br /><br />' + desc + '<br /><br />' + registration + ' | ' + website, { offset: [ -5, -15 ] });
-						}
-					})();
+				var marker;
+				if (event.expired) {
+					bounds.splice(0, 0, event.pos);
+					marker = L.marker(event.pos, { icon: pastIcon }).addTo(map)
+						.bindPopup('<h3>' + event.name + '</h3><br />' + event.startdate + '<br />' + event.location + '<br />' + event.address + '<br /><br />' + desc + '<br /><br />' + registration + ' | ' + website, { offset: [ -5, -15 ] });
+				} else {
+					bounds.push(event.pos);
+					marker = L.marker(event.pos, { icon: icon }).addTo(map)
+						.bindPopup('<h3>' + event.name + '</h3><br />' + event.startdate + '<br />' + event.location + '<br />' + event.address + '<br /><br />' + desc + '<br /><br />' + registration + ' | ' + website, { offset: [ -5, -15 ] });
 				}
 
-				map.fitBounds(bounds, { padding: [ 100, 100 ] });
-			})
+				this.state.markers[event.id] = marker;
+			}
+			map.fitBounds(bounds, { padding: [ 100, 100 ] });
 
 			// add an OpenStreetMap tile layer
 			L.tileLayer(tileUrl, {
 				subdomains: '1234',
 				attribution: '<a href="https://hackathon.tw/">黑客松台灣 Hackathon Taiwan</a> | &copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 			}).addTo(map);
-		});
+
+			this.setState({
+				map: map
+			});
+		}.bind(this));
+	}
+
+	componentWillUnmount() {
+		this.flux.off('state.HackathonMap', this.onChange);
+	}
+
+	onChange = () => {
+		var store = this.flux.getState('HackathonMap');
+		var component = ReactDOM.findDOMNode(this.refs.component);
+
+		if (store.focused) {
+			this.state.map.closePopup();
+			this.state.map.setView([
+				store.focused.pos[0],
+				store.focused.pos[1] - 0.02
+			], 13, {
+				zoom: {
+					animate: true
+				},
+				animate: true
+			});
+			this.state.markers[store.focused.id].openPopup();
+		}
 	}
 
 	render() {

@@ -8,52 +8,21 @@ import Header from './Header.jsx';
 import HackathonMap from './HackathonMap.jsx';
 
 // Decorators
-import { flux } from 'Decorator';
+import { flux, preAction } from 'Decorator';
 
+@flux
+@preAction('HackathonMap.fetch')
 class EventList extends React.Component {
-	constructor() {
+	constructor(props, context) {
 		super();
 
 		this.state = {
-			events: []
+			events: context.flux.getState('HackathonMap').hackathons
 		};
 	}
 
-	componentDidMount() {
-		var listUrl = 'https://spreadsheets.google.com/feeds/list/1wt8JVUmTEmwBPRqPI_ZjMxjjNNDNpcLUGwxhCXzJlHY/otnjarj/public/values?alt=json';
-		var self = this;
-
-		$.getJSON(listUrl, function(data) {
-
-			for (var index in data.feed.entry) {
-				var event = data.feed.entry[index];
-				var pos = event['gsx$latlng'].$t.split(',');
-				pos[0] = parseFloat(pos[0]);
-				pos[1] = parseFloat(pos[1]);
-
-				(function() {
-					
-					//var desc = event['gsx$desc'].$t.replace(/\n/g, '<br />');
-					//var startdate = '- 活動時間：' + event['gsx$startdate'].$t;
-					//var loc = '- 活動地點：' + event['gsx$location'].$t + '';
-					//var addr = '- 完整地址：' + event['gsx$address'].$t + '';
-					//var registration = '<a href="' + event['gsx$registration'].$t + '" target="_blank">立即線上報名</a>';
-					//var website = '<a href="' + event['gsx$website'].$t + '" target="_blank">更多活動資訊</a>';
-					var expired = false;
-					if (Date.now() - 86400000 > Date.parse(event['gsx$startdate'].$t.split(' ')[0]))
-						expired = true;
-
-					self.state.events.unshift({
-						name: event['gsx$name'].$t,
-						startdate: event['gsx$startdate'].$t.split(' ')[0],
-						registration: event['gsx$registration'].$t,
-						expired: expired
-					});
-				})();
-			}
-
-			self.forceUpdate();
-		})
+	takeFocus = (id) => {
+		this.flux.dispatch('action.HackathonMap.takeFocus', id);
 	}
 
 	render() {
@@ -74,7 +43,7 @@ class EventList extends React.Component {
 		var list = [];
 		this.state.events.map(function(e, index) {
 			list.push(
-				<div className='item' key={index}>
+				<div className='item' onMouseEnter={this.takeFocus.bind(this, e.id)} key={index}>
 					<div className='left floated content'>
 						<div className={'ui ' + (e.expired ? 'grey' : 'teal') + ' small label'}>
 							{e.startdate}
@@ -98,7 +67,7 @@ class EventList extends React.Component {
 					})()}
 				</div>
 			);
-		});
+		}.bind(this));
 
 		return (
 			<div style={style} className='ui inverted segment'>
