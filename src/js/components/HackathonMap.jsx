@@ -105,15 +105,14 @@ class HackathonMap extends React.Component {
 		// Change focus
 		if (store.focused) {
 			this.state.map.closePopup();
+
 			this.state.map.setView([
 				store.focused.pos[0],
 				store.focused.pos[1] - 0.02
 			], 13, {
-				zoom: {
-					animate: true
-				},
 				animate: true
 			});
+
 			this.state.markers[store.focused.id].openPopup();
 		}
 	}
