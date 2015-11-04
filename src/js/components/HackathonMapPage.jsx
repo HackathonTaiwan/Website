@@ -58,7 +58,7 @@ class EventList extends React.Component {
 								<div className='right floated content'>
 									<a href={e.registration}>
 										<div className={'ui green small label'}>
-											<i className='plus icon' />
+											<i className='play icon' />
 											Register
 										</div>
 									</a>
@@ -74,7 +74,7 @@ class EventList extends React.Component {
 				<div className='ui blue ribbon label'>Upcoming Hackathons</div>
 				<Link to='/hackathon/reg'>
 					<div className='right floated mini circular ui orange icon button'>
-						<i className='send icon' />
+						<i className='plus icon' />
 						<span> Post Your Hackathon</span>
 					</div>
 				</Link>
