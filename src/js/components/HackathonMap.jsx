@@ -71,11 +71,11 @@ class HackathonMap extends React.Component {
 				if (event.expired) {
 					bounds.splice(0, 0, event.pos);
 					marker = L.marker(event.pos, { icon: pastIcon }).addTo(map)
-						.bindPopup('<h3>' + event.name + '</h3><br />' + event.startdate + '<br />' + event.location + '<br />' + event.address + '<br /><br />' + desc + '<br /><br />' + registration + ' | ' + website, { offset: [ -5, -15 ] });
+						.bindPopup('<h3 class="ui big grey ribbon label">' + event.name + '</h3><br />' + event.startdate + '<br />' + event.location + '<br />' + event.address + '<br /><br />' + desc + '<br /><br />' + registration + ' | ' + website, { offset: [ -5, -15 ], className: 'map-event-popup' });
 				} else {
 					bounds.push(event.pos);
 					marker = L.marker(event.pos, { icon: icon, zIndexOffset: 1 }).addTo(map)
-						.bindPopup('<h3>' + event.name + '</h3><br />' + event.startdate + '<br />' + event.location + '<br />' + event.address + '<br /><br />' + desc + '<br /><br />' + registration + ' | ' + website, { offset: [ -5, -15 ] });
+						.bindPopup('<h3 class="ui big teal ribbon label">' + event.name + '</h3><br />' + event.startdate + '<br />' + event.location + '<br />' + event.address + '<br /><br />' + desc + '<br /><br />' + registration + ' | ' + website, { offset: [ -5, -15 ], className: 'map-event-popup' });
 				}
 
 				this.state.markers[event.id] = marker;
