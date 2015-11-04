@@ -31,7 +31,7 @@ class EventList extends React.Component {
 			left: '30px',
 			top: 0,
 			zIndex: 10000,
-			background: 'rgba(0,0,0,0.8)',
+			background: 'rgba(0,0,0,0.9)',
 			boxShadow: '0 0 3px rgba(255,255,255,0.8)'
 		};
 
@@ -45,7 +45,7 @@ class EventList extends React.Component {
 			list.push(
 				<div className='item' onMouseEnter={this.takeFocus.bind(this, e.id)} key={index}>
 					<div className='left floated content'>
-						<div className={'ui ' + (e.expired ? 'grey' : 'teal') + ' small label'}>
+						<div className={'ui ' + (e.expired ? 'grey' : 'teal') + ' tiny label'}>
 							{e.startdate}
 						</div>
 					</div>
@@ -57,8 +57,7 @@ class EventList extends React.Component {
 							return (
 								<div className='right floated content'>
 									<a href={e.registration}>
-										<div className={'ui green small label'}>
-											<i className='play icon' />
+										<div className={'ui green small tag label'}>
 											Register
 										</div>
 									</a>
@@ -78,7 +77,7 @@ class EventList extends React.Component {
 						<span> Post Your Hackathon</span>
 					</div>
 				</Link>
-				<div style={listviewStyle} className='ui inverted divided list'>
+				<div style={listviewStyle} className='ui inverted divided selection list'>
 					{list}
 				</div>
 			</div>
