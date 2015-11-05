@@ -22,7 +22,9 @@ class HackathonRegPage extends React.Component {
 		var win = context.flux.getState('Window');
 		this.state = {
 			winWidth: win.width,
-			winHeight: win.height
+			winHeight: win.height,
+			geocoder: null,
+			dategrange: null
 		};
 	}
 
@@ -31,11 +33,19 @@ class HackathonRegPage extends React.Component {
 	}
 
 	componentDidMount() {
-		new Kalendae.Input(this.refs.startdate, {
+
+		// Initializing Geocoder API
+		this.loader.script('https://maps.google.com/maps/api/js?sensor=true', function() {
+			this.state.geocoder = new google.maps.Geocoder();
+		}.bind(this));
+
+		// Initializing date range input box
+		this.state.daterange = new Kalendae.Input(this.refs.daterange, {
 			months: 2,
 			mode: 'range',
 			selected: [ window.moment(), window.moment().add(1, 'days') ]
 		});
+
 	}
 
 	componentWillUnmount() {
@@ -53,21 +63,43 @@ class HackathonRegPage extends React.Component {
 	register = () => {
 		var name = this.refs.name.value;
 		var desc = this.refs.desc.value;
-		var startdate = this.refs.desc.value;
 		var loc = this.refs.location.value;
 		var address = this.refs.address.value;
 		var registration = this.refs.registration.value;
 		var website = this.refs.website.value;
 
-		this.flux.dispatch('action.HackathonMap.register', {
-			name: name,
-			desc: desc,
-			startdate: startdate,
-			loc: loc,
-			address: address,
-			registration: registration,
-			website: website
-		});
+		// Getting date range
+		var dateRange = [];
+		var dates = this.state.daterange.getSelectedAsDates();
+		if (dates.length) {
+			dates.forEach(function(date, index) {
+				dateRange.push(date.getTime());
+			});
+		}
+
+		if (this.state.geocoder) {
+
+			// Translate address to latlng
+			this.state.geocoder.geocode({ address: address }, function (results, status) {
+				if (status != google.maps.GeocoderStatus.OK) {
+					return;
+				}
+
+				this.flux.dispatch('action.HackathonMap.register', {
+					name: name,
+					desc: desc,
+					daterange: dateRange,
+					loc: loc,
+					address: address,
+					registration: registration,
+					website: website,
+					latlng: {
+						lat: results[0].geometry.location.lat(),
+						lng: results[0].geometry.location.lng()
+					}
+				});
+			}.bind(this));
+		}
 	}
 
 	render() {
@@ -113,7 +145,7 @@ class HackathonRegPage extends React.Component {
 										<label></label>
 										<div className={'ui left icon input'}>
 											<i className={'calendar icon'} />
-											<input type='daterange' ref='startdate' name='startdate' />
+											<input type='daterange' ref='daterange' name='daterange' />
 										</div>
 									</div>
 
