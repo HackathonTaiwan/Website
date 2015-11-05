@@ -53,8 +53,7 @@ class Header extends React.Component {
 			this.state.backgroundColor = component.css('backgroundColor');
 			this.state.transparent = true;
 			component.css({
-				backgroundColor: 'rgba(0,0,0,0)',
-				boxShadow: '0 7px 7px rgba(0,0,0,0.2)'
+				backgroundColor: 'rgba(0,0,0,0)'
 			});
 		}
 	}
@@ -72,6 +71,11 @@ class Header extends React.Component {
 			if (store.scrollTop > component.height()) {
 				this.state.transparent = false;
 
+				component.css({
+					backgroundColor: 'rgba(0,0,0,0)',
+					boxShadow: '0 7px 7px rgba(0,0,0,0.2)'
+				});
+
 				component.animate({
 					backgroundColor: this.state.backgroundColor
 				}, 400, 'easeOutCubic');
@@ -79,6 +83,11 @@ class Header extends React.Component {
 		} else {
 			if (store.scrollTop <= component.height()) {
 				this.state.transparent = true;
+
+				component.css({
+					backgroundColor: 'rgba(0,0,0,0)',
+					boxShadow: ''
+				});
 
 				component.animate({
 					backgroundColor: 'rgba(0,0,0,0)',
