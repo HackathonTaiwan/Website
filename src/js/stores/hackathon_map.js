@@ -63,4 +63,8 @@ export default function *() {
 			this.dispatch('state.HackathonMap');
 		}
 	});
+
+	this.on('store.HackathonMap.register', function *(event) {
+		alert(JSON.stringify(event));
+	});
 };

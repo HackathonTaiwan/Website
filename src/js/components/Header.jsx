@@ -8,7 +8,7 @@ import { router, flux, i18n, preAction } from 'Decorator';
 // Components
 import Avatar from './Avatar.jsx';
 
-var logo = require('../../images/logo.png');
+import logo from '../../images/logo.png';
 
 @flux
 @router

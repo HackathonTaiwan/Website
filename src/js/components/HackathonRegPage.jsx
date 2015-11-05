@@ -50,10 +50,24 @@ class HackathonRegPage extends React.Component {
 		});
 	}
 
-	onKeyDown = () => {
-	}
-
 	register = () => {
+		var name = this.refs.name.value;
+		var desc = this.refs.desc.value;
+		var startdate = this.refs.desc.value;
+		var loc = this.refs.location.value;
+		var address = this.refs.address.value;
+		var registration = this.refs.registration.value;
+		var website = this.refs.website.value;
+
+		this.flux.dispatch('action.HackathonMap.register', {
+			name: name,
+			desc: desc,
+			startdate: startdate,
+			loc: loc,
+			address: address,
+			registration: registration,
+			website: website
+		});
 	}
 
 	render() {
@@ -108,7 +122,7 @@ class HackathonRegPage extends React.Component {
 										<label></label>
 										<div className={'ui left icon input'}>
 											<i className={'marker icon'} />
-											<input type='text' ref='loc_desc' name='loc_desc' placeholder={this.i18n.getMessage('hackathon_reg.location_sample', 'Taiwan Land Development Building (nearby MRT Yuanshan)')} />
+											<input type='text' ref='location' name='location' placeholder={this.i18n.getMessage('hackathon_reg.location_sample', 'Taiwan Land Development Building (nearby MRT Yuanshan)')} />
 										</div>
 									</div>
 
