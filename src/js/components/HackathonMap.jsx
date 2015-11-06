@@ -64,7 +64,8 @@ class HackathonMap extends React.Component {
 			for (var index in this.state.events) {
 				var event = this.state.events[index];
 
-				var $content = $('<div>');
+				var $container = $('<div>');
+				var $content = $('<div>').addClass('ui basic segment').appendTo($container);
 
 				// Event name
 				var $name = $('<h3>');
@@ -96,7 +97,7 @@ class HackathonMap extends React.Component {
 				$('<div>').addClass('description').append(event.address).appendTo($loc);
 
 				// Links
-				var $links = $('<div>').addClass('two ui buttons');
+				var $links = $('<div>').addClass('ui two bottom attached buttons');
 				var $registration = $('<a>')
 					.attr('href', event['registration'])
 					.attr('target', '_blank')
@@ -124,14 +125,14 @@ class HackathonMap extends React.Component {
 						.addClass('ui blue button')
 						.append('<i class="info icon"></i>' + this.i18n.getMessage('hackathon_map.more_info', 'More Info'));
 				}
-				$links.appendTo($content);
+				$links.appendTo($container);
 
 				var marker = L.marker(event.pos, {
 					icon: event.expired ? pastIcon : icon,
 					zIndexOffset: event.expired ? 0 : 100
 				});
 				marker.addTo(map)
-					.bindPopup($content.html(), {
+					.bindPopup($container.html(), {
 						minWidth: 300,
 						maxWidth: 400,
 						offset: [ -5, -15 ],
