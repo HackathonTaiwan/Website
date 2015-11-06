@@ -43,7 +43,7 @@ var translation = module.exports = {
 	'works.des5': '在我們的活動中沒有分名次，因此，無論你最後是否有做出成果、是否有得獎，只要你有享受到黑客松的過程，有認識到朋友、與朋友一同研究與解決問題、動手創作，那你就有真正的參與過一場黑客松活動。',
 	'sponsors.title': '贊助夥伴及合作單位',
 	'speakers.title': '歷屆神秘講師、評審與指導團隊',
-	'hackathon_map_page.title': 'Hackathon Map | 黑客松地圖',
+	'hackathon_map_page.title': '%s | 黑客松地圖',
 	'hackathon_map.upcoming': '即將舉行的黑客松活動',
 	'hackathon_map.post': '登記你的黑客松活動',
 	'hackathon_map.register': '線上報名',
