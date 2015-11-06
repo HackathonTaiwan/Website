@@ -196,7 +196,7 @@ class HackathonRegPage extends React.Component {
 								<i className='send icon' />
 								<div className='content'>
 									<I18n sign='hackathon_reg.header'>Register Your Hackathon</I18n>
-									<div className='sub header'>Hey Organizer, submit your event now!</div>
+									<div className='sub header'><I18n sign='hackathon_reg.subheader'>Hey Organizer, submit your event now!</I18n></div>
 								</div>
 							</h1>
 
@@ -207,17 +207,17 @@ class HackathonRegPage extends React.Component {
 										<label></label>
 										<div className={'ui left icon input'}>
 											<i className={'idea icon'} />
-											<input type='text' ref='name' name='name' placeholder='Hackathon Taiwan 100th' autoFocus={true} />
+											<input type='text' ref='name' name='name' placeholder={this.i18n.getMessage('hackathon_reg.name_sample', 'Hackathon Taiwan 100th')} autoFocus={true} />
 										</div>
 									</div>
 
 									<div className='ui pink ribbon label'><I18n sign='hackathon_reg.description'>Description</I18n></div>
 									<div className={fieldClass}>
 										<label></label>
-										<textarea ref='desc' name='desc' placeholder={this.i18n.getMessage('hackathon_reg.desc_sample', 'The best hackathon we ever seen before in Taiwan')} />
+										<textarea ref='desc' name='desc' placeholder={this.i18n.getMessage('hackathon_reg.description_sample', 'The best hackathon we ever seen before in Taiwan')} />
 									</div>
 
-									<div className='ui blue ribbon label'>Date of Event</div>
+									<div className='ui blue ribbon label'><I18n sign='hackathon_reg.dateofevent'>Date of Event</I18n></div>
 									<div className={fieldClass}>
 										<label></label>
 										<div className={'ui left icon input'}>

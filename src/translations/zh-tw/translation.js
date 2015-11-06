@@ -49,5 +49,19 @@ var translation = module.exports = {
 	'hackathon_map.register': '線上報名',
 	'hackathon_map.register_now': '立即線上報名',
 	'hackathon_map.more_info': '更多活動資訊',
-	'hackathon_map.event_over': '活動已經結束'
+	'hackathon_map.event_over': '活動已經結束',
+	'hackathon_reg.header': '註冊你的黑客松活動',
+	'hackathon_reg.subheader': '嘿，主辦人！立即登記你的活動吧！',
+	'hackathon_reg.name': '黑客松名稱或主題',
+	'hackathon_reg.name_sample': '黑客松台灣第 100 次主場活動',
+	'hackathon_reg.description': '活動說明與描述',
+	'hackathon_reg.description_sample': '這是台灣最棒的黑客松',
+	'hackathon_reg.dateofevent': '活動期間',
+	'hackathon_reg.location': '活動地點',
+	'hackathon_reg.location_sample': '台開承德大樓（圓山捷運站旁）',
+	'hackathon_reg.address': '活動完整地址',
+	'hackathon_reg.address_sample': '台北市大同區承德路三段 232 號 B2',
+	'hackathon_reg.registration': '活動報名頁面',
+	'hackathon_reg.website': '活動官方網站或是專頁',
+	'hackathon_reg.submit_button': '登記註冊'
 };
