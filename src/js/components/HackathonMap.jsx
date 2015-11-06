@@ -64,13 +64,9 @@ class HackathonMap extends React.Component {
 			for (var index in this.state.events) {
 				var event = this.state.events[index];
 
-				var desc = event['desc'].replace(/\n/g, '<br />');
-				var registration = '<a href="' + event['registration'] + '" target="_blank">立即報名</a>';
-				var website = '<a href="' + event['website'] + '" target="_blank">更多活動資訊</a>';
-
 				var $content = $('<div>');
 
-
+				// Event name
 				var $name = $('<h3>');
 				
 				if (event.expired) {
@@ -101,27 +97,32 @@ class HackathonMap extends React.Component {
 
 				// Links
 				var $links = $('<div>').addClass('two ui buttons');
+				var $registration = $('<a>')
+					.attr('href', event['registration'])
+					.attr('target', '_blank')
+					.appendTo($links);
+				var $website = $('<a>')
+					.attr('href', event['website'])
+					.attr('target', '_blank')
+					.appendTo($links);
 
+				var desc = event['desc'].replace(/\n/g, '<br />');
 				if (event.expired) {
 					$('<div>').addClass('ui grey basic segment').append(desc).appendTo($content);
-					$('<button>')
+					$registration
 						.addClass('ui red disabled button')
-						.append('<i class="checkered flag icon"></i>' + this.i18n.getMessage('hackathon_map.event_over', 'Event is Over'))
-						.appendTo($links);
-					$('<button>')
+						.append('<i class="checkered flag icon"></i>' + this.i18n.getMessage('hackathon_map.event_over', 'Event is Over'));
+					$website
 						.addClass('ui disabled button')
-						.append('<i class="info icon"></i>' + this.i18n.getMessage('hackathon_map.more_info', 'More Info'))
-						.appendTo($links);
+						.append('<i class="info icon"></i>' + this.i18n.getMessage('hackathon_map.more_info', 'More Info'));
 				} else {
 					$('<div>').addClass('ui green basic segment').append(desc).appendTo($content);
-					$('<button>')
+					$registration
 						.addClass('ui green button')
-						.append('<i class="check icon"></i>' + this.i18n.getMessage('hackathon_map.register_now', 'Register'))
-						.appendTo($links);
-					$('<button>')
+						.append('<i class="check icon"></i>' + this.i18n.getMessage('hackathon_map.register_now', 'Register'));
+					$website
 						.addClass('ui blue button')
-						.append('<i class="info icon"></i>' + this.i18n.getMessage('hackathon_map.more_info', 'More Info'))
-						.appendTo($links);
+						.append('<i class="info icon"></i>' + this.i18n.getMessage('hackathon_map.more_info', 'More Info'));
 				}
 				$links.appendTo($content);
 
