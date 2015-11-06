@@ -38,7 +38,7 @@ class EventList extends React.Component {
 
 		var listviewStyle = {
 			height: this.props.height,
-			overflowX: 'auto'
+			overflowX: 'hidden'
 		};
 
 		var list = [];
@@ -58,8 +58,8 @@ class EventList extends React.Component {
 							return (
 								<div className='right floated content'>
 									<a href={e.registration}>
-										<div className={'ui green small tag label'}>
-											Register
+										<div className={'ui green left pointing label'}>
+											<I18n sign='hackathon_map.register'>Register</I18n>
 										</div>
 									</a>
 								</div>
@@ -73,9 +73,9 @@ class EventList extends React.Component {
 			<div style={style} className='ui inverted segment'>
 				<div className='ui blue ribbon label'><I18n sign='hackathon_map.upcoming'>Upcoming Hackathons</I18n></div>
 				<Link to='/hackathon/reg'>
-					<div className='right floated mini circular ui orange icon button'>
-						<i className='plus icon' />
-						<span> Post Your Hackathon</span>
+					<div className='ui large red top right attached label'>
+						<i className='add square icon' />
+						<span> <I18n sign='hackathon_map.post'>Post Your Hackathon</I18n></span>
 					</div>
 				</Link>
 				<div style={listviewStyle} className='ui inverted divided selection list'>

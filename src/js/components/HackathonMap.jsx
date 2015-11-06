@@ -2,11 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 // Decorators
-import { flux, loader, preAction } from 'Decorator';
+import { flux, loader, i18n, preAction } from 'Decorator';
 
 @flux
 @preAction('HackathonMap.fetch')
 @loader
+@i18n
 class HackathonMap extends React.Component {
 	static propTypes: {
 		height: React.propTypes.number
@@ -49,7 +50,7 @@ class HackathonMap extends React.Component {
 				iconSize: [ 60, 60 ],
 				iconAnchor: [ 30, 60 ],
 				className: 'pin-icon',
-				html: '<div class="past-pin"></div><div class="pulse"></div>'
+				html: '<div class="past-pin"></div><div class="past-pulse"></div>'
 			});
 
 			var icon = L.divIcon({
@@ -103,12 +104,24 @@ class HackathonMap extends React.Component {
 
 				if (event.expired) {
 					$('<div>').addClass('ui grey basic segment').append(desc).appendTo($content);
-					$('<button>').addClass('ui red disabled button').append('<i class="checkered flag icon"></i>Event is Over').appendTo($links);
-					$('<button>').addClass('ui disabled button').append('<i class="info icon"></i>More Info').appendTo($links);
+					$('<button>')
+						.addClass('ui red disabled button')
+						.append('<i class="checkered flag icon"></i>' + this.i18n.getMessage('hackathon_map.event_over', 'Event is Over'))
+						.appendTo($links);
+					$('<button>')
+						.addClass('ui disabled button')
+						.append('<i class="info icon"></i>' + this.i18n.getMessage('hackathon_map.more_info', 'More Info'))
+						.appendTo($links);
 				} else {
 					$('<div>').addClass('ui green basic segment').append(desc).appendTo($content);
-					$('<button>').addClass('ui green button').append('<i class="check icon"></i>Register').appendTo($links);
-					$('<button>').addClass('ui blue button').append('<i class="info icon"></i>More Info').appendTo($links);
+					$('<button>')
+						.addClass('ui green button')
+						.append('<i class="check icon"></i>' + this.i18n.getMessage('hackathon_map.register_now', 'Register'))
+						.appendTo($links);
+					$('<button>')
+						.addClass('ui blue button')
+						.append('<i class="info icon"></i>' + this.i18n.getMessage('hackathon_map.more_info', 'More Info'))
+						.appendTo($links);
 				}
 				$links.appendTo($content);
 
