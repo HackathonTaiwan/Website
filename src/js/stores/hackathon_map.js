@@ -65,6 +65,34 @@ export default function *() {
 	});
 
 	this.on('store.HackathonMap.register', function *(event) {
+
+		var startdate = event.daterange[0];
+		var enddate;
+		if (event.daterange.length == 2) {
+			enddate = event.daterange[1];
+		} else {
+			enddate = event.daterange[0];
+		}
+
+		try {
+			var res = yield this.request
+				.post('/api/map/hackathon')
+				.send({
+					name: event.name,
+					desc: event.desc,
+					startdate: startdate,
+					enddate: enddate,
+					loc: event.loc,
+					address: event.address,
+					latlng: event.latlng,
+					registration: event.registration,
+					website: event.website
+				});
+
+			console.log(res.body);
+		} catch(e) {
+			console.log(e);
+		}
 		alert(JSON.stringify(event));
 	});
 };

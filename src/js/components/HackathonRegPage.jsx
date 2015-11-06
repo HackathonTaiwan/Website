@@ -49,7 +49,8 @@ class HackathonRegPage extends React.Component {
 
 		// Initializing form verification
 		$(this.refs.form).form({
-			inline : true,
+			keyboardShortcuts: false,
+			inline: true,
 			onSuccess: function() {
 				this.register();
 			}.bind(this),
@@ -134,6 +135,10 @@ class HackathonRegPage extends React.Component {
 		});
 	}
 
+	verify = () => {
+		$(this.refs.form).form('validate form');
+	}
+
 	register = () => {
 		var name = this.refs.name.value;
 		var desc = this.refs.desc.value;
@@ -167,10 +172,10 @@ class HackathonRegPage extends React.Component {
 					address: address,
 					registration: registration,
 					website: website,
-					latlng: {
-						lat: results[0].geometry.location.lat(),
-						lng: results[0].geometry.location.lng()
-					}
+					latlng: [
+						results[0].geometry.location.lat(),
+						results[0].geometry.location.lng()
+					]
 				});
 			}.bind(this));
 		}
@@ -226,7 +231,10 @@ class HackathonRegPage extends React.Component {
 										<label></label>
 										<div className={'ui left icon input'}>
 											<i className={'marker icon'} />
-											<input type='text' ref='location' name='location' placeholder={this.i18n.getMessage('hackathon_reg.location_sample', 'Taiwan Land Development Building (nearby MRT Yuanshan)')} />
+											<input type='text'
+												ref='location'
+												name='location'
+												placeholder={this.i18n.getMessage('hackathon_reg.location_sample', 'Taiwan Land Development Building (nearby MRT Yuanshan)')} />
 										</div>
 									</div>
 
@@ -235,7 +243,10 @@ class HackathonRegPage extends React.Component {
 										<label></label>
 										<div className={'ui left icon input'}>
 											<i className={'paw icon'} />
-											<input type='text' ref='address' name='address' placeholder={this.i18n.getMessage('hackathon_reg.address_sample', 'No. 232, Sec. 3, Chengde Rd., Datong Dist., Taipei City, Taiwan')} />
+											<input type='text'
+												ref='address'
+												name='address'
+												placeholder={this.i18n.getMessage('hackathon_reg.address_sample', 'No. 232, Sec. 3, Chengde Rd., Datong Dist., Taipei City, Taiwan')} />
 										</div>
 									</div>
 
@@ -256,7 +267,8 @@ class HackathonRegPage extends React.Component {
 											<input type='text' ref='website' name='website' placeholder='http://hackathon.tw/' />
 										</div>
 									</div>
-									<div className='ui teal submit button'><I18n sign='hackathon_reg.submit_button'>Register</I18n></div>
+
+									<div className='ui teal button' onClick={this.verify}><I18n sign='hackathon_reg.submit_button'>Register</I18n></div>
 
 							</div>
 

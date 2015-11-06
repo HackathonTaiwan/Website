@@ -27,18 +27,38 @@ router.post('/api/map/hackathon', function *() {
 	var desc = this.request.body.desc || null;
 	var address = this.request.body.address || null;
 	var loc = this.request.body.loc || null;
+	var latlng = this.request.body.latlng || null;
 	var startdate = this.request.body.startdate || null;
 	var enddate = this.request.body.enddate || null;
-	var website = this.request.body.website || null;
-	var registration = this.request.body.registration || null;
+	var website = this.request.body.website || '';
+	var registration = this.request.body.registration || '';
+
+	console.log(name, desc, address, loc, latlng, startdate, enddate, website, registration);
+
+	if (!name || !desc || !address || !loc || !latlng ||
+		!startdate || !enddate ||!website || !registration) {
+		this.status = 401;
+		return;
+	}
 
 	try {
+		// Add to database
 		var hackathon = yield Hackathon.create({
-			name: user.name,
-			email: user.email,
-			signup_service: ctx.params.serviceName
+			name: name,
+			desc: desc,
+			geo: latlng,
+			start: startdate,
+			end: enddate,
+			loc: loc,
+			address: address,
+			website: website,
+			registration: registration
 		});
 	} catch(e) {
 		throw e;
 	}
+
+	this.body = {
+		success: true
+	};
 });
