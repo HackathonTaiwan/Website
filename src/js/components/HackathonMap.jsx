@@ -64,19 +64,62 @@ class HackathonMap extends React.Component {
 				var event = this.state.events[index];
 
 				var desc = event['desc'].replace(/\n/g, '<br />');
-				var registration = '<a href="' + event['registration'] + '" target="_blank">立即線上報名</a>';
+				var registration = '<a href="' + event['registration'] + '" target="_blank">立即報名</a>';
 				var website = '<a href="' + event['website'] + '" target="_blank">更多活動資訊</a>';
 
-				var marker;
+				var $content = $('<div>');
+
+
+				var $name = $('<h3>');
+				
 				if (event.expired) {
 					bounds.splice(0, 0, event.pos);
-					marker = L.marker(event.pos, { icon: pastIcon }).addTo(map)
-						.bindPopup('<h3 class="ui big grey ribbon label">' + event.name + '</h3><br />' + event.startdate + '<br />' + event.location + '<br />' + event.address + '<br /><br />' + desc + '<br /><br />' + registration + ' | ' + website, { offset: [ -5, -15 ], className: 'map-event-popup' });
+					$name.addClass('ui big grey ribbon label');
 				} else {
 					bounds.push(event.pos);
-					marker = L.marker(event.pos, { icon: icon, zIndexOffset: 1 }).addTo(map)
-						.bindPopup('<h3 class="ui big teal ribbon label">' + event.name + '</h3><br />' + event.startdate + '<br />' + event.location + '<br />' + event.address + '<br /><br />' + desc + '<br /><br />' + registration + ' | ' + website, { offset: [ -5, -15 ], className: 'map-event-popup' });
+					$name.addClass('ui big teal ribbon label');
 				}
+				
+				$name.append(event.name).appendTo($content);
+
+				var $info = $('<div>').addClass('ui relaxed list').appendTo($content);
+
+				// Event date
+				var $eventdate = $('<div>').addClass('item').appendTo($info);
+				$('<i>').addClass('calendar icon').appendTo($eventdate);
+				$('<div>').addClass('content').append(event.startdate).appendTo($eventdate);
+
+				// Location
+				var $eventloc = $('<div>').addClass('item').appendTo($info);
+				$('<i>').addClass('marker icon').appendTo($eventloc);
+
+				// Address information
+				var $loc = $('<div>').addClass('content').appendTo($eventloc);
+				$('<div>').addClass('header').append(event.location).appendTo($loc);
+				$('<div>').addClass('description').append(event.address).appendTo($loc);
+
+				// Links
+				var $links = $('<div>').addClass('two ui buttons');
+
+				if (event.expired) {
+					$('<div>').addClass('ui grey basic segment').append(desc).appendTo($content);
+					$('<button>').addClass('ui red disabled button').append('<i class="check icon"></i>活動已經結束').appendTo($links);
+					$('<button>').addClass('ui disabled button').append('<i class="info icon"></i>更多活動資訊').appendTo($links);
+				} else {
+					$('<div>').addClass('ui green basic segment').append(desc).appendTo($content);
+					$('<button>').addClass('ui green button').append('<i class="check icon"></i>立即線上報名').appendTo($links);
+					$('<button>').addClass('ui blue button').append('<i class="info icon"></i>更多活動資訊').appendTo($links);
+				}
+				$links.appendTo($content);
+
+				var marker = L.marker(event.pos, { icon: event.expired ? pastIcon : icon });
+				marker.addTo(map)
+					.bindPopup($content.html(), {
+						minWidth: 100,
+						maxWidth: 400,
+						offset: [ -5, -15 ],
+						className: 'map-event-popup'
+					});
 
 				this.state.markers[event.id] = marker;
 			}
