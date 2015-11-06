@@ -15,7 +15,7 @@ import { flux, i18n, page, preAction } from 'Decorator';
 @page((handle) => {
 	return {
 		title: handle.i18n.getFmtMessage('hackathon_map_page.title', '%s | Hackathon Map', handle.flux.getState('Service').name)
-	}
+	};
 })
 @preAction('HackathonMap.fetch')
 class EventList extends React.Component {

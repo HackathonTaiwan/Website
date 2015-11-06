@@ -10,10 +10,15 @@ import Loader from 'Extension/Loader.jsx';
 import Header from './Header.jsx';
 
 // Decorators
-import { flux, i18n, loader } from 'Decorator';
+import { flux, page, i18n, loader } from 'Decorator';
 
 @flux
 @i18n
+@page((handle) => {
+	return {
+		title: handle.i18n.getFmtMessage('hackathon_reg_page.title', '%s | Register Your Hackathon', handle.flux.getState('Service').name)
+	};
+})
 @loader
 class HackathonRegPage extends React.Component {
 
