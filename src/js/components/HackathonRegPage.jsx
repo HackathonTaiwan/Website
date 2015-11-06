@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 
 import 'External/datepicker';
 
@@ -46,6 +47,79 @@ class HackathonRegPage extends React.Component {
 			selected: [ window.moment(), window.moment().add(1, 'days') ]
 		});
 
+		// Initializing form verification
+		$(this.refs.form).form({
+			inline : true,
+			onSuccess: function() {
+				this.register();
+			}.bind(this),
+			fields: {
+				name: {
+					identifier: 'name',
+			        rules: [
+						{
+							type: 'empty',
+							prompt: 'Please enter a event name'
+						}
+					]
+				},
+				desc: {
+					identifier: 'desc',
+			        rules: [
+						{
+							type: 'empty',
+							prompt: 'Please describe your event'
+						}
+					]
+				},
+				daterange: {
+					identifier: 'daterange',
+			        rules: [
+						{
+							type: 'empty',
+							prompt: 'Please pick valid date'
+						}
+					]
+				},
+				location: {
+					identifier: 'location',
+			        rules: [
+						{
+							type: 'empty',
+							prompt: 'Please describe your event location'
+						}
+					]
+				},
+				address: {
+					identifier: 'address',
+			        rules: [
+						{
+							type: 'empty',
+							prompt: 'Please enter address'
+						}
+					]
+				},
+				registration: {
+					identifier: 'registration',
+			        rules: [
+						{
+							type: 'url',
+							prompt: 'Please enter valid registration URL'
+						}
+					]
+				},
+				website: {
+					identifier: 'website',
+					optional: true,
+			        rules: [
+						{
+							type: 'url',
+							prompt: 'Please enter valid URL'
+						}
+					]
+				}
+			}
+		});
 	}
 
 	componentWillUnmount() {
@@ -121,9 +195,7 @@ class HackathonRegPage extends React.Component {
 								</div>
 							</h1>
 
-							<div className={'ui segment'}>
-
-								<div className='ui form'>
+							<div ref='form' className={'ui form segment'}>
 
 									<div className='ui red ribbon label'><I18n sign='hackathon_reg.name'>Hackathon Name or Topic</I18n></div>
 									<div className={fieldClass}>
@@ -184,10 +256,8 @@ class HackathonRegPage extends React.Component {
 											<input type='text' ref='website' name='website' placeholder='http://hackathon.tw/' />
 										</div>
 									</div>
-									<div className='field'>
-										<button className='ui teal button' onClick={this.register}><I18n sign='hackathon_reg.submit_button'>Register</I18n></button>
-									</div>
-								</div>
+									<div className='ui teal submit button'><I18n sign='hackathon_reg.submit_button'>Register</I18n></div>
+
 							</div>
 
 						</div>
