@@ -8,10 +8,13 @@ import Header from './Header.jsx';
 import HackathonMap from './HackathonMap.jsx';
 
 // Decorators
-import { flux, i18n, preAction } from 'Decorator';
+import { flux, i18n, page, preAction } from 'Decorator';
 
 @flux
 @i18n
+@page({
+	title: 'Hackathon Map'
+})
 @preAction('HackathonMap.fetch')
 class EventList extends React.Component {
 	constructor(props, context) {
