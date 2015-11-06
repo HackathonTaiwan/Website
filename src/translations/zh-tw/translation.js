@@ -1,4 +1,4 @@
-module.exports = {
+var translation = module.exports = {
 	'header.menu.settings': '設定',
 	'header.menu.admin_panel': '系統管理',
 	'header.menu.sign_in': '登入',
@@ -42,5 +42,12 @@ module.exports = {
 	'works.des4': '在黑客松台灣主場活動中，我們目前會頒發「人氣獎」、「最佳技術獎」、「視覺設計獎」、「最佳簡報獎」和「綜合表現獎」等五個獎項，鼓勵參加者可以做出好的成果。這些獎項，是為避免大家一味討好觀眾而造成作品方向扭曲，所以我們也頒獎給各方向技術夠深入的作品，由我們邀請來的專家來評斷。此外，上台演說也是種實力，所以我們也頒發這樣的獎項。',
 	'works.des5': '在我們的活動中沒有分名次，因此，無論你最後是否有做出成果、是否有得獎，只要你有享受到黑客松的過程，有認識到朋友、與朋友一同研究與解決問題、動手創作，那你就有真正的參與過一場黑客松活動。',
 	'sponsors.title': '贊助夥伴及合作單位',
-	'speakers.title': '歷屆神秘講師、評審與指導團隊'
+	'speakers.title': '歷屆神秘講師、評審與指導團隊',
+	'hackathon_map_page.title': 'Hackathon Map | 黑客松地圖',
+	'hackathon_map.upcoming': '即將舉行的黑客松活動',
+	'hackathon_map.post': '登記你的黑客松活動',
+	'hackathon_map.register': '線上報名',
+	'hackathon_map.register_now': '立即線上報名',
+	'hackathon_map.more_info': '更多活動資訊',
+	'hackathon_map.event_over': '活動已經結束'
 };

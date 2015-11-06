@@ -103,12 +103,12 @@ class HackathonMap extends React.Component {
 
 				if (event.expired) {
 					$('<div>').addClass('ui grey basic segment').append(desc).appendTo($content);
-					$('<button>').addClass('ui red disabled button').append('<i class="check icon"></i>活動已經結束').appendTo($links);
-					$('<button>').addClass('ui disabled button').append('<i class="info icon"></i>更多活動資訊').appendTo($links);
+					$('<button>').addClass('ui red disabled button').append('<i class="checkered flag icon"></i>Event is Over').appendTo($links);
+					$('<button>').addClass('ui disabled button').append('<i class="info icon"></i>More Info').appendTo($links);
 				} else {
 					$('<div>').addClass('ui green basic segment').append(desc).appendTo($content);
-					$('<button>').addClass('ui green button').append('<i class="check icon"></i>立即線上報名').appendTo($links);
-					$('<button>').addClass('ui blue button').append('<i class="info icon"></i>更多活動資訊').appendTo($links);
+					$('<button>').addClass('ui green button').append('<i class="check icon"></i>Register').appendTo($links);
+					$('<button>').addClass('ui blue button').append('<i class="info icon"></i>More Info').appendTo($links);
 				}
 				$links.appendTo($content);
 
@@ -118,7 +118,7 @@ class HackathonMap extends React.Component {
 				});
 				marker.addTo(map)
 					.bindPopup($content.html(), {
-						minWidth: 100,
+						minWidth: 300,
 						maxWidth: 400,
 						offset: [ -5, -15 ],
 						className: 'map-event-popup'

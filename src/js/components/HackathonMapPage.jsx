@@ -8,9 +8,10 @@ import Header from './Header.jsx';
 import HackathonMap from './HackathonMap.jsx';
 
 // Decorators
-import { flux, preAction } from 'Decorator';
+import { flux, i18n, preAction } from 'Decorator';
 
 @flux
+@i18n
 @preAction('HackathonMap.fetch')
 class EventList extends React.Component {
 	constructor(props, context) {
@@ -70,7 +71,7 @@ class EventList extends React.Component {
 
 		return (
 			<div style={style} className='ui inverted segment'>
-				<div className='ui blue ribbon label'>Upcoming Hackathons</div>
+				<div className='ui blue ribbon label'><I18n sign='hackathon_map.upcoming'>Upcoming Hackathons</I18n></div>
 				<Link to='/hackathon/reg'>
 					<div className='right floated mini circular ui orange icon button'>
 						<i className='plus icon' />
