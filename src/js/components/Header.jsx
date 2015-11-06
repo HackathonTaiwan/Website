@@ -156,7 +156,8 @@ class Header extends React.Component {
 		return (
 			<div ref='component' className={'ui top fixed inverted menu nav'}>
 				<Link to='/' className={'item'} activeClassName=''>
-					<div><img src={ logo } /></div>
+					<img src={ logo } />
+					<span>{this.props.title}</span>
 				</Link>
 				{loginState}
 			</div>

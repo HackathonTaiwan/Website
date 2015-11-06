@@ -92,6 +92,7 @@ class EventList extends React.Component {
 }
 
 @flux
+@i18n
 class HackathonMapPage extends React.Component {
 
 	constructor(props, context) {
@@ -137,7 +138,7 @@ class HackathonMapPage extends React.Component {
 
 		return (
 			<div className='main-page'>
-				<Header ref='header' />
+				<Header ref='header' title={this.i18n.getFmtMessage('hackathon_map_page.title', '%s | Hackathon Map', this.flux.getState('Service').name)} />
 				<div style={style}>
 					<HackathonMap height={this.state.winHeight - this.state.offsetHeight} />
 					<EventList height={this.state.winHeight - this.state.offsetHeight - 100} />
