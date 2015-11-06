@@ -2,7 +2,8 @@ export default function *() {
 
 	var store = this.getState('HackathonMap', {
 		hackathons: [],
-		focused: null
+		focused: null,
+		registered: {}
 	});
 
 	this.on('store.HackathonMap.fetch', function *() {
@@ -74,6 +75,22 @@ export default function *() {
 			enddate = event.daterange[0];
 		}
 
+			store.registered = {
+					name: event.name,
+					desc: event.desc,
+					startdate: startdate,
+					enddate: enddate,
+					loc: event.loc,
+					address: event.address,
+					latlng: event.latlng,
+					registration: event.registration,
+					website: event.website
+			};
+
+			this.dispatch('state.HackathonMap');
+			return;
+
+
 		try {
 			var res = yield this.request
 				.post('/api/map/hackathon')
@@ -89,7 +106,10 @@ export default function *() {
 					website: event.website
 				});
 
-			console.log(res.body);
+
+			store.registered = true;
+
+			this.dispatch('state.HackathonMap');
 		} catch(e) {
 			console.log(e);
 		}

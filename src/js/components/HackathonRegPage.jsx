@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Link } from 'react-router';
 
 import 'External/datepicker';
 
@@ -11,6 +12,66 @@ import Header from './Header.jsx';
 
 // Decorators
 import { flux, page, i18n, loader } from 'Decorator';
+
+class RegisteredPage extends React.Component {
+
+	render() {
+		return (
+			<div className='main-page'>
+				<Header />
+				<div className={'ui basic center aligned padded segment'}>
+					<div className='ui hidden divider'></div>
+					<div className='ui hidden divider'></div>
+
+					<div className='ui two column centered stackable grid'>
+						<div className='column'>
+							<h1 className='ui green center aligned icon header'>
+								<i className='check circle icon' />
+								<div className='content'>
+									<I18n sign='hackathon_reg_page.success_header'>Register Successfully!</I18n>
+								</div>
+							</h1>
+
+							<div className='ui segment'>
+								<div className='ui teal big ribbon label'>
+									<div className='content'>{this.props.data.name}</div>
+								</div>
+								<div className='ui big relaxed list'>
+									<div className='item'>
+										<i className='calendar icon' />
+										<div className='content'>{this.props.data.startdate}</div>
+									</div>
+									<div className='item'>
+										<i className='marker icon' />
+										<div className='content'>
+											<div className='header'>{this.props.data.loc}</div>
+											<div className='description'>{this.props.data.address}</div>
+										</div>
+									</div>
+								</div>
+
+								<div className='ui green basic segment'>
+									{this.props.data.desc}
+								</div>
+
+							</div>
+
+							<Link to='/HackathonMap'>
+								<div className='ui green right floated right labeled icon button'>
+									<i className='right arrow icon' />
+									<I18n sign='hackathon_reg_page.backtomap'>Back to Hackathon Map</I18n>
+								</div>
+							</Link>
+
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+		);
+	}
+}
 
 @flux
 @i18n
@@ -30,12 +91,14 @@ class HackathonRegPage extends React.Component {
 			winWidth: win.width,
 			winHeight: win.height,
 			geocoder: null,
-			dategrange: null
+			dategrange: null,
+			registered: {}
 		};
 	}
 
 	componentWillMount() {
-		this.flux.on('store.Window', this.flux.bindListener(this.updateDimensions));
+		this.flux.on('state.Window', this.flux.bindListener(this.updateDimensions));
+		this.flux.on('state.HackathonMap', this.flux.bindListener(this.onHackathonMapChanged));
 	}
 
 	componentDidMount() {
@@ -129,7 +192,8 @@ class HackathonRegPage extends React.Component {
 	}
 
 	componentWillUnmount() {
-		this.flux.off('store.Window', this.updateDimensions);
+		this.flux.off('state.Window', this.updateDimensions);
+		this.flux.off('state.HackathonMap', this.onHackathonMapChanged);
 	}
 
 	updateDimensions = () => {
@@ -137,6 +201,14 @@ class HackathonRegPage extends React.Component {
 		this.setState({
 			winWidth: win.width,
 			winHeight: win.height
+		});
+	}
+
+	onHackathonMapChanged = () => {
+		var store = this.flux.getState('HackathonMap');
+
+		this.setState({
+			registered: store.registered
 		});
 	}
 
@@ -188,6 +260,11 @@ class HackathonRegPage extends React.Component {
 
 	render() {
 		var fieldClass = 'field';
+
+		if (Object.keys(this.state.registered).length) {
+			return <RegisteredPage data={this.state.registered} />;
+		}
+
 		return (
 			<div className='main-page'>
 				<Header />
