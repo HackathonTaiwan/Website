@@ -112,7 +112,10 @@ class HackathonMap extends React.Component {
 				}
 				$links.appendTo($content);
 
-				var marker = L.marker(event.pos, { icon: event.expired ? pastIcon : icon });
+				var marker = L.marker(event.pos, {
+					icon: event.expired ? pastIcon : icon,
+					zIndexOffset: event.expired ? 0 : 100
+				});
 				marker.addTo(map)
 					.bindPopup($content.html(), {
 						minWidth: 100,
