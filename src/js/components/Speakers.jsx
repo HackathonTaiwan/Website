@@ -6,14 +6,16 @@ import { flux } from 'Decorator';
 
 class Profile extends React.Component {
     componentDidMount() {
-		$('.show-prpfile').popup();
+		$('.show-prpfile').popup({
+			transition: 'vertical flip'
+		});
   	}
 
 	render() {
 		var speak = this.props;
 		
 		return (
-			<div className="column show-prpfile" data-content={ speak.introduce }>
+			<div className="column show-prpfile" data-position='bottom center' data-variation='inverted' data-content={ speak.introduce }>
 				<img className="ui medium circular image" src={ speak.img } />
 				<h3>{ speak.nameCn }<br />{ speak.nameEn }</h3>
 			</div>
