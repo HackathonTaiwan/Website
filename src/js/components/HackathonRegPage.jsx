@@ -287,8 +287,7 @@ class HackathonRegPage extends React.Component {
 									<div className='ui red ribbon label'><I18n sign='hackathon_reg.name'>Hackathon Name or Topic</I18n></div>
 									<div className={fieldClass}>
 										<label></label>
-										<div className={'ui left icon input'}>
-											<i className={'idea icon'} />
+										<div className={'ui input'}>
 											<input type='text' ref='name' name='name' placeholder={this.i18n.getMessage('hackathon_reg.name_sample', 'Hackathon Taiwan 100th')} autoFocus={true} />
 										</div>
 									</div>
@@ -324,7 +323,7 @@ class HackathonRegPage extends React.Component {
 									<div className={fieldClass}>
 										<label></label>
 										<div className={'ui left icon input'}>
-											<i className={'paw icon'} />
+											<i className={'road icon'} />
 											<input type='text'
 												ref='address'
 												name='address'

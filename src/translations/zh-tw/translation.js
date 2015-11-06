@@ -62,9 +62,9 @@ var translation = module.exports = {
 	'hackathon_reg.dateofevent': '活動期間',
 	'hackathon_reg.location': '活動地點',
 	'hackathon_reg.location_sample': '台開承德大樓（圓山捷運站旁）',
-	'hackathon_reg.address': '活動完整地址',
+	'hackathon_reg.address': '完整活動地址',
 	'hackathon_reg.address_sample': '台北市大同區承德路三段 232 號 B2',
 	'hackathon_reg.registration': '活動報名頁面',
-	'hackathon_reg.website': '活動官方網站或是專頁',
+	'hackathon_reg.website': '官方活動網站或是專頁',
 	'hackathon_reg.submit_button': '登記註冊'
 };
