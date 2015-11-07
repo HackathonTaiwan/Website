@@ -22,9 +22,33 @@ class EventList extends React.Component {
 	constructor(props, context) {
 		super();
 
+		var store = context.flux.getState('HackathonMap');
+
 		this.state = {
-			events: context.flux.getState('HackathonMap').hackathons
+			events: store.hackathons,
+			sorted: store.hackathons.slice(0).sort(function(a, b) {
+				return b.start - a.start;
+			})
 		};
+	}
+
+	componentWillMount() {
+		this.flux.on('state.HackathonMap', this.flux.bindListener(this.onChange));
+	}
+
+	componentWillUnmount() {
+		this.flux.off('state.HackathonMap', this.onChange);
+	}
+
+	onChange = () => {
+		var store = this.flux.getState('HackathonMap');
+
+		this.setState({
+			events: store.hackathons,
+			sorted: store.hackathons.slice(0).sort(function(a, b) {
+				return b.start - a.start;
+			})
+		});
 	}
 
 	takeFocus = (id) => {
@@ -47,9 +71,9 @@ class EventList extends React.Component {
 		};
 
 		var list = [];
-		this.state.events.map(function(e, index) {
+		this.state.sorted.map(function(e, index) {
 			list.push(
-				<div className='item' onMouseEnter={this.takeFocus.bind(this, e.id)} key={index}>
+				<div className='item' onMouseEnter={this.takeFocus.bind(this, e._id)} key={index}>
 					<div className='left floated content'>
 						<div className={'ui ' + (e.expired ? 'grey' : 'green') + ' tiny label'}>
 							{e.startdate}

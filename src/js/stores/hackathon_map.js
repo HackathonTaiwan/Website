@@ -1,4 +1,4 @@
-var moment = require('moment');
+import moment from 'moment';
 
 export default function *() {
 
@@ -34,6 +34,7 @@ export default function *() {
 					desc: event['desc'],
 					location: event['loc'],
 					address: event['address'],
+					start: m.valueOf(),
 					startdate: m.format('YYYY/MM/DD'),
 					registration: event['registration'],
 					website: event['website'],
@@ -46,7 +47,7 @@ export default function *() {
 		} catch(e) {
 			console.log(e);
 		}
-
+/*
 		return;
 		var listUrl = 'https://spreadsheets.google.com/feeds/list/1wt8JVUmTEmwBPRqPI_ZjMxjjNNDNpcLUGwxhCXzJlHY/otnjarj/public/values?alt=json&orderby=column:startdate&reverse=true';
 
@@ -91,13 +92,14 @@ export default function *() {
 		} catch(e) {
 			console.log(e);
 		}
+		*/
 	});
 
 	this.on('store.HackathonMap.takeFocus', function *(id) {
 		for (var index in store.hackathons) {
 			var hackathon = store.hackathons[index];
 
-			if (hackathon.id != id)
+			if (hackathon._id != id)
 				continue;
 
 			store.focused = hackathon;
@@ -115,22 +117,6 @@ export default function *() {
 		} else {
 			enddate = event.daterange[0];
 		}
-/*
-			store.registered = {
-					name: event.name,
-					desc: event.desc,
-					startdate: startdate,
-					enddate: enddate,
-					loc: event.loc,
-					address: event.address,
-					latlng: event.latlng,
-					registration: event.registration,
-					website: event.website
-			};
-
-			this.dispatch('state.HackathonMap');
-			return;
-*/
 
 		try {
 			var res = yield this.request
@@ -147,23 +133,35 @@ export default function *() {
 					website: event.website
 				});
 
+			// Getting result
+			var e = res.body.hackathon;
+			var m = moment(e.start);
+
+			var expired = false;
+			if (moment().diff(m, 'days') > 0)
+				expired = true;
 
 			store.registered = {
-					name: event.name,
-					desc: event.desc,
-					startdate: startdate,
-					enddate: enddate,
-					loc: event.loc,
-					address: event.address,
-					latlng: event.latlng,
-					registration: event.registration,
-					website: event.website
+				_id: e['_id'],
+				name: e['name'],
+				desc: e['desc'],
+				location: e['loc'],
+				address: e['address'],
+				start: m.valueOf(),
+				startdate: m.format('YYYY/MM/DD'),
+				registration: e['registration'],
+				website: e['website'],
+				expired: expired,
+				pos: e['geo']
 			};
+
+			// Add to list
+			store.hackathons.push(store.registered);
 
 			this.dispatch('state.HackathonMap');
 		} catch(e) {
 			console.log(e);
 		}
-		alert(JSON.stringify(event));
+//		alert(JSON.stringify(event));
 	});
 };

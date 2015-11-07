@@ -25,11 +25,9 @@ router.post('/api/map/hackathon', function *() {
 	var website = this.request.body.website || '';
 	var registration = this.request.body.registration || '';
 
-	console.log(name, desc, address, loc, latlng, startdate, enddate, website, registration);
-
 	if (!name || !desc || !address || !loc || !latlng ||
-		!startdate || !enddate ||!website || !registration) {
-		this.status = 401;
+		!startdate || !enddate || !registration) {
+		this.status = 400;
 		return;
 	}
 
@@ -51,6 +49,7 @@ router.post('/api/map/hackathon', function *() {
 	}
 
 	this.body = {
-		success: true
+		success: true,
+		hackathon: hackthon
 	};
 });
