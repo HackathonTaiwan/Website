@@ -39,7 +39,7 @@ class RegisteredPage extends React.Component {
 								<div className='ui big relaxed list'>
 									<div className='item'>
 										<i className='calendar icon' />
-										<div className='content'>{this.props.data.startdate}</div>
+										<div className='content'>{window.moment(this.props.data.startdate).format('YYYY/MM/DD')}</div>
 									</div>
 									<div className='item'>
 										<i className='marker icon' />
@@ -224,6 +224,8 @@ class HackathonRegPage extends React.Component {
 		var registration = this.refs.registration.value;
 		var website = this.refs.website.value;
 
+		$(this.refs.submit_button).addClass('loading disabled');
+
 		// Getting date range
 		var dateRange = [];
 		var dates = this.state.daterange.getSelectedAsDates();
@@ -349,7 +351,7 @@ class HackathonRegPage extends React.Component {
 										</div>
 									</div>
 
-									<div className='ui teal button' onClick={this.verify}><I18n sign='hackathon_reg.submit_button'>Register</I18n></div>
+									<div className='ui teal button' ref='submit_button' onClick={this.verify}><I18n sign='hackathon_reg.submit_button'>Register</I18n></div>
 
 							</div>
 

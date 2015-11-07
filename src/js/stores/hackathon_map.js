@@ -1,3 +1,5 @@
+var moment = require('moment');
+
 export default function *() {
 
 	var store = this.getState('HackathonMap', {
@@ -7,6 +9,45 @@ export default function *() {
 	});
 
 	this.on('store.HackathonMap.fetch', function *() {
+
+		try {
+			var res = yield this.request
+				.get('/api/map/hackathons')
+				.query();
+
+			// Update store
+			store.hackathons = [];
+
+			var data = res.body.hackathons;
+			for (var index in data) {
+				var event = data[index];
+
+				var m = moment(event.start);
+
+				var expired = false;
+				if (moment().diff(m, 'days') > 0)
+					expired = true;
+
+				store.hackathons.push({
+					_id: event['_id'],
+					name: event['name'],
+					desc: event['desc'],
+					location: event['loc'],
+					address: event['address'],
+					startdate: m.format('YYYY/MM/DD'),
+					registration: event['registration'],
+					website: event['website'],
+					expired: expired,
+					pos: event['geo']
+				});
+			}
+
+			this.dispatch('state.HackathonMap');
+		} catch(e) {
+			console.log(e);
+		}
+
+		return;
 		var listUrl = 'https://spreadsheets.google.com/feeds/list/1wt8JVUmTEmwBPRqPI_ZjMxjjNNDNpcLUGwxhCXzJlHY/otnjarj/public/values?alt=json&orderby=column:startdate&reverse=true';
 
 		try {
@@ -74,7 +115,7 @@ export default function *() {
 		} else {
 			enddate = event.daterange[0];
 		}
-
+/*
 			store.registered = {
 					name: event.name,
 					desc: event.desc,
@@ -89,7 +130,7 @@ export default function *() {
 
 			this.dispatch('state.HackathonMap');
 			return;
-
+*/
 
 		try {
 			var res = yield this.request
@@ -107,7 +148,17 @@ export default function *() {
 				});
 
 
-			store.registered = true;
+			store.registered = {
+					name: event.name,
+					desc: event.desc,
+					startdate: startdate,
+					enddate: enddate,
+					loc: event.loc,
+					address: event.address,
+					latlng: event.latlng,
+					registration: event.registration,
+					website: event.website
+			};
 
 			this.dispatch('state.HackathonMap');
 		} catch(e) {

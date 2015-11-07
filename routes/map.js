@@ -4,22 +4,14 @@ var Hackathon = require('../lib/hackathon');
 
 var router = module.exports = new Router();
 
-router.get('/api/map/hackathon', function *() {
+router.get('/api/map/hackathons', function *() {
 
 	// Get hackathons from database
-	var hackathons = yield Hackathon.getHackathons();
-	/*
-	var m = {
-		name: member.name,
-		email: member.email,
-		created: member.created
-	};
+	var data = yield Hackathon.list();
 
 	this.body = {
-		success: true,
-		member: m
+		hackathons: data.results
 	};
-	*/
 });
 
 router.post('/api/map/hackathon', function *() {

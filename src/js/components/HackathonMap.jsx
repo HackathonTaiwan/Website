@@ -19,6 +19,7 @@ class HackathonMap extends React.Component {
 		this.state = {
 			events: context.flux.getState('HackathonMap').hackathons,
 			markers: {},
+			focused: null,
 			map: null
 		};
 	}
@@ -37,12 +38,13 @@ class HackathonMap extends React.Component {
 			'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.5/leaflet.js',
 			'https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-minimap/v1.0.0/Control.MiniMap.js'
 		], function() {
-			var listUrl = 'https://spreadsheets.google.com/feeds/list/1wt8JVUmTEmwBPRqPI_ZjMxjjNNDNpcLUGwxhCXzJlHY/otnjarj/public/values?alt=json';
 			var tileUrl = 'http://otile{s}.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpg';
 
 			// Initialzing map
 			var zoomControl = L.control.zoom({ position: 'topright' });
-			var map = L.map(component, { zoomControl: false }).setView([23.5, 121.518508], 8).addControl(zoomControl);
+			var map = L.map(component, { zoomControl: false })
+				.setView([ 23.5, 121.518508 ], 8)
+				.addControl(zoomControl);
 			var osm2 = new L.TileLayer(tileUrl, { subdomains: '1234', minZoom: 5, detectRetina: true });
 			var miniMap = new L.Control.MiniMap(osm2).addTo(map);
 
@@ -139,9 +141,11 @@ class HackathonMap extends React.Component {
 						className: 'map-event-popup'
 					});
 
-				this.state.markers[event.id] = marker;
+				this.state.markers[event._id] = marker;
 			}
-			map.fitBounds(bounds, { padding: [ 100, 100 ] });
+
+			if (bounds.length > 1)
+				map.fitBounds(bounds, { padding: [ 100, 100 ] });
 
 			// add an OpenStreetMap tile layer
 			L.tileLayer(tileUrl, {
@@ -149,9 +153,7 @@ class HackathonMap extends React.Component {
 				attribution: '<a href="https://hackathon.tw/">黑客松台灣 Hackathon Taiwan</a> | &copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 			}).addTo(map);
 
-			this.setState({
-				map: map
-			});
+			this.state.map = map;
 		}.bind(this));
 	}
 
@@ -167,15 +169,28 @@ class HackathonMap extends React.Component {
 		if (store.focused) {
 			this.state.map.closePopup();
 
+			// Move view to specific position
 			this.state.map.setView([
 				store.focused.pos[0],
-				store.focused.pos[1] - 0.02
+				store.focused.pos[1] - 0.025
+			], 13, {
+				animate: false
+			});
+
+			this.state.map.setView([
+				store.focused.pos[0],
+				store.focused.pos[1] - 0.025
 			], 13, {
 				animate: true
 			});
 
-			this.state.markers[store.focused.id].openPopup();
+			this.state.markers[store.focused._id].openPopup();
 		}
+
+		this.setState({
+			focused: store.focused,
+			events: store.hackathons
+		});
 	}
 
 	render() {
