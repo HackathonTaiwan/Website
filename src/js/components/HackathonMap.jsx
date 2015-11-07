@@ -119,7 +119,7 @@ class HackathonMap extends React.Component {
 						.addClass('ui disabled button')
 						.append('<i class="info icon"></i>' + this.i18n.getMessage('hackathon_map.more_info', 'More Info'));
 				} else {
-					$('<div>').addClass('ui green basic segment').append(desc).appendTo($content);
+					$('<div>').addClass('ui teal basic segment').append(desc).appendTo($content);
 					$registration
 						.addClass('ui green button')
 						.append('<i class="check icon"></i>' + this.i18n.getMessage('hackathon_map.register_now', 'Register'));

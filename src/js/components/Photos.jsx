@@ -25,7 +25,7 @@ class Photos extends React.Component {
 		return (
 			<div>
 				<div className={'ui basic center aligned segment'}>
-					<div className="ui stackable four column grid">
+					<div className="ui doubling four column grid">
 						<div className="column soft-ware">
 							<img className="ui fluid rounded image skill center-block" src={ softWare } />
 						</div>
@@ -43,23 +43,23 @@ class Photos extends React.Component {
 							<img className="ui fluid image" src={ event1 } />
 						</div>
 						<div className="column">
-							<h1 className="text-height"><i className="material-icons">filter_1</i><br />2014. 9/20 - 9/21</h1>
+							<h2 className="text-height"><i className="material-icons">filter_1</i><br />2014. 9/20 - 9/21</h2>
 						</div>
 						<div className="column remove-padding">
 							<img className="ui fluid image" src={ event2 } />
 						</div>
 						<div className="column">
-							<h1 className="text-height"><i className="material-icons">filter_2</i><br />2014. 11/8 - 11/9</h1>
+							<h2 className="text-height"><i className="material-icons">filter_2</i><br />2014. 11/8 - 11/9</h2>
 						</div>
 
 						<div className="column">
-							<h1 className="text-height"><i className="material-icons">filter_3</i><br />2014. 12/20 - 12/21</h1>
+							<h2 className="text-height"><i className="material-icons">filter_3</i><br />2014. 12/20 - 12/21</h2>
 						</div>
 						<div className="column remove-padding">
 							<img className="ui fluid image" src={ event3 } />
 						</div>
 						<div className="column">
-							<h1 className="text-height"><i className="material-icons">filter_4</i><br />2015. 1/31 - 2/1</h1>
+							<h2 className="text-height"><i className="material-icons">filter_4</i><br />2015. 1/31 - 2/1</h2>
 						</div>
 						<div className="column remove-padding">
 							<img className="ui fluid image" src={ event4 } />
@@ -69,23 +69,23 @@ class Photos extends React.Component {
 							<img className="ui fluid image" src={ event5 } />
 						</div>
 						<div className="column">
-							<h1 className="text-height"><i className="material-icons">filter_5</i><br />2015. 3/7 - 3/8</h1>
+							<h2 className="text-height"><i className="material-icons">filter_5</i><br />2015. 3/7 - 3/8</h2>
 						</div>
 						<div className="column remove-padding">
 							<img className="ui fluid image" src={ event6 } />
 						</div>
 						<div className="column">
-							<h1 className="text-height"><i className="material-icons">filter_6</i><br />2015. 4/11 - 4/12</h1>
+							<h2 className="text-height"><i className="material-icons">filter_6</i><br />2015. 4/11 - 4/12</h2>
 						</div>
 
 						<div className="column">
-							<h1 className="text-height"><i className="material-icons">filter_7</i><br />2015. 5/12 - 5/13</h1>
+							<h2 className="text-height"><i className="material-icons">filter_7</i><br />2015. 5/12 - 5/13</h2>
 						</div>
 						<div className="column remove-padding">
 							<img className="ui fluid image" src={ event7 } />
 						</div>
 						<div className="column">
-							<h1 className="text-height"><i className="material-icons">filter_8</i><br />2015. 6/13 - 6/14</h1>
+							<h2 className="text-height"><i className="material-icons">filter_8</i><br />2015. 6/13 - 6/14</h2>
 						</div>
 						<div className="column remove-padding">
 							<img className="ui fluid image" src={ event8 } />
@@ -95,23 +95,23 @@ class Photos extends React.Component {
 							<img className="ui fluid image" src={ event9 } />
 						</div>
 						<div className="column">
-							<h1 className="text-height"><i className="material-icons">filter_9</i><br />2015. 7/11 - 7/12</h1>
+							<h2 className="text-height"><i className="material-icons">filter_9</i><br />2015. 7/11 - 7/12</h2>
 						</div>
 						<div className="column remove-padding">
 							<img className="ui fluid image" src={ event10 } />
 						</div>
 						<div className="column">
-							<h1 className="text-height"><i className="material-icons">filter_9_plus</i><br />2015. 8/15 - 8/16</h1>
+							<h2 className="text-height"><i className="material-icons">filter_9_plus</i><br />2015. 8/15 - 8/16</h2>
 						</div>
 
 						<div className="column">
-							<h1 className="text-height"><i className="material-icons">filter_1</i> <i className="material-icons">filter_1</i><br />2015. 9/12 - 9/13</h1>
+							<h2 className="text-height"><i className="material-icons">filter_1</i> <i className="material-icons">filter_1</i><br />2015. 9/12 - 9/13</h2>
 						</div>
 						<div className="column remove-padding">
 							<img className="ui fluid image" src={ event11 } />
 						</div>
 						<div className="column">
-							<h1 className="text-height"><i className="material-icons">filter_1</i> <i className="material-icons">filter_2</i><br />2015. 10 ...</h1>
+							<h2 className="text-height"><i className="material-icons">filter_1</i> <i className="material-icons">filter_2</i><br />2015. 10 ...</h2>
 						</div>
 						<div className="column remove-padding">
 							<img className="ui fluid image" src={ defaultImg } />

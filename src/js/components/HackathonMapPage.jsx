@@ -37,7 +37,7 @@ class EventList extends React.Component {
 			left: '30px',
 			top: 0,
 			zIndex: 10000,
-			background: 'rgba(0,0,0,0.9)',
+			background: 'rgba(0,0,0,0.8)',
 			boxShadow: '0 0 3px rgba(255,255,255,0.8)'
 		};
 
@@ -51,7 +51,7 @@ class EventList extends React.Component {
 			list.push(
 				<div className='item' onMouseEnter={this.takeFocus.bind(this, e.id)} key={index}>
 					<div className='left floated content'>
-						<div className={'ui ' + (e.expired ? 'grey' : 'teal') + ' tiny label'}>
+						<div className={'ui ' + (e.expired ? 'grey' : 'green') + ' tiny label'}>
 							{e.startdate}
 						</div>
 					</div>
@@ -63,9 +63,7 @@ class EventList extends React.Component {
 							return (
 								<div className='right floated content'>
 									<a href={e.registration}>
-										<div className={'ui green left pointing label'}>
-											<I18n sign='hackathon_map.register'>Register</I18n>
-										</div>
+										<p className="ui olive empty circular label">&nbsp;</p>
 									</a>
 								</div>
 							);
@@ -78,7 +76,7 @@ class EventList extends React.Component {
 			<div style={style} className='ui inverted segment'>
 				<div className='ui blue ribbon label'><I18n sign='hackathon_map.upcoming'>Upcoming Hackathons</I18n></div>
 				<Link to='/hackathon/reg'>
-					<div className='ui large red top right attached label'>
+					<div className='ui large orange top right attached label'>
 						<i className='add square icon' />
 						<span> <I18n sign='hackathon_map.post'>Post Your Hackathon</I18n></span>
 					</div>

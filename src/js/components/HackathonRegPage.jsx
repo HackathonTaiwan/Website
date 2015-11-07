@@ -270,7 +270,7 @@ class HackathonRegPage extends React.Component {
 		return (
 			<div className='main-page'>
 				<Header />
-				<div className={'ui basic center aligned padded segment'}>
+				<div className={'ui basic center aligned padded segment register'}>
 					<div className='ui hidden divider'></div>
 					<div className='ui hidden divider'></div>
 
@@ -284,7 +284,7 @@ class HackathonRegPage extends React.Component {
 								</div>
 							</h1>
 
-							<div ref='form' className={'ui form segment'}>
+							<div ref='form' className={'ui form segment shadow'}>
 
 									<div className='ui red ribbon label'><I18n sign='hackathon_reg.name'>Hackathon Name or Topic</I18n></div>
 									<div className={fieldClass}>
@@ -294,13 +294,13 @@ class HackathonRegPage extends React.Component {
 										</div>
 									</div>
 
-									<div className='ui pink ribbon label'><I18n sign='hackathon_reg.description'>Description</I18n></div>
+									<div className='ui orange ribbon label'><I18n sign='hackathon_reg.description'>Description</I18n></div>
 									<div className={fieldClass}>
 										<label></label>
 										<textarea ref='desc' name='desc' placeholder={this.i18n.getMessage('hackathon_reg.description_sample', 'The best hackathon we ever seen before in Taiwan')} />
 									</div>
 
-									<div className='ui blue ribbon label'><I18n sign='hackathon_reg.dateofevent'>Date of Event</I18n></div>
+									<div className='ui green ribbon label'><I18n sign='hackathon_reg.dateofevent'>Date of Event</I18n></div>
 									<div className={fieldClass}>
 										<label></label>
 										<div className={'ui left icon input'}>
@@ -309,7 +309,7 @@ class HackathonRegPage extends React.Component {
 										</div>
 									</div>
 
-									<div className='ui teal ribbon label'><I18n sign='hackathon_reg.location'>Describe the Event Location</I18n></div>
+									<div className='ui blue ribbon label'><I18n sign='hackathon_reg.location'>Describe the Event Location</I18n></div>
 									<div className={fieldClass}>
 										<label></label>
 										<div className={'ui left icon input'}>
@@ -321,7 +321,7 @@ class HackathonRegPage extends React.Component {
 										</div>
 									</div>
 
-									<div className='ui teal ribbon label'><I18n sign='hackathon_reg.address'>Event Address</I18n></div>
+									<div className='ui blue ribbon label'><I18n sign='hackathon_reg.address'>Event Address</I18n></div>
 									<div className={fieldClass}>
 										<label></label>
 										<div className={'ui left icon input'}>
@@ -342,11 +342,11 @@ class HackathonRegPage extends React.Component {
 										</div>
 									</div>
 
-									<div className='ui olive ribbon label'><I18n sign='hackathon_reg.website'>Official Website</I18n></div>
+									<div className='ui brown ribbon label'><I18n sign='hackathon_reg.website'>Official Website</I18n></div>
 									<div className={fieldClass}>
 										<label></label>
 										<div className={'ui left icon input'}>
-											<i className={'external square icon'} />
+											<i className={'external desktop icon'} />
 											<input type='text' ref='website' name='website' placeholder='http://hackathon.tw/' />
 										</div>
 									</div>
