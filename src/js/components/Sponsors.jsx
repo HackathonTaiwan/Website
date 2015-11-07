@@ -34,10 +34,10 @@ class Sponsors extends React.Component {
 						HACKATHON IS AN ACTIVITY OF CREATION
 					</I18n>
 				</h2>
-				<div className="ui stackable three column grid">
+				<div className="ui stackable ten column grid">
 					<div className="three wide column"></div>
 					<div className="ten wide column">
-						<div className="ui stackable five column grid">
+						<div className="ui doubling six column grid">
 							<div className="column">
 								<a href="http://www.startupstadium.tw/" target="_blank"><img className="ui fluid rounded image" src={ tss } /></a>
 							</div>
