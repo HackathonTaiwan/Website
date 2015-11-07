@@ -46,7 +46,7 @@ class Speakers extends React.Component {
 				<div className="ui stackable four column grid">
 					<div className="two wide column"></div>
 					<div className="twelve wide column">
-						<div className="ui stackable five column grid">
+						<div className="ui doubling six column grid">
 							{speakers.map(({ nameCn, nameEn, introduce, img }, index) =>
 								<Profile nameCn={nameCn}
 									nameEn={nameEn}
