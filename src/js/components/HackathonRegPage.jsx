@@ -19,7 +19,7 @@ class RegisteredPage extends React.Component {
 		return (
 			<div className='main-page'>
 				<Header />
-				<div className={'ui basic center aligned padded segment'}>
+				<div className={'ui basic center aligned padded segment register'}>
 					<div className='ui hidden divider'></div>
 					<div className='ui hidden divider'></div>
 
@@ -32,11 +32,78 @@ class RegisteredPage extends React.Component {
 								</div>
 							</h1>
 
-							<div className='ui segment'>
+							<div className='ui segment shadow'>
 								<div className='ui teal big ribbon label'>
 									<div className='content'>{this.props.data.name}</div>
 								</div>
-								<div className='ui big relaxed list'>
+								<div className='ui large relaxed list'>
+									<div className='item'>
+										<i className='calendar icon' />
+										<div className='content'>{window.moment(this.props.data.startdate).format('YYYY/MM/DD')}</div>
+									</div>
+									<div className='item'>
+										<i className='marker icon' />
+										<div className='content'>
+											<div className='header'>{this.props.data.location}</div>
+											<div className='description'>{this.props.data.address}</div>
+										</div>
+									</div>
+									<div className='item'>
+										<i className='world icon' />
+										<div className='content'>{this.props.data.website}</div>
+									</div>
+									<div className='item'>
+										<i className='anchor icon' />
+										<div className='content'>{this.props.data.registration}</div>
+									</div>
+								</div>
+
+								<div className='ui green basic segment' dangerouslySetInnerHTML={{ __html: this.props.data.desc.replace(/\n/g,'<br />')}}>
+								</div>
+
+							</div>
+
+							<Link to='/HackathonMap'>
+								<div className='ui green right floated right labeled icon button'>
+									<i className='right arrow icon' />
+									<I18n sign='hackathon_reg_page.backtomap'>Back to Hackathon Map</I18n>
+								</div>
+							</Link>
+
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+		);
+	}
+}
+
+class ConfirmPage extends React.Component {
+
+	render() {
+		return (
+			<div className='main-page'>
+				<Header />
+				<div className={'ui basic center aligned padded segment register'}>
+					<div className='ui hidden divider'></div>
+					<div className='ui hidden divider'></div>
+
+					<div className='ui two column centered stackable grid'>
+						<div className='column'>
+							<h1 className='ui center aligned icon header'>
+								<i className='warning circle icon' />
+								<div className='content'>
+									<I18n sign='hackathon_reg_page.confirm_header'>Confirm Your Event Details</I18n>
+								</div>
+							</h1>
+
+							<div className='ui segment shadow'>
+								<div className='ui teal big ribbon label'>
+									<div className='content'>{this.props.data.name}</div>
+								</div>
+								<div className='ui large relaxed list'>
 									<div className='item'>
 										<i className='calendar icon' />
 										<div className='content'>{window.moment(this.props.data.startdate).format('YYYY/MM/DD')}</div>
@@ -48,20 +115,32 @@ class RegisteredPage extends React.Component {
 											<div className='description'>{this.props.data.address}</div>
 										</div>
 									</div>
+									<div className='item'>
+										<i className='world icon' />
+										<div className='content'>{this.props.data.website}</div>
+									</div>
+									<div className='item'>
+										<i className='anchor icon' />
+										<div className='content'>{this.props.data.registration}</div>
+									</div>
 								</div>
 
-								<div className='ui green basic segment'>
-									{this.props.data.desc}
+								<div className='ui green basic segment' dangerouslySetInnerHTML={{ __html: this.props.data.desc.replace(/\n/g,'<br />')}}>
+								</div>
+
+								<div className='ui clearing basic segment'>
+									<div className='ui red left floated left labeled icon button' onClick={this.props.edit}>
+										<i className='edit icon' />
+										<I18n sign='hackathon_reg_page.edit_button'>Edit</I18n>
+									</div>
+
+									<div className='ui green right floated right labeled icon button' onClick={this.props.register}>
+										<i className='check icon' />
+										<I18n sign='hackathon_reg_page.confirm_button'>Confirm</I18n>
+									</div>
 								</div>
 
 							</div>
-
-							<Link to='/HackathonMap'>
-								<div className='ui green right floated right labeled icon button'>
-									<i className='right arrow icon' />
-									<I18n sign='hackathon_reg_page.backtomap'>Back to Hackathon Map</I18n>
-								</div>
-							</Link>
 
 						</div>
 
@@ -91,8 +170,19 @@ class HackathonRegPage extends React.Component {
 			winWidth: win.width,
 			winHeight: win.height,
 			geocoder: null,
-			dategrange: null,
-			registered: {}
+			daterange: null,
+			registered: {},
+			fields: {
+				name: '',
+				desc: '',
+				daterange: '',
+				loc: '',
+				address: '',
+				registration: '',
+				website: '',
+				latlng: []
+			},
+			confirm: false
 		};
 	}
 
@@ -115,12 +205,22 @@ class HackathonRegPage extends React.Component {
 			selected: [ window.moment(), window.moment().add(1, 'days') ]
 		});
 
+		this.state.fields.daterange = this.state.daterange.getSelected();
+	}
+
+	componentWillUnmount() {
+		this.flux.off('state.Window', this.updateDimensions);
+		this.flux.off('state.HackathonMap', this.onHackathonMapChanged);
+	}
+
+	initializeForm = () => {
+
 		// Initializing form verification
 		$(this.refs.form).form({
 			keyboardShortcuts: false,
 			inline: true,
 			onSuccess: function() {
-				this.register();
+				this.confirm();
 			}.bind(this),
 			fields: {
 				name: {
@@ -191,11 +291,6 @@ class HackathonRegPage extends React.Component {
 		});
 	}
 
-	componentWillUnmount() {
-		this.flux.off('state.Window', this.updateDimensions);
-		this.flux.off('state.HackathonMap', this.onHackathonMapChanged);
-	}
-
 	updateDimensions = () => {
 		var win = this.flux.getState('Window');
 		this.setState({
@@ -213,18 +308,19 @@ class HackathonRegPage extends React.Component {
 	}
 
 	verify = () => {
+
+		this.initializeForm();
+
 		$(this.refs.form).form('validate form');
 	}
 
 	register = () => {
-		var name = this.refs.name.value;
-		var desc = this.refs.desc.value;
-		var loc = this.refs.location.value;
-		var address = this.refs.address.value;
-		var registration = this.refs.registration.value;
-		var website = this.refs.website.value;
 
-		$(this.refs.submit_button).addClass('loading disabled');
+		var $button = $(this.refs.submit_button);
+		if ($button.hasClass('disabled'))
+			return;
+
+		$button.addClass('loading disabled');
 
 		// Getting date range
 		var dateRange = [];
@@ -238,19 +334,19 @@ class HackathonRegPage extends React.Component {
 		if (this.state.geocoder) {
 
 			// Translate address to latlng
-			this.state.geocoder.geocode({ address: address }, function (results, status) {
+			this.state.geocoder.geocode({ address: this.state.fields.address }, function (results, status) {
 				if (status != google.maps.GeocoderStatus.OK) {
 					return;
 				}
 
 				this.flux.dispatch('action.HackathonMap.register', {
-					name: name,
-					desc: desc,
+					name: this.state.fields.name,
+					desc: this.state.fields.desc,
 					daterange: dateRange,
-					loc: loc,
-					address: address,
-					registration: registration,
-					website: website,
+					loc: this.state.fields.loc,
+					address: this.state.fields.address,
+					registration: this.state.fields.registration,
+					website: this.state.fields.website,
 					latlng: [
 						results[0].geometry.location.lat(),
 						results[0].geometry.location.lng()
@@ -260,11 +356,49 @@ class HackathonRegPage extends React.Component {
 		}
 	}
 
+	confirm = () => {
+		this.setState({
+			confirm: true
+		});
+	}
+
+	edit = () => {
+		this.setState({
+			confirm: false
+		});
+	}
+
+	handleChange = () => {
+		var name = this.refs.name.value;
+		var desc = this.refs.desc.value;
+		var loc = this.refs.location.value;
+		var address = this.refs.address.value;
+		var registration = this.refs.registration.value;
+		var website = this.refs.website.value;
+		var daterange = this.refs.daterange.value;
+
+		this.setState({
+			fields: {
+				name: name,
+				desc: desc,
+				daterange: daterange,
+				loc: loc,
+				address: address,
+				registration: registration,
+				website: website
+			}
+		});
+	}
+
 	render() {
 		var fieldClass = 'field';
 
 		if (Object.keys(this.state.registered).length) {
 			return <RegisteredPage data={this.state.registered} />;
+		}
+
+		if (this.state.confirm) {
+			return <ConfirmPage data={this.state.fields} edit={this.edit} register={this.register} />;
 		}
 
 		return (
@@ -290,14 +424,28 @@ class HackathonRegPage extends React.Component {
 									<div className={fieldClass}>
 										<label></label>
 										<div className={'ui input'}>
-											<input type='text' ref='name' name='name' placeholder={this.i18n.getMessage('hackathon_reg.name_sample', 'Hackathon Taiwan 100th')} autoFocus={true} />
+											<input
+												type='text'
+												ref='name'
+												name='name'
+												placeholder={this.i18n.getMessage('hackathon_reg.name_sample', 'Hackathon Taiwan 100th')}
+												value={this.state.fields.name}
+												onChange={this.handleChange}
+												onBlur={this.handleChange}
+												autoFocus={true} />
 										</div>
 									</div>
 
 									<div className='ui orange ribbon label'><I18n sign='hackathon_reg.description'>Description</I18n></div>
 									<div className={fieldClass}>
 										<label></label>
-										<textarea ref='desc' name='desc' placeholder={this.i18n.getMessage('hackathon_reg.description_sample', 'The best hackathon we ever seen before in Taiwan')} />
+										<textarea
+											ref='desc'
+											name='desc'
+											value={this.state.fields.desc}
+											onChange={this.handleChange}
+											onBlur={this.handleChange}
+											placeholder={this.i18n.getMessage('hackathon_reg.description_sample', 'The best hackathon we ever seen before in Taiwan')} />
 									</div>
 
 									<div className='ui green ribbon label'><I18n sign='hackathon_reg.dateofevent'>Date of Event</I18n></div>
@@ -305,7 +453,13 @@ class HackathonRegPage extends React.Component {
 										<label></label>
 										<div className={'ui left icon input'}>
 											<i className={'calendar icon'} />
-											<input type='daterange' ref='daterange' name='daterange' />
+											<input
+												type='daterange'
+												ref='daterange'
+												value={this.state.fields.daterange}
+												onChange={this.handleChange}
+												onBlur={this.handleChange}
+												name='daterange' />
 										</div>
 									</div>
 
@@ -314,9 +468,13 @@ class HackathonRegPage extends React.Component {
 										<label></label>
 										<div className={'ui left icon input'}>
 											<i className={'marker icon'} />
-											<input type='text'
+											<input
+												type='text'
 												ref='location'
 												name='location'
+												value={this.state.fields.loc}
+												onChange={this.handleChange}
+												onBlur={this.handleChange}
 												placeholder={this.i18n.getMessage('hackathon_reg.location_sample', 'Taiwan Land Development Building (nearby MRT Yuanshan)')} />
 										</div>
 									</div>
@@ -326,9 +484,13 @@ class HackathonRegPage extends React.Component {
 										<label></label>
 										<div className={'ui left icon input'}>
 											<i className={'road icon'} />
-											<input type='text'
+											<input
+												type='text'
 												ref='address'
 												name='address'
+												value={this.state.fields.address}
+												onChange={this.handleChange}
+												onBlur={this.handleChange}
 												placeholder={this.i18n.getMessage('hackathon_reg.address_sample', 'No. 232, Sec. 3, Chengde Rd., Datong Dist., Taipei City, Taiwan')} />
 										</div>
 									</div>
@@ -338,7 +500,14 @@ class HackathonRegPage extends React.Component {
 										<label></label>
 										<div className={'ui left icon input'}>
 											<i className={'flag icon'} />
-											<input type='text' ref='registration' name='registration' placeholder='https://hackathon.tw/registration' />
+											<input
+												type='text'
+												ref='registration'
+												name='registration'
+												value={this.state.fields.registration}
+												onChange={this.handleChange}
+												onBlur={this.handleChange}
+												placeholder='https://hackathon.tw/registration' />
 										</div>
 									</div>
 
@@ -347,7 +516,14 @@ class HackathonRegPage extends React.Component {
 										<label></label>
 										<div className={'ui left icon input'}>
 											<i className={'external desktop icon'} />
-											<input type='text' ref='website' name='website' placeholder='http://hackathon.tw/' />
+											<input
+												type='text'
+												ref='website'
+												name='website'
+												value={this.state.fields.website}
+												onChange={this.handleChange}
+												onBlur={this.handleChange}
+												placeholder='http://hackathon.tw/' />
 										</div>
 									</div>
 

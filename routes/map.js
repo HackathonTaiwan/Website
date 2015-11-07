@@ -50,6 +50,6 @@ router.post('/api/map/hackathon', function *() {
 
 	this.body = {
 		success: true,
-		hackathon: hackthon
+		hackathon: hackathon
 	};
 });
