@@ -33,6 +33,8 @@ var translation = module.exports = {
 	'forgot.submit_button': '送出',
 	'user_profile.header': '使用者資料',
 	'user_profile.subheader': '個人化資訊',
+	'account_settings.header': '帳號設定',
+	'account_settings.subheader': '密碼和驗證資訊',
 	'introduce.title': '黑客松是個創作運動',
 	'introduce.description': 'Hackathon （黑客松）是一個新創名詞，由兩個英文單字『Hack』與『Marathon』所組合成的複合字，最初是一種馬拉松式的程式開發活動。這種習慣和說法一直是種軟體科技界內的惡趣味，用來描述一群宅宅工程師聚在一起，拼命做出作品、解決問題，即便是爆肝、熬夜也在所不惜。不過近年來，黑客松的活動內容，已不限定於軟體開發，也有在硬體、設計，甚至有 Maker 參與其中，大家共同創作及解決各類問題，然後分享成果。',
 	'introduce.short': '若要簡短描述黑客松，更平易近人的說法就是',
