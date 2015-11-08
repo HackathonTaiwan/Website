@@ -357,6 +357,8 @@ class HackathonRegPage extends React.Component {
 	}
 
 	confirm = () => {
+		$('html, body').scrollTop(0);
+
 		this.setState({
 			confirm: true
 		});
