@@ -1,26 +1,27 @@
 
 // speaker images
-var jserv = require('../../images/speakers/jserv.jpg');
-var pcman = require('../../images/speakers/pcman.png');
-var hcchien = require('../../images/speakers/hcchien.png');
-var benjai = require('../../images/speakers/benjai.jpg');
-var pitchchen = require('../../images/speakers/pitchchen.jpg');
-var vickichiu = require('../../images/speakers/vickichiu.jpg');
-var diro = require('../../images/speakers/diro.jpg');
-var leonlin = require('../../images/speakers/leonlin.jpg');
-var jack = require('../../images/speakers/jack.jpg');
-var jollen = require('../../images/speakers/jollen.jpg');
-var ponli = require('../../images/speakers/ponli.jpg');
-var alexlau = require('../../images/speakers/alexlau.jpg');
-var jeremylu = require('../../images/speakers/jeremylu.jpg');
-var simonsun = require('../../images/speakers/simonsun.jpg');
-var dca = require('../../images/speakers/dca.jpg');
-var smlsun = require('../../images/speakers/smlsun.jpg');
-var threeDwang = require('../../images/speakers/3dwang.jpg');
-var threeDtseng = require('../../images/speakers/3dtseng.jpg');
-var fredchien = require('../../images/speakers/fredchien.jpg');
-var arklabchuang = require('../../images/speakers/arklabchuang.jpg');
-var sungheng = require('../../images/speakers/sungheng.jpg');
+var jserv = require('Source/images/speakers/jserv.jpg');
+var pcman = require('Source/images/speakers/pcman.png');
+var hcchien = require('Source/images/speakers/hcchien.png');
+var benjai = require('Source/images/speakers/benjai.jpg');
+var pitchchen = require('Source/images/speakers/pitchchen.jpg');
+var vickichiu = require('Source/images/speakers/vickichiu.jpg');
+var diro = require('Source/images/speakers/diro.jpg');
+var leonlin = require('Source/images/speakers/leonlin.jpg');
+var jack = require('Source/images/speakers/jack.jpg');
+var jollen = require('Source/images/speakers/jollen.jpg');
+var ponli = require('Source/images/speakers/ponli.jpg');
+var alexlau = require('Source/images/speakers/alexlau.jpg');
+var jeremylu = require('Source/images/speakers/jeremylu.jpg');
+var simonsun = require('Source/images/speakers/simonsun.jpg');
+var dca = require('Source/images/speakers/dca.jpg');
+var smlsun = require('Source/images/speakers/smlsun.jpg');
+var threeDwang = require('Source/images/speakers/3dwang.jpg');
+var threeDtseng = require('Source/images/speakers/3dtseng.jpg');
+var fredchien = require('Source/images/speakers/fredchien.jpg');
+var arklabchuang = require('Source/images/speakers/arklabchuang.jpg');
+var sungheng = require('Source/images/speakers/sungheng.jpg');
+var imacat = require('Source/images/speakers/imacat.jpg');
 
 export default function *() {
 	var store = this.getState('Speakers', {
@@ -48,6 +49,12 @@ export default function *() {
 				'nameEn': 'Ben Jai',
 				'introduce': '和沛科技 CEO，台大數學系、紐約大學電腦科學系博士，曾擔任貝爾實驗室研究員、史坦普及美林證券顧問、紐約大學講師、GOOGLE 平台架構工程師、台達電雲端技術處資深處長。',
 				'img': benjai
+			},
+			{
+				'nameCn': '伊瑪貓',
+				'nameEn': 'Imacat',
+				'introduce': '熱衷於女權運動，積極推動女性參與技術社群，是台灣女性 IT 社群的主要推手，為 WoFOSS 台灣女子自由軟體工作小組成員、PyLadies Taiwan 成員與同志家庭權益促進會成員。也是資深 Hacker 和自由軟體開發者，目前為 OpenOffice 開發管理團隊成員，更參與 EducOOo/OOo4Kids 和 Greenfoot 台灣社群，日前也協助籌劃 Ignite 2015 國際女子黑客松活動，讓台灣的女性開發者與全球高手交流。',
+				'img': imacat
 			},
 			{
 				'nameCn': '陳碧芬',

@@ -55,8 +55,8 @@ class LandingPage extends React.Component {
 	}
 
 	about = () => {
-		var $node = $(this.refs.app_section.getDOMNode());
-		var $header = $(React.findDOMNode(this.refs.header));
+		var $node = $(this.refs.app_section);
+		var $header = $(this.refs.header);
 
 		$('html, body').stop().animate({
 			scrollTop: $node.offset().top - $header.height()
@@ -94,15 +94,10 @@ class LandingPage extends React.Component {
 				</div>
 				
 				<section className="videos" style={ sectionStyle }>
-					<Videos />
 				</section>
 
 				<section className="introduce section-green" style={ sectionStyle }>
 					<Introduce />
-				</section>
-
-				<section className="map" style={ sectionStyle } onClick={ this.makeScroll } onMouseLeave={ this.removeScroll }>
-					<HackathonMap scrollStyle={ scrollStyle } />
 				</section>
 
 				<section className="works section-white" style={ sectionStyle } ref='app_section'>
@@ -129,5 +124,13 @@ class LandingPage extends React.Component {
 		);
 	}
 }
+/*
+				<section className="videos" style={ sectionStyle }>
+					<Videos />
+				</section>
 
+				<section className="map" style={ sectionStyle } onClick={ this.makeScroll } onMouseLeave={ this.removeScroll }>
+					<HackathonMap scrollStyle={ scrollStyle } />
+				</section>
+*/
 export default LandingPage;
