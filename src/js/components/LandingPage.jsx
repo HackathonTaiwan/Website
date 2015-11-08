@@ -25,6 +25,9 @@ import avatar1 from 'Source/images/avatar-1.png';
 import avatar2 from 'Source/images/avatar-2.png';
 import avatar3 from 'Source/images/avatar-3.png';
 
+// Images
+import testImage from 'Source/images/speakers/leonlin.jpg';
+
 var descStyle = {
 	fontSize: '1.5em'
 };
@@ -93,7 +96,53 @@ class LandingPage extends React.Component {
 					</Link>
 				</div>
 				
-				<section className="videos" style={ sectionStyle }>
+				<section style={ sectionStyle }>
+					<div className='ui centered link cards'>
+
+						<div className='card'>
+							<div className='image'>
+								<img src={testImage} />
+							</div>
+							<div className='content'>
+								<div className='header'>公開你的作品吧</div>
+								<div className='meta'>創新發表亮相</div>
+								<div className='description'>最棒的新創作品都在此發表或報導，無論是活動上創作還是日常作品，都可以在此找到！更重要的是，可以與廣大的社群朋友及真正的業界專家相互交流。</div>
+							</div>
+						</div>
+
+						<div className='card'>
+							<div className='image'>
+								<img src={testImage} />
+							</div>
+							<div className='content'>
+								<div className='header'>幫你辦活動</div>
+								<div className='meta'>活動承辦、設計執行、網路解決方案</div>
+								<div className='description'>我們擁有國內外數十場大大小小的活動籌辦及執行經驗，處理過數百人高負載的無線網路需求，如果貴單位有任何委外辦理黑客松或任何與科技相關的活動，歡迎與我們洽詢。</div>
+							</div>
+						</div>
+
+						<div className='card'>
+							<div className='image'>
+								<img src={testImage} />
+							</div>
+							<div className='content'>
+								<div className='header'>手把手教到你會</div>
+								<div className='meta'>實務教育訓練與工作坊課程</div>
+								<div className='description'>我們擁有嚴選的業界講師，無論初學班還是進階班，皆採用明確有主題的工作坊教學方式，一步步的帶你真正動手由淺入深，循序漸進學習最新的議題和熱門技術。</div>
+							</div>
+						</div>
+
+						<div className='card'>
+							<div className='image'>
+								<img src={testImage} />
+							</div>
+							<div className='content'>
+								<div className='header'>人才、工作幫你找</div>
+								<div className='meta'>尋找你要的人才或熱血工作</div>
+								<div className='description'>黑客松台灣擁有一群熱愛技術並不斷追求卓越的技術人才，只要提供你的人才需求，我們能為您快速篩選並傳遞徵才訊息。如有需要，我們也能替您做前期面談篩選，以節省您的時間。</div>
+							</div>
+						</div>
+					</div>
 				</section>
 
 				<section className="introduce section-green" style={ sectionStyle }>
