@@ -113,6 +113,7 @@ class EventList extends React.Component {
 	}
 }
 
+@i18n
 class InputPanel extends React.Component {
 	constructor() {
 		super();
@@ -173,7 +174,7 @@ class InputPanel extends React.Component {
 								ref='input'
 								rows={this.state.rows}
 								style={textareaStyle}
-								placeholder='Say something...'
+								placeholder={this.i18n.getMessage('hackathon_room_page.input_placeholder', 'Say something...')}
 								onKeyDown={this.onKeyDown}
 								onChange={this.handleChange} />
 						</div>
@@ -182,7 +183,7 @@ class InputPanel extends React.Component {
 				<div className='ui horizontal list'>
 					<div className='ui checkbox item' ref='enterToSend'>
 						<input type='checkbox' defaultChecked={this.state.enterToSend} />
-						<label>按「Enter」直接傳送</label>
+						<label><I18n sign='hackathon_room_page.press_enter_to_send'>Press enter to send</I18n></label>
 					</div>
 				</div>
 			</div>

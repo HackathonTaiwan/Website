@@ -80,4 +80,6 @@ var translation = module.exports = {
 	'hackathon_reg.website': '官方活動網站或是專頁',
 	'hackathon_reg.submit_button': '登記註冊',
 	'hackathon_room_page.title': '%s | 即時交流區',
+	'hackathon_room_page.input_placeholder': '輸入訊息...',
+	'hackathon_room_page.press_enter_to_send': '按「Enter」直接傳送',
 };
