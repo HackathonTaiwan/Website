@@ -62,7 +62,8 @@ class EventList extends React.Component {
 			top: 0,
 			zIndex: 10000,
 			background: 'rgba(0,0,0,0.8)',
-			boxShadow: '0 0 3px rgba(255,255,255,0.8)'
+			boxShadow: '0 0 3px rgba(255,255,255,0.8)',
+			minWidth: '350px'
 		};
 
 		var listviewStyle = {
