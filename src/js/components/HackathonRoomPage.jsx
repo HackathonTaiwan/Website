@@ -239,12 +239,23 @@ class HackathonRoomPage extends React.Component {
 		return (
 			<div className='main-page'>
 				<Header ref='header' title={this.i18n.getFmtMessage('hackathon_room_page.title', '%s | Chat Channel', this.flux.getState('Service').name)} />
-				<div className='ui basic segment'>
-					
+				<div style={style} className='ui basic segment'>
+					<div className='ui icon message'>
+						<i className='user icon' />
+						這是測試訊息。
+					</div>
+
+					<div className='ui icon message'>
+						<i className='user icon' />
+						這是測試訊息。
+					</div>
+
+					<div className='ui icon message'>
+						<i className='user icon' />
+						這是測試訊息。
+					</div>
 				</div>
-				<div style={style}>
-					<InputPanel />
-				</div>
+				<InputPanel />
 			</div>
 		);
 	}
