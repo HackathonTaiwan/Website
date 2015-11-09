@@ -242,17 +242,26 @@ class HackathonRoomPage extends React.Component {
 				<div style={style} className='ui basic segment'>
 					<div className='ui icon message'>
 						<i className='user icon' />
-						這是測試訊息。
+						<div className='content'>
+							<div className='header'>Fred Chien</div>
+							<div>這是測試訊息。</div>
+						</div>
 					</div>
 
 					<div className='ui icon message'>
 						<i className='user icon' />
-						這是測試訊息。
+						<div className='content'>
+							<div className='header'>Stacy Lee</div>
+							<div>這是測試訊息。</div>
+						</div>
 					</div>
 
 					<div className='ui icon message'>
 						<i className='user icon' />
-						這是測試訊息。
+						<div className='content'>
+							<div className='header'>Fred Chien</div>
+							<div>這是測試訊息。</div>
+						</div>
 					</div>
 				</div>
 				<InputPanel />
