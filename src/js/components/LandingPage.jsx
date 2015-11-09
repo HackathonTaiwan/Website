@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import { Link } from 'react-router';
 
 // Components
@@ -58,11 +59,11 @@ class LandingPage extends React.Component {
 	}
 
 	about = () => {
-		var $node = $(this.refs.app_section);
-		var $header = $(this.refs.header);
+		var $node = $(ReactDOM.findDOMNode(this.refs.app_section));
+		var $header = $(ReactDOM.findDOMNode(this.refs.header));
 
 		$('html, body').stop().animate({
-			scrollTop: $node.offset().top - $header.height()
+			scrollTop: $node.offset().top - $header.height() + 1
 		}, 400);
 	}
 
