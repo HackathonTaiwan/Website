@@ -7,6 +7,7 @@ var translation = module.exports = {
 	'landing_page.entry_button': '瞭解更多',
 	'landing_page.map_button': '哪裡有黑客松活動',
 	'landing_page.reg_event_button': '註冊你的活動',
+	'landing_page.join_room_button': '進入即時交流區',
 	'landing_page.app_section.title': '快速打造線上服務',
 	'landing_page.app_section.desc': 'Lantern 提供基礎樣板架構，協助您免折騰、快速建立最潮的 Isomorphic 網站應用程式。',
 	'landing_page.tech_section.title': '時下最潮技術',
@@ -77,5 +78,6 @@ var translation = module.exports = {
 	'hackathon_reg.address_sample': '台北市大同區承德路三段 232 號 B2',
 	'hackathon_reg.registration': '活動報名頁面',
 	'hackathon_reg.website': '官方活動網站或是專頁',
-	'hackathon_reg.submit_button': '登記註冊'
+	'hackathon_reg.submit_button': '登記註冊',
+	'hackathon_room_page.title': '%s | 即時交流區',
 };

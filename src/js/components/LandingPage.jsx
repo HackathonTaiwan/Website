@@ -95,6 +95,12 @@ class LandingPage extends React.Component {
 							<I18n sign='landing_page.reg_event_button'>Register Your Event</I18n>
 						</button>
 					</Link>
+					<br />
+					<Link to='/hackathon/room'>
+						<button className={'big ui inverted button'}>
+							<I18n sign='landing_page.join_room_button'>Join Chat Channel</I18n>
+						</button>
+					</Link>
 				</div>
 				
 				<section style={ sectionStyle }>
