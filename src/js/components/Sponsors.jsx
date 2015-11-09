@@ -19,6 +19,7 @@ var Qt = require('../../images/logos/Qt-logo-medium.png');
 var sivann = require('../../images/logos/sivann.png');
 var symbio = require('../../images/logos/symbio.png');
 var vivotek = require('../../images/logos/vivotek.png');
+var letschool = require('../../images/logos/letschool.png');
 
 class Sponsors extends React.Component {
 	openModal = () => {
@@ -52,6 +53,9 @@ class Sponsors extends React.Component {
 							</div>
 							<div className="column">
 								<a href="http://www.tldc.com.tw/main/" target="_blank"><img className="ui fluid rounded image" src={ taiwanLand } /></a>
+							</div>
+							<div className="column">
+								<a href="http://letschool.com" target="_blank"><img className="ui fluid rounded image" src={ letschool } /></a>
 							</div>
 							<div className="column">
 								<a href="http://www.accupass.com/" target="_blank"><img className="ui fluid rounded image" src={ accupass } /></a>
