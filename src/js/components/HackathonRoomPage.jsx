@@ -113,9 +113,86 @@ class EventList extends React.Component {
 	}
 }
 
+class InputPanel extends React.Component {
+	constructor() {
+		super();
+
+		this.state = {
+			rows: 1,
+			enterToSend: true
+		};
+	}
+
+	componentDidMount() {
+
+		$(this.refs.enterToSend).checkbox({
+			onChecked: function() {
+				this.setState({
+					enterToSend: true
+				});
+			}.bind(this),
+			onUnchecked: function() {
+				this.setState({
+					enterToSend: false
+				});
+			}.bind(this)
+		});
+	}
+
+	onKeyDown = (event) => {
+
+		// Key code for enter
+		if (event.keyCode === 13) {
+
+			if (this.state.enterToSend && !event.shiftKey) {
+				
+				event.preventDefault();
+				alert('!!!');
+			}
+		}
+	}
+
+	handleChange = () => {
+		this.setState({
+			rows: this.refs.input.value.split('\n').length
+		});
+	}
+
+	render() {
+
+		var textareaStyle = {
+//			resize: 'none'
+		};
+
+		return (
+			<div className={'ui bottom fixed menu nav grid'}>
+				<div className='row'>
+					<div className='ui form sixteen wide column'>
+						<div className='field'>
+							<textarea
+								ref='input'
+								rows={this.state.rows}
+								style={textareaStyle}
+								placeholder='Say something...'
+								onKeyDown={this.onKeyDown}
+								onChange={this.handleChange} />
+						</div>
+					</div>
+				</div>
+				<div className='ui horizontal list'>
+					<div className='ui checkbox item' ref='enterToSend'>
+						<input type='checkbox' defaultChecked={this.state.enterToSend} />
+						<label>按「Enter」直接傳送</label>
+					</div>
+				</div>
+			</div>
+		);
+	}
+}
+
 @flux
 @i18n
-class HackathonMapPage extends React.Component {
+class HackathonRoomPage extends React.Component {
 
 	constructor(props, context) {
 		super();
@@ -161,13 +238,17 @@ class HackathonMapPage extends React.Component {
 		return (
 			<div className='main-page'>
 				<Header ref='header' title={this.i18n.getFmtMessage('hackathon_room_page.title', '%s | Chat Channel', this.flux.getState('Service').name)} />
+				<div className='ui basic segment'>
+					
+				</div>
 				<div style={style}>
-					<HackathonMap height={this.state.winHeight - this.state.offsetHeight} />
-					<EventList height={this.state.winHeight - this.state.offsetHeight - 100} />
+					<InputPanel />
 				</div>
 			</div>
 		);
 	}
 }
+//					<HackathonMap height={this.state.winHeight - this.state.offsetHeight} />
+//					<EventList height={this.state.winHeight - this.state.offsetHeight - 100} />
 
-export default HackathonMapPage;
+export default HackathonRoomPage;
