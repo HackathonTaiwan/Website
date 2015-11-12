@@ -1,6 +1,7 @@
 var fs = require('fs');
 var path = require('path');
 var webpack = require('webpack');
+var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 var configs = module.exports = [
 	{
@@ -28,6 +29,9 @@ var configs = module.exports = [
 				'window.moment': 'moment'
 			}),
 			new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js'),
+			new CopyWebpackPlugin([
+				{ from: 'node_modules/socket.io-client/socket.io.js' }
+			]),
 			new webpack.optimize.OccurenceOrderPlugin(),
 		    new webpack.HotModuleReplacementPlugin(),
 			new webpack.NoErrorsPlugin()

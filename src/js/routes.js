@@ -28,6 +28,10 @@ module.exports = [
 		handler: require('./components/HackathonRoomPage.jsx')
 	},
 	{
+		path: '/hackathon/room/:id',
+		handler: require('./components/HackathonRoomPage.jsx')
+	},
+	{
 		path: '/signin',
 		handler: SignInPage
 	},

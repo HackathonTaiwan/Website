@@ -24,6 +24,8 @@ var Passport = require('./lib/passport');
 var Member = require('./lib/member');
 var Middleware = require('./lib/middleware');
 var Localization = require('./lib/localization');
+var SocketIO = require('./lib/socketio');
+var Chatroom = require('./lib/chatroom');
 
 var app = koa();
 
@@ -228,8 +230,12 @@ co(function *() {
 	});
 	app.use(localization.middleware());
 
+	// Initializing Socket IO
+	var io = yield SocketIO.init(app);
+	yield Chatroom.init(io);
+
 	// Start the server
-	app.listen(settings.general.server.port, function() {
+	app.server.listen(settings.general.server.port, function() {
 		console.log('server is running at port', settings.general.server.port);
 	});
 });

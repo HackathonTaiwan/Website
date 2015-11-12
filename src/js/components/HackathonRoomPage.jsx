@@ -5,108 +5,119 @@ import I18n from 'Extension/I18n.jsx';
 
 // Components
 import Header from './Header.jsx';
-import HackathonMap from './HackathonMap.jsx';
 
 // Decorators
-import { flux, i18n, page, preAction } from 'Decorator';
+import { flux, i18n, page, loader, preAction } from 'Decorator';
 
-@flux
-@i18n
-@page((handle) => {
-	return {
-		title: handle.i18n.getFmtMessage('hackathon_room_page.title', '%s | Chat Channel', handle.flux.getState('Service').name)
-	};
-})
-@preAction('HackathonMap.fetch')
-class EventList extends React.Component {
-	constructor(props, context) {
+class Room extends React.Component {
+
+	constructor() {
 		super();
 
-		var store = context.flux.getState('HackathonMap');
-
 		this.state = {
-			events: store.hackathons,
-			sorted: store.hackathons.slice(0).sort(function(a, b) {
-				return b.start - a.start;
-			})
+			toEnd: true,
+			inputHeight: 0
 		};
 	}
 
-	componentWillMount() {
-		this.flux.on('state.HackathonMap', this.flux.bindListener(this.onChange));
-	}
+	componentDidUpdate() {
+		var $inputPanel = $(ReactDOM.findDOMNode(this.refs.input_panel));
 
-	componentWillUnmount() {
-		this.flux.off('state.HackathonMap', this.onChange);
-	}
+		// Scroll to end automatically
+		if (this.state.toEnd) {
+			var $msgBox = $(this.refs.message_box);
+			$msgBox.scrollTop($msgBox[0].scrollHeight);
+		}
 
-	onChange = () => {
-		var store = this.flux.getState('HackathonMap');
+		if (this.state.inputHeight == $inputPanel.height())
+			return;
 
 		this.setState({
-			events: store.hackathons,
-			sorted: store.hackathons.slice(0).sort(function(a, b) {
-				return b.start - a.start;
-			})
+			inputHeight: $inputPanel.height()
 		});
 	}
 
-	takeFocus = (id) => {
-		this.flux.dispatch('action.HackathonMap.takeFocus', id);
+	sizeChange = () =>  {
+		var $inputPanel = $(ReactDOM.findDOMNode(this.refs.input_panel));
+
+		this.setState({
+			inputHeight: $inputPanel.height()
+		});
 	}
 
 	render() {
-		var style = {
-			position: 'absolute',
-			left: '30px',
-			top: 0,
-			zIndex: 10000,
-			background: 'rgba(0,0,0,0.8)',
-			boxShadow: '0 0 3px rgba(255,255,255,0.8)'
-		};
 
-		var listviewStyle = {
-			height: this.props.height,
-			overflowX: 'hidden'
-		};
+		// Loading all messages in this room
+		var messages = [];
+		this.props.room.messages.forEach(function(msg, index) {
+			var lines = msg.content.split('\n');
 
-		var list = [];
-		this.state.sorted.map(function(e, index) {
-			list.push(
-				<div className='item' onMouseEnter={this.takeFocus.bind(this, e._id)} key={index}>
-					<div className='left floated content'>
-						<div className={'ui ' + (e.expired ? 'grey' : 'green') + ' tiny label'}>
-							{e.startdate}
-						</div>
+			var content = [];
+			lines.forEach(function(line, index) {
+				content.push(
+					<div key={index}>{line}</div>
+				);
+			});
+
+			messages.push(
+				<div className='item' key={index}>
+					<i className='huge user icon' />
+					<div className='content'>
+						<div className='ui right floated tiny basic label'>{window.moment(msg.ts).format('HH:mm')}</div>
+						<div className='header'>{msg.name}</div>
+						<div className='description'>{content}</div>
 					</div>
-					<div className='left floated content'>
-						{e.name}
-					</div>
-					{(() => {
-						if (!e.expired)
-							return (
-								<div className='right floated content'>
-									<a href={e.registration}>
-										<p className="ui olive empty circular label">&nbsp;</p>
-									</a>
-								</div>
-							);
-					})()}
 				</div>
 			);
-		}.bind(this));
+/*
+			messages.push(
+				<div className='ui icon message' key={index}>
+					<i className='top aligned user icon' />
+					<div className='content'>
+						<div className='header'>{msg.name}</div>
+						<div>{content}</div>
+					</div>
+				</div>
+			);
+*/
+		});
+
+		var style = this.props.style || {};
+		var containerStyle = {
+			position: 'relative',
+			height: style.height || undefined
+		};
+		var msgBoxStyle = {
+			position: 'relative',
+			overflow: 'auto',
+			height: style.height - this.state.inputHeight,
+			margin: 0
+		};
+		var spaceStyle = {
+			minHeight: style.height - this.state.inputHeight,
+			width: '100%'
+		};
+		var inputPanelStyle = {
+			margin: 0
+		};
 
 		return (
-			<div style={style} className='ui inverted segment'>
-				<div className='ui blue ribbon label'><I18n sign='hackathon_map.upcoming'>Upcoming Hackathons</I18n></div>
-				<Link to='/hackathon/reg'>
-					<div className='ui large orange top right attached label'>
-						<i className='add square icon' />
-						<span> <I18n sign='hackathon_map.post'>Post Your Hackathon</I18n></span>
+			<div ref='component' style={this.props.style}>
+				<div style={containerStyle}>
+
+					<div ref='message_box' style={msgBoxStyle}>
+						<div style={spaceStyle}></div>
+						<div className='ui basic segment'>
+							<div className='ui items'>
+							{messages}
+							</div>
+						</div>
 					</div>
-				</Link>
-				<div style={listviewStyle} className='ui inverted divided selection list'>
-					{list}
+					<InputPanel
+						ref='input_panel'
+						room={this.props.room}
+						onResize={this.sizeChange.bind(this)}
+						style={inputPanelStyle} />
 				</div>
 			</div>
 		);
@@ -114,13 +125,15 @@ class EventList extends React.Component {
 }
 
 @i18n
+@flux
 class InputPanel extends React.Component {
 	constructor() {
 		super();
 
 		this.state = {
 			rows: 1,
-			enterToSend: true
+			enterToSend: true,
+			height: 0
 		};
 	}
 
@@ -138,6 +151,25 @@ class InputPanel extends React.Component {
 				});
 			}.bind(this)
 		});
+
+		this.setState({
+			height: $(this.refs.component).height()
+		});
+
+		this.sizeChange();
+	}
+
+	componentDidUpdate() {
+		var height = $(this.refs.component).height();
+
+		if (this.state.height == height)
+			return;
+
+		this.setState({
+			height: height
+		});
+
+		this.sizeChange();
 	}
 
 	onKeyDown = (event) => {
@@ -148,25 +180,54 @@ class InputPanel extends React.Component {
 			if (this.state.enterToSend && !event.shiftKey) {
 				
 				event.preventDefault();
-				alert('!!!');
+
+				this.send();
 			}
 		}
 	}
 
 	handleChange = () => {
+		var rows = this.refs.input.value.split('\n').length;
+
 		this.setState({
-			rows: this.refs.input.value.split('\n').length
+			rows: rows > 10 ? 10 : rows
 		});
+	}
+
+	send = () => {
+
+		if (!this.refs.input.value)
+			return;
+
+		var user = this.flux.getState('User');
+
+		this.flux.dispatch('action.Room.sendMessage', {
+			from: user.id,
+			to: this.props.room.id,
+			content: this.refs.input.value,
+			ts: Date.now(),
+			name: user.name
+		});
+
+		this.refs.input.value = '';
+		this.handleChange();
+	}	
+
+	sizeChange = () => {
+		if (this.props.onResize)
+			this.props.onResize();
 	}
 
 	render() {
 
 		var textareaStyle = {
-//			resize: 'none'
+			resize: 'none'
 		};
+			//<div className={'ui bottom fixed menu nav grid'}>
 
+			//<div ref='component' style={this.props.style} className={'ui menu nav grid'}>
 		return (
-			<div className={'ui bottom fixed menu nav grid'}>
+			<div ref='component' style={this.props.style} className={'ui menu nav grid'}>
 				<div className='row'>
 					<div className='ui form sixteen wide column'>
 						<div className='field'>
@@ -178,12 +239,24 @@ class InputPanel extends React.Component {
 								onKeyDown={this.onKeyDown}
 								onChange={this.handleChange} />
 						</div>
-					</div>
-				</div>
-				<div className='ui horizontal list'>
-					<div className='ui checkbox item' ref='enterToSend'>
-						<input type='checkbox' defaultChecked={this.state.enterToSend} />
-						<label><I18n sign='hackathon_room_page.press_enter_to_send'>Press enter to send</I18n></label>
+						<div className='inline two fields'>
+							<div className='field'>
+								<div className='ui checkbox' ref='enterToSend'>
+									<input type='checkbox' defaultChecked={this.state.enterToSend} />
+									<label><I18n sign='hackathon_room_page.press_enter_to_send'>Press enter to send</I18n></label>
+								</div>
+							</div>
+							<div className='field'>
+								<div className='ui right floated tiny animated fade teal button' onClick={this.send}>
+									<div className='visible content'>
+										<i className='send icon' />
+									</div>
+									<div className='hidden content'>
+										<I18n sign='hackathon_room_page.send_button'>Send</I18n>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -193,25 +266,38 @@ class InputPanel extends React.Component {
 
 @flux
 @i18n
+@loader
 class HackathonRoomPage extends React.Component {
 
 	constructor(props, context) {
 		super();
 
 		var win = context.flux.getState('Window');
+		var Room = context.flux.getState('Room');
+
 		this.state = {
 			winWidth: win.width,
 			winHeight: win.height,
-			offsetHeight: 0
+			offsetHeight: 0,
+			rooms: Room.rooms
 		};
 	}
 
 	componentWillMount() {
 		this.flux.on('state.Window', this.flux.bindListener(this.updateDimensions));
+		this.flux.on('state.Room', this.flux.bindListener(this.updateRoom));
 	}
 
 	componentDidMount() {
 		var $header = $(ReactDOM.findDOMNode(this.refs.header));
+
+		// Loading socket.io library
+		this.loader.script('/assets/socket.io.js', function() {
+
+			// Initializing
+			this.flux.dispatch('action.Room.init', this.props.params.id);
+		}.bind(this));
+
 		this.setState({
 			offsetHeight: $header.height()
 		});
@@ -219,6 +305,7 @@ class HackathonRoomPage extends React.Component {
 
 	componentWillUnmount() {
 		this.flux.off('state.Window', this.updateDimensions);
+		this.flux.off('state.Room', this.updateRoom);
 	}
 
 	updateDimensions = () => {
@@ -230,46 +317,35 @@ class HackathonRoomPage extends React.Component {
 		});
 	}
 
+	updateRoom = () => {
+		var store = this.flux.getState('Room');
+
+		this.setState({
+			rooms: store.rooms
+		});
+	}
+
 	render() {
 		var style = {
 			position: 'relative',
-			top: this.state.offsetHeight + 'px'
+			top: this.state.offsetHeight + 'px',
+			height: this.state.winHeight - this.state.offsetHeight,
+			overflow: 'hidden'
 		};
 
 		return (
 			<div className='main-page'>
 				<Header ref='header' title={this.i18n.getFmtMessage('hackathon_room_page.title', '%s | Chat Channel', this.flux.getState('Service').name)} />
-				<div style={style} className='ui basic segment'>
-					<div className='ui icon message'>
-						<i className='user icon' />
-						<div className='content'>
-							<div className='header'>Fred Chien</div>
-							<div>這是測試訊息。</div>
-						</div>
-					</div>
-
-					<div className='ui icon message'>
-						<i className='user icon' />
-						<div className='content'>
-							<div className='header'>Stacy Lee</div>
-							<div>這是測試訊息。</div>
-						</div>
-					</div>
-
-					<div className='ui icon message'>
-						<i className='user icon' />
-						<div className='content'>
-							<div className='header'>Fred Chien</div>
-							<div>這是測試訊息。</div>
-						</div>
-					</div>
+				<div style={style}>
+					{(() => {
+						if (this.props.params.id && this.state.rooms.hasOwnProperty(this.props.params.id)) {
+							return <Room style={{ height: this.state.winHeight - this.state.offsetHeight }} room={this.state.rooms[this.props.params.id]} />;
+						}
+					})()}
 				</div>
-				<InputPanel />
 			</div>
 		);
 	}
 }
-//					<HackathonMap height={this.state.winHeight - this.state.offsetHeight} />
-//					<EventList height={this.state.winHeight - this.state.offsetHeight - 100} />
 
 export default HackathonRoomPage;

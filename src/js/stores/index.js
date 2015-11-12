@@ -18,5 +18,6 @@ export default {
 	admin_roles: admin_roles,
 	admin_role: admin_role,
 	speakers: speakers,
-	hackathon_map: require('./hackathon_map')
+	hackathon_map: require('./hackathon_map'),
+	room: require('./room')
 };
