@@ -5,6 +5,7 @@ import I18n from 'Extension/I18n.jsx';
 
 // Components
 import Header from './Header.jsx';
+import Avatar from './Avatar.jsx';
 
 // Decorators
 import { flux, i18n, page, loader, preAction } from 'Decorator';
@@ -61,7 +62,9 @@ class Room extends React.Component {
 
 			messages.push(
 				<div className='item' key={index}>
-					<i className='huge user icon' />
+					<div className='ui image'>
+						<Avatar hash={msg.avatar_hash} size={24} />
+					</div>
 					<div className='content'>
 						<div className='ui right floated tiny basic label'>{window.moment(msg.ts).format('HH:mm')}</div>
 						<div className='header'>{msg.name}</div>
@@ -203,10 +206,11 @@ class InputPanel extends React.Component {
 
 		this.flux.dispatch('action.Room.sendMessage', {
 			from: user.id,
+			avatar_hash: user.avatar_hash,
+			name: user.name,
 			to: this.props.room.id,
 			content: this.refs.input.value,
-			ts: Date.now(),
-			name: user.name
+			ts: Date.now()
 		});
 
 		this.refs.input.value = '';
