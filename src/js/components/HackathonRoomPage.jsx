@@ -62,7 +62,7 @@ class Room extends React.Component {
 
 			messages.push(
 				<div className='item' key={index}>
-					<div className='ui image'>
+					<div className='ui mini image'>
 						<Avatar hash={msg.avatar_hash} size={24} />
 					</div>
 					<div className='content'>
@@ -268,6 +268,91 @@ class InputPanel extends React.Component {
 	}
 }
 
+@preAction('HackathonMap.fetch')
+class HackathonLobby extends React.Component {
+
+	constructor(props, context) {
+		super();
+
+		var store = context.flux.getState('HackathonMap');
+
+		this.state = {
+			events: store.hackathons,
+			sorted: store.hackathons.slice(0).sort(function(a, b) {
+				return b.start - a.start;
+			})
+		};
+	}
+
+	componentWillMount() {
+		this.flux.on('state.HackathonMap', this.flux.bindListener(this.onChange));
+	}
+
+	componentWillUnmount() {
+		this.flux.off('state.HackathonMap', this.onChange);
+	}
+
+	onChange = () => {
+		var store = this.flux.getState('HackathonMap');
+
+		this.setState({
+			events: store.hackathons,
+			sorted: store.hackathons.slice(0).sort(function(a, b) {
+				return b.start - a.start;
+			})
+		});
+	}
+	render() {
+		var style = {
+			background: 'rgba(0,0,0,0.8)',
+			boxShadow: '0 0 3px rgba(255,255,255,0.8)',
+			minWidth: '350px'
+		};
+
+		var listviewStyle = {
+			height: this.props.height,
+			overflowX: 'hidden'
+		};
+
+		var list = [];
+		this.state.sorted.map(function(e, index) {
+			list.push(
+				<a href={'/hackathon/room/hackthon_' + e._id} className='item' key={index}>
+					<div className='left floated content'>
+						<div className={'ui ' + (e.expired ? 'grey' : 'green') + ' tiny label'}>
+							{e.startdate}
+						</div>
+					</div>
+					<div className='left floated content'>
+						{e.name}
+					</div>
+				</a>
+			);
+		}.bind(this));
+
+		return (
+			<div className='ui padded basic segment'>
+				<div className='ui center aligned grid'>
+					<div className='ui center aligned compact basic segment'>
+						<div className='ui icon header'>
+							<i className='comments outline icon' />
+							<div className='content'>
+								<I18n sign='hackathon_lobby.header'>Chat Channels</I18n>
+								<div className='sub header'>
+									<I18n sign='hackathon_lobby.subheader'>Choice a hackathon what you want</I18n>
+								</div>
+							</div>
+						</div>
+						<div style={listviewStyle} className='ui divided selection list'>
+							{list}
+						</div>
+					</div>
+				</div>
+			</div>
+		);
+	}
+}
+
 @flux
 @i18n
 @loader
@@ -344,6 +429,8 @@ class HackathonRoomPage extends React.Component {
 					{(() => {
 						if (this.props.params.id && this.state.rooms.hasOwnProperty(this.props.params.id)) {
 							return <Room style={{ height: this.state.winHeight - this.state.offsetHeight }} room={this.state.rooms[this.props.params.id]} />;
+						} else {
+							return <HackathonLobby />
 						}
 					})()}
 				</div>

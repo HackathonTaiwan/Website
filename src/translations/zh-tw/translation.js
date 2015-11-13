@@ -82,4 +82,6 @@ var translation = module.exports = {
 	'hackathon_room_page.title': '%s | 即時交流區',
 	'hackathon_room_page.input_placeholder': '輸入訊息...',
 	'hackathon_room_page.press_enter_to_send': '按「Enter」直接傳送',
+	'hackathon_lobby.header': '即時交流區',
+	'hackathon_lobby.subheader': '選擇你喜歡的黑客松活動吧',
 };
