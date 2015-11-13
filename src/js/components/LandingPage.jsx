@@ -27,7 +27,10 @@ import avatar2 from 'Source/images/avatar-2.png';
 import avatar3 from 'Source/images/avatar-3.png';
 
 // Images
-import testImage from 'Source/images/speakers/leonlin.jpg';
+import speaker from 'Source/images/speaker.png';
+import event from 'Source/images/event.png';
+import jobs from 'Source/images/jobs.png';
+import compones from 'Source/images/compones.png';
 
 var descStyle = {
 	fontSize: '1.5em'
@@ -106,9 +109,9 @@ class LandingPage extends React.Component {
 				<section style={ sectionStyle }>
 					<div className='ui centered link cards'>
 
-						<div className='card'>
+						<div className='card remove-border'>
 							<div className='image'>
-								<img src={testImage} />
+								<img src={speaker} />
 							</div>
 							<div className='content'>
 								<div className='header'>公開你的作品吧</div>
@@ -117,20 +120,9 @@ class LandingPage extends React.Component {
 							</div>
 						</div>
 
-						<div className='card'>
+						<div className='card remove-border'>
 							<div className='image'>
-								<img src={testImage} />
-							</div>
-							<div className='content'>
-								<div className='header'>幫你辦活動</div>
-								<div className='meta'>活動承辦、設計執行、網路解決方案</div>
-								<div className='description'>我們擁有國內外數十場大大小小的活動籌辦及執行經驗，處理過數百人高負載的無線網路需求，如果貴單位有任何委外辦理黑客松或任何與科技相關的活動，歡迎與我們洽詢。</div>
-							</div>
-						</div>
-
-						<div className='card'>
-							<div className='image'>
-								<img src={testImage} />
+								<img src={compones} />
 							</div>
 							<div className='content'>
 								<div className='header'>手把手教到你會</div>
@@ -139,9 +131,20 @@ class LandingPage extends React.Component {
 							</div>
 						</div>
 
-						<div className='card'>
+						<div className='card remove-border'>
 							<div className='image'>
-								<img src={testImage} />
+								<img src={event} />
+							</div>
+							<div className='content'>
+								<div className='header'>幫你辦活動</div>
+								<div className='meta'>活動承辦、設計執行、網路解決方案</div>
+								<div className='description'>我們擁有國內外數十場大大小小的活動籌辦及執行經驗，處理過數百人高負載的無線網路需求，如果貴單位有任何委外辦理黑客松或任何與科技相關的活動，歡迎與我們洽詢。</div>
+							</div>
+						</div>
+
+						<div className='card remove-border'>
+							<div className='image'>
+								<img src={jobs} />
 							</div>
 							<div className='content'>
 								<div className='header'>人才、工作幫你找</div>
