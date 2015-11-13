@@ -429,7 +429,9 @@ class HackathonRoomPage extends React.Component {
 					{(() => {
 						if (this.props.params.id && this.state.rooms.hasOwnProperty(this.props.params.id)) {
 							return <Room style={{ height: this.state.winHeight - this.state.offsetHeight }} room={this.state.rooms[this.props.params.id]} />;
-						} else {
+						}
+
+						if (!this.props.params.id) {
 							return <HackathonLobby />
 						}
 					})()}
