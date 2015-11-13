@@ -28,6 +28,7 @@ module.exports = [
 		handler: require('./components/HackathonRoomPage.jsx')
 	},
 	{
+		allow: 'user.access',
 		path: '/hackathon/room/:id',
 		handler: require('./components/HackathonRoomPage.jsx')
 	},

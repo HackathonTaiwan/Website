@@ -109,7 +109,8 @@ class Room extends React.Component {
 				<div style={containerStyle}>
 
 					<div ref='message_box' style={msgBoxStyle}>
-						<div style={spaceStyle}></div>
+						<div style={spaceStyle}>
+						</div>
 						<div className='ui basic segment'>
 							<div className='ui items'>
 							{messages}
