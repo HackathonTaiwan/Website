@@ -48,7 +48,10 @@ export default function *() {
 			console.log(e);
 		}
 /*
-		return;
+		if (this.isBrowser) {
+			return;
+		}
+
 		var listUrl = 'https://spreadsheets.google.com/feeds/list/1wt8JVUmTEmwBPRqPI_ZjMxjjNNDNpcLUGwxhCXzJlHY/otnjarj/public/values?alt=json&orderby=column:startdate&reverse=true';
 
 		try {
@@ -61,8 +64,6 @@ export default function *() {
 			}
 
 			var data = res.body;
-			store.hackathons = [];
-			store.focused = null;
 			
 			for (var index in data.feed.entry) {
 				var event = data.feed.entry[index];
@@ -70,25 +71,36 @@ export default function *() {
 				pos[0] = parseFloat(pos[0]);
 				pos[1] = parseFloat(pos[1]);
 
-				var expired = false;
-				if (Date.now() - 86400000 > Date.parse(event['gsx$startdate'].$t.split(' ')[0]))
-					expired = true;
+				var dateRange = [];
+				dateRange.push(moment(event['gsx$startdate'].$t.split(' ')[0]).valueOf());
 
-				store.hackathons.push({
-					id: event['id'].$t,
+				if (event['gsx$enddate'].$t)
+					dateRange.push(moment(event['gsx$enddate'].$t.split(' ')[0]).valueOf());
+
+				console.log({
 					name: event['gsx$name'].$t,
 					desc: event['gsx$desc'].$t,
-					location: event['gsx$location'].$t,
+					daterange: dateRange,
+					loc: event['gsx$location'].$t,
 					address: event['gsx$address'].$t,
-					startdate: event['gsx$startdate'].$t.split(' ')[0],
 					registration: event['gsx$registration'].$t,
 					website: event['gsx$website'].$t,
-					expired: expired,
-					pos: pos
+					latlng: pos
 				});
+
+				this.dispatch('action.HackathonMap.register', {
+					name: event['gsx$name'].$t,
+					desc: event['gsx$desc'].$t,
+					daterange: dateRange,
+					loc: event['gsx$location'].$t,
+					address: event['gsx$address'].$t,
+					registration: event['gsx$registration'].$t,
+					website: event['gsx$website'].$t,
+					latlng: pos
+				});
+
 			}
 
-			this.dispatch('state.HackathonMap');
 		} catch(e) {
 			console.log(e);
 		}

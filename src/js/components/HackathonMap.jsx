@@ -119,7 +119,8 @@ class HackathonMap extends React.Component {
 		$('<div>').addClass('description').append(event.address).appendTo($loc);
 
 		// Links
-		var $links = $('<div>').addClass('ui two bottom attached buttons');
+		//var $links = $('<div>').addClass('ui two bottom attached buttons');
+		var $links = $('<div>').addClass('ui two attached buttons');
 		var $registration = $('<a>')
 			.attr('href', event['registration'])
 			.attr('target', '_blank')
@@ -149,6 +150,23 @@ class HackathonMap extends React.Component {
 				.append('<i class="info icon"></i>' + this.i18n.getMessage('hackathon_map.more_info', 'More Info'));
 		}
 		$links.appendTo($container);
+
+		// Chatroom
+//		var $chatroom = $('<div>').addClass('ui bottom attached buttons');
+		var $chatroom_link = $('<a>')
+			.attr('href', '/hackathon/room/hackthon_' + event._id)
+			.attr('target', '_blank')
+			.css({
+				marginLeft: -1,
+				marginRight: -1
+			})
+			.appendTo($container);
+			$chatroom_link
+				.addClass('ui orange bottom attached button')
+				.append('<i class="comments outline icon"></i>' + this.i18n.getMessage('hackathon_map.chatroom_button', 'Enter to Chatroom'));
+
+//		$chatroom.appendTo($container);
+
 
 		// Create a new marker
 		var marker = L.marker(event.pos, {

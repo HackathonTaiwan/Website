@@ -59,6 +59,7 @@ var translation = module.exports = {
 	'hackathon_map.register_now': '立即線上報名',
 	'hackathon_map.more_info': '更多活動資訊',
 	'hackathon_map.event_over': '活動已經結束',
+	'hackathon_map.chatroom_button': '進入即時交流區',
 	'hackathon_reg_page.title': '%s | 註冊你的黑客松活動',
 	'hackathon_reg_page.success_header': '您的活動已經登記成功！',
 	'hackathon_reg_page.backtomap': '回到黑客松地圖',
