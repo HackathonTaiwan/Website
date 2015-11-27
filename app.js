@@ -124,6 +124,7 @@ app.use(require('./routes/admin/permission').middleware());
 app.use(require('./routes/admin/roles').middleware());
 app.use(require('./routes/admin/role').middleware());
 app.use(require('./routes/map').middleware());
+app.use(require('./routes/event').middleware());
 
 co(function *() {
 

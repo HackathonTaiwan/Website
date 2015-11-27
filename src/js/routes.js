@@ -24,6 +24,14 @@ module.exports = [
 		handler: require('./components/HackathonRegPage.jsx')
 	},
 	{
+		path: '/event/:id',
+		handler: require('./components/EventPage.jsx')
+	},
+	{
+		path: '/event/:id/join',
+		handler: require('./components/JoinEventPage.jsx')
+	},
+	{
 		path: '/hackathon/room',
 		handler: require('./components/HackathonRoomPage.jsx')
 	},
