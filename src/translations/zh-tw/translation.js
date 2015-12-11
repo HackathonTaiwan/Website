@@ -95,4 +95,5 @@ var translation = module.exports = {
 	'hackathon_room_page.press_enter_to_send': '按「Enter」直接傳送',
 	'hackathon_lobby.header': '即時交流區',
 	'hackathon_lobby.subheader': '選擇你喜歡的黑客松活動吧',
+	'event_registration_page.step_filling': '填寫',
 };

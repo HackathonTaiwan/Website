@@ -28,8 +28,14 @@ module.exports = [
 		handler: require('./components/EventPage.jsx')
 	},
 	{
-		path: '/event/:id/join',
-		handler: require('./components/JoinEventPage.jsx')
+		allow: 'user.access',
+		path: '/ticket/:id',
+		handler: require('./components/TicketPage.jsx')
+	},
+	{
+		allow: 'user.access',
+		path: '/event/:id/reg',
+		handler: require('./components/EventRegistrationPage.jsx')
 	},
 	{
 		path: '/hackathon/room',

@@ -1,29 +1,16 @@
-import moment from 'moment';
 
 export default function *() {
 
-	var store = this.getState('Event', {
-		_id: '',
-		name: '',
-		desc: '',
-		address: '',
-		start: 0,
-		startdate: '',
-		website: '',
-		available: false,
-		registered: 0,
-		quota: 0,
-		pos: [],
-		hasTicket: false
-	});
+	this.on('action.EventRegistration.signUp', function *(id, params) {
 
-	this.on('store.Event.fetch', function *(id) {
+		params.eventId = id;
 
 		try {
 			var res = yield this.request
-				.get('/api/event/' + id)
-				.query();
+				.post('/api/tickets')
+				.send(params);
 
+/*
 			var event = res.body;
 			var m = moment(event.start);
 
@@ -36,13 +23,10 @@ export default function *() {
 			store.startdate = m.format('YYYY/MM/DD');
 			store.website = event['website'];
 			store.pos = event['geo'];
-			store.quota = event['quota'];
-			store.registered = event['registered'];
-			store.hasTicket = event['hasTicket'];
-			store.available = event['available'];
 
-			console.log(store);
 			this.dispatch('state.Event');
+*/
+			this.dispatch('action.EventRegistration.registered', res.body);
 		} catch(e) {
 			console.log(e);
 		}

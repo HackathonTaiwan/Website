@@ -20,5 +20,7 @@ export default {
 	speakers: speakers,
 	hackathon_map: require('./hackathon_map'),
 	room: require('./room'),
-	event: require('./event')
+	event: require('./event'),
+	ticket: require('./Ticket'),
+	EventRegistration: require('./EventRegistration')
 };
