@@ -8,6 +8,9 @@ import Loader from 'Extension/Loader.jsx';
 // Components
 import Header from './Header.jsx';
 
+// Images
+import bannerImage from 'Source/images/event_banner.jpg';
+
 // Decorators
 import { flux, router, page, i18n, loader, preAction } from 'Decorator';
 
@@ -148,6 +151,10 @@ class TicketPage extends React.Component {
 			lineHeight: '160%'
 		};
 
+		var bannerStyle = {
+			background: 'rgb(21, 177, 201) url(\'' + bannerImage + '\') no-repeat center center'
+		};
+
 		var ticket = this.flux.getState('Ticket');
 
 		return (
@@ -156,7 +163,7 @@ class TicketPage extends React.Component {
 
 				<RefundConfirm ref='refundConfirm' onApprove={this.handleRefund} />
 
-				<div className={'ui basic center aligned segment landing-page-header'}>
+				<div className={'ui basic center aligned segment landing-page-header'} style={bannerStyle}>
 					<div className='ui basic segment' style={{ position: 'absolute', bottom: 0, width: '96%' }}>
 						<a href={'/event/' + ticket.event._id}>
 							<button className={'big ui inverted animated fade button'}>
