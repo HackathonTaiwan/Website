@@ -10,8 +10,8 @@ var id = argv._[0];
 
 var co = require('co');
 var Database = require('../lib/database');
-var Hackathon = require('../lib/Hackathon');
-var Event = require('../lib/Event');
+var Hackathon = require('../lib/hackathon');
+var Event = require('../lib/event');
 
 co(function *() {
 	yield Database.init();
