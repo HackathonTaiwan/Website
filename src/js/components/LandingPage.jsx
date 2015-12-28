@@ -85,9 +85,7 @@ class LandingPage extends React.Component {
 						<I18n sign='landing_page.slogn'>Where you can easily and beautifully share what you build, and how you make.</I18n>
 					</h2>
 					<br />
-					<button className={'big ui inverted button'} onClick={this.about}>
-						<I18n sign='landing_page.entry_button'>What is this</I18n>
-					</button>
+					
 					<Link to='/HackathonMap'>
 						<button className={'big ui inverted button'}>
 							<I18n sign='landing_page.map_button'>Hackathon Map</I18n>
@@ -98,12 +96,15 @@ class LandingPage extends React.Component {
 							<I18n sign='landing_page.reg_event_button'>Register Your Event</I18n>
 						</button>
 					</Link>
-					<br />
 					<Link to='/hackathon/room'>
 						<button className={'big ui inverted button'}>
 							<I18n sign='landing_page.join_room_button'>Join Chat Channel</I18n>
 						</button>
 					</Link>
+					<br />
+					<button className={'big ui inverted button'} onClick={this.about}>
+						<I18n sign='landing_page.entry_button'>What is this</I18n>
+					</button>
 				</div>
 				
 				<section style={ sectionStyle }>

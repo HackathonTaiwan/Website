@@ -70,6 +70,12 @@ export default function *() {
 				'img': vickichiu
 			},
 			{
+				'nameCn': '林能為',
+				'nameEn': 'Wayne Lin',
+				'introduce': 'University College London 科技創業所碩士畢業後，曾經為夢想學校、嘖嘖、三創服務。目前為 Seeed Studio 台灣區負責人。夢想是能夠協助更多的科技創新產生，除了是狂熱的科技宅外，也喜歡看職業運動，最愛 Lakers 跟 Barca。',
+				'img': waynelin
+			},
+			{
 				'nameCn': '林為志',
 				'nameEn': 'Leon Lin',
 				'introduce': '會寫程式的畫家、藝術家及設計師，擅長 UI/UX 、平面、攝影及藝術創作與賞析，除了油畫創作外，也擅長Web相關的開發技術。熟悉的程式技術以 WEB FULLSTACK 為主，也擅長 QML 使用者界面的相關開發。',
@@ -158,12 +164,6 @@ export default function *() {
 				'nameEn': 'Sung Heng',
 				'introduce': '梅林鬍子實驗室 MERLINS MUSTACHE LAB 所長，從 2006 年開始，致力於互動設計與新媒體藝術創作。曾受邀展演於台北數位藝術節、北京夏日數字娛樂節、高雄國際貨櫃藝術節、404 FESTIVAL、巴西FILE PRIX LUX 以及阿根廷TSONAMI BUENOS AIRES 國際聲響藝術節、超旅程–2012 未來媒體藝術節、荷蘭TODAYSART FESTIVAL 等國內外具指標性之重要藝術活動。',
 				'img': sungheng
-			},
-			{
-				'nameCn': '林能為',
-				'nameEn': 'Wayne Lin',
-				'introduce': 'University College London 科技創業所碩士畢業後，曾經為夢想學校、嘖嘖、三創服務。目前為 Seeed Studio 台灣區負責人。夢想是能夠協助更多的科技創新產生，除了是狂熱的科技宅外，也喜歡看職業運動，最愛 Lakers 跟 Barca。',
-				'img': waynelin
 			}
 		]
 	});

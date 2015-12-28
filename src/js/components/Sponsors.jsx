@@ -2,7 +2,6 @@ import React from 'react';
 import I18n from 'Extension/I18n.jsx';
 
 var tss = require('../../images/logos/tss.png');
-var pearnature = require('../../images/logos/pearnature.png');
 var averger = require('../../images/logos/averger.png');
 var taiwanLand = require('../../images/logos/taiwan-land.png');
 var custard = require('../../images/logos/custard.png');
@@ -20,6 +19,8 @@ var sivann = require('../../images/logos/sivann.png');
 var symbio = require('../../images/logos/symbio.png');
 var vivotek = require('../../images/logos/vivotek.png');
 var letschool = require('../../images/logos/letschool.png');
+var ucrobotics = require('../../images/logos/ucrobotics.png');
+var makerbot = require('../../images/logos/makerbot.png');
 
 class Sponsors extends React.Component {
 	openModal = () => {
@@ -41,9 +42,6 @@ class Sponsors extends React.Component {
 						<div className="ui doubling six column grid">
 							<div className="column">
 								<a href="http://www.startupstadium.tw/" target="_blank"><img className="ui fluid rounded image" src={ tss } /></a>
-							</div>
-							<div className="column">
-								<a href="#" target="_blank"><img className="ui fluid rounded image" src={ pearnature } /></a>
 							</div>
 							<div className="column">
 								<a href="#" target="_blank"><img className="ui fluid rounded image" src={ averger } /></a>
@@ -95,6 +93,12 @@ class Sponsors extends React.Component {
 							</div>
 							<div className="column">
 								<a href="http://vvtk-digest.blogspot.tw/" target="_blank"><img className="ui fluid rounded image" src={ vivotek } /></a>
+							</div>
+							<div className="column">
+								<a href="http://www.ucrobotics.com.cn" target="_blank"><img className="ui fluid rounded image" src={ ucrobotics } /></a>
+							</div>
+							<div className="column">
+								<a href="http://makerbot3d.asia" target="_blank"><img className="ui fluid rounded image" src={ makerbot } /></a>
 							</div>
 						</div>
 					</div>
