@@ -46,6 +46,25 @@ router.get('/api/event/:id', function *() {
 	};
 });
 
+router.get('/api/self/tickets', Middleware.requireAuthorized, function *() {
+
+	try {
+		// Get tickets
+		var tickets = yield Ticket.getTicketsByOwner(this.state.user.id, { validOnly: true });
+		if (!tickets) {
+			this.status = 404;
+			return;
+		}
+	} catch(e) {
+		this.status = 500;
+		return;
+	}
+
+	this.body = {
+		tickets: tickets
+	};
+});
+
 router.get('/api/ticket/:id', Middleware.requireAuthorized, function *() {
 
 	try {

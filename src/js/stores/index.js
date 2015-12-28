@@ -22,5 +22,6 @@ export default {
 	room: require('./room'),
 	event: require('./event'),
 	ticket: require('./Ticket'),
+	tickets: require('./Tickets'),
 	EventRegistration: require('./EventRegistration')
 };

@@ -24,6 +24,11 @@ module.exports = [
 		handler: require('./components/HackathonRegPage.jsx')
 	},
 	{
+		allow: 'user.access',
+		path: '/self/tickets',
+		handler: require('./components/MyTicketsPage.jsx')
+	},
+	{
 		path: '/event/:id',
 		handler: require('./components/EventPage.jsx')
 	},

@@ -126,6 +126,10 @@ class Header extends React.Component {
 						<span><Avatar hash={this.state.user.avatar_hash} size={20} /> <span>{this.state.user.name}</span></span>
 						<i className='dropdown icon'></i>
 						<div className='menu'>
+							<Link to='/self/tickets' className='item'>
+								<i className='calendar icon'></i>
+								<I18n sign='header.menu.events'>My Tickets</I18n>
+							</Link>
 							<Link to='/settings' className='item'>
 								<i className='settings icon'></i>
 								<I18n sign='header.menu.settings'>Settings</I18n>
