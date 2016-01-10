@@ -317,6 +317,10 @@ class HackathonLobby extends React.Component {
 
 		var list = [];
 		this.state.sorted.map(function(e, index) {
+
+			if (!e.available)
+				return;
+
 			list.push(
 				<a href={'/hackathon/room/hackthon_' + e._id} className='item' key={index}>
 					<div className='left floated content'>
