@@ -183,10 +183,6 @@ class EventPage extends React.Component {
 				<div className={'ui hidden divider'} />
 
 				<div className={'ui basic center aligned padded segment'}>
-					<h1 className={'ui header'} style={{ fontSize: '40px' }}>
-						<span>{this.state.event.name}</span>
-					</h1>
-
 					<div className='ui centered stackable grid'>
 						<div className='twelve wide column' style={style}>
 							<div className='ui basic segment'>
