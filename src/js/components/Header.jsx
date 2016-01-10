@@ -128,8 +128,20 @@ class Header extends React.Component {
 						<div className='menu'>
 							<Link to='/self/tickets' className='item'>
 								<i className='calendar icon'></i>
-								<I18n sign='header.menu.events'>My Tickets</I18n>
+								<I18n sign='header.menu.my_tickets'>已經報名的活動</I18n>
 							</Link>
+							{(() => {
+								if (!this.state.user.permissions.admin)
+									return;
+
+								return (
+									<Link to='/self/events' className='item'>
+										<i className='soccer icon'></i>
+										<I18n sign='header.menu.my_events'>我發起的活動</I18n>
+									</Link>
+								);
+							})()}
+							<div className='ui fitted divider'></div>
 							<Link to='/settings' className='item'>
 								<i className='settings icon'></i>
 								<I18n sign='header.menu.settings'>Settings</I18n>

@@ -98,6 +98,10 @@ class EventPage extends React.Component {
 			background: 'rgb(21, 177, 201) url(\'' + bannerImage + '\') no-repeat center center'
 		};
 
+		var progressStyle = {
+			boxShadow: '0 0 5px rgba(255,255,200,.9), 0 0 5px rgba(255,255,255,.9), inset 0 0 5px rgba(0,0,0,.5)'
+		};
+
 		return (
 			<div className='main-page'>
 				<Header ref='header' autoTransform={true} />
@@ -128,7 +132,7 @@ class EventPage extends React.Component {
 									</div>
 									<div className='ui centered grid'>
 										<div className='four wide column'>
-											<div ref='progress' className={this.getProgressBarStyle()} data-value={this.state.event.registered} data-total={this.state.event.quota}>
+											<div ref='progress' style={progressStyle} className={this.getProgressBarStyle()} data-value={this.state.event.registered} data-total={this.state.event.quota}>
 												<div className='bar' />
 											</div>
 										</div>
@@ -173,10 +177,11 @@ class EventPage extends React.Component {
 				<div className={'ui hidden divider'} />
 
 				<div className={'ui basic center aligned padded segment'}>
+					<h1 className={'ui header'} style={{ fontSize: '40px' }}>
+						<span>{this.state.event.name}</span>
+					</h1>
+
 					<div className='ui centered stackable grid'>
-						<h1 className={'ui header'} style={{ fontSize: '40px' }}>
-							<span>{this.state.event.name}</span>
-						</h1>
 						<div className='twelve wide column' style={style}>
 							<div className='ui basic segment'>
 								<div className='ui list'>

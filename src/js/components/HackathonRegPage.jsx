@@ -9,6 +9,7 @@ import Loader from 'Extension/Loader.jsx';
 
 // Components
 import Header from './Header.jsx';
+import EventRegistrationSettings from './EventRegistrationSettings.jsx';
 
 // Decorators
 import { flux, page, i18n, loader } from 'Decorator';
@@ -33,6 +34,22 @@ class RegisteredPage extends React.Component {
 							</h1>
 
 							<div className='ui segment shadow'>
+
+								{(() => {
+									if (this.props.enabledReg) {
+										return (
+											<div className='ui yellow icon message'>
+												<i className='warning sign icon' />
+												<div className='content'>
+													<div className='header'>注意！此活動還不會被顯示在黑客松地圖上！</div>
+													<p>您的活動雖然已經登記成功，但因為「尚未對外開放報名」，所以還不會顯示在黑客松地圖上。若想要對外開放報名，可以進入活動管理頁面進行開放報名。</p>
+													<a href={'/self/event/' + this.props.data._id} className='ui green button'><i className='options icon' />管理我的活動</a>
+												</div>
+											</div>
+										);
+									}
+								})()}
+
 								<div className='ui teal big ribbon label'>
 									<div className='content'>{this.props.data.name}</div>
 								</div>
@@ -52,15 +69,30 @@ class RegisteredPage extends React.Component {
 										<i className='world icon' />
 										<div className='content'>{this.props.data.website}</div>
 									</div>
-									<div className='item'>
-										<i className='anchor icon' />
-										<div className='content'>{this.props.data.registration}</div>
-									</div>
+									{(() => {
+										if (this.props.enabledReg) {
+											return (
+												<div className='item'>
+													<i className='anchor icon' />
+													<div className='content'>
+														<div>報名上限人數：{this.props.data.quota}</div>
+														<div>報名截止時間：{window.moment(this.props.data.deadline).format('YYYY/MM/DD HH:mm')}</div>
+													</div>
+												</div>
+											)
+										} else {
+											return (
+												<div className='item'>
+													<i className='anchor icon' />
+													<div className='content'>{this.props.data.registration}</div>
+												</div>
+											);
+										}
+									})()}
 								</div>
 
 								<div className='ui green basic segment' dangerouslySetInnerHTML={{ __html: this.props.data.desc.replace(/\n/g,'<br />')}}>
 								</div>
-
 							</div>
 
 							<Link to='/HackathonMap'>
@@ -119,10 +151,26 @@ class ConfirmPage extends React.Component {
 										<i className='world icon' />
 										<div className='content'>{this.props.data.website}</div>
 									</div>
-									<div className='item'>
-										<i className='anchor icon' />
-										<div className='content'>{this.props.data.registration}</div>
-									</div>
+									{(() => {
+										if (this.props.enabledReg) {
+											return (
+												<div className='item'>
+													<i className='anchor icon' />
+													<div className='content'>
+														<div>報名上限人數：{this.props.data.quota}</div>
+														<div>報名截止時間：{window.moment(this.props.data.deadline).format('YYYY/MM/DD HH:mm')}</div>
+													</div>
+												</div>
+											)
+										} else {
+											return (
+												<div className='item'>
+													<i className='anchor icon' />
+													<div className='content'>{this.props.data.registration}</div>
+												</div>
+											);
+										}
+									})()}
 								</div>
 
 								<div className='ui green basic segment' dangerouslySetInnerHTML={{ __html: this.props.data.desc.replace(/\n/g,'<br />')}}>
@@ -167,6 +215,7 @@ class HackathonRegPage extends React.Component {
 
 		var win = context.flux.getState('Window');
 		this.state = {
+			user: context.flux.getState('User'),
 			winWidth: win.width,
 			winHeight: win.height,
 			geocoder: null,
@@ -180,18 +229,24 @@ class HackathonRegPage extends React.Component {
 				address: '',
 				registration: '',
 				website: '',
-				latlng: []
+				latlng: [],
+				quota: 100,
+				deadline: ''
 			},
+			enabledReg: false,
 			confirm: false
 		};
 	}
 
 	componentWillMount() {
+		this.flux.on('state.User', this.flux.bindListener(this.onChange));
 		this.flux.on('state.Window', this.flux.bindListener(this.updateDimensions));
 		this.flux.on('state.HackathonMap', this.flux.bindListener(this.onHackathonMapChanged));
+		this.flux.on('state.EventRegister', this.flux.bindListener(this.onEventRegisterChanged));
 	}
 
 	componentDidMount() {
+		var self = this;
 
 		// Initializing Geocoder API
 		this.loader.script('https://maps.google.com/maps/api/js?sensor=true', function() {
@@ -206,14 +261,139 @@ class HackathonRegPage extends React.Component {
 		});
 
 		this.state.fields.daterange = this.state.daterange.getSelected();
+
+		// Built-in registration
+		$(this.refs.builtin_registration).checkbox({
+			onChecked: function() {
+				self.setState({
+					enabledReg: true
+				});
+			},
+			onUnchecked: function() {
+				self.setState({
+					enabledReg: false
+				});
+			}
+		});
+
+		// Built-in registration
+		$(this.refs.msg_builtin_registration).checkbox({
+			onChecked: function() {
+				self.setState({
+					enabledReg: true
+				});
+			},
+			onUnchecked: function() {
+				self.setState({
+					enabledReg: false
+				});
+			}
+		});
 	}
 
 	componentWillUnmount() {
+		this.flux.off('state.User', this.onChange);
 		this.flux.off('state.Window', this.updateDimensions);
 		this.flux.off('state.HackathonMap', this.onHackathonMapChanged);
+		this.flux.off('state.EventRegister', this.onEventRegisterChanged);
 	}
 
 	initializeForm = () => {
+
+		var fields = {
+			name: {
+				identifier: 'name',
+				rules: [
+					{
+						type: 'empty',
+						prompt: 'Please enter a event name'
+					}
+				]
+			},
+			desc: {
+				identifier: 'desc',
+				rules: [
+					{
+						type: 'empty',
+						prompt: 'Please describe your event'
+					}
+				]
+			},
+			daterange: {
+				identifier: 'daterange',
+				rules: [
+					{
+						type: 'empty',
+						prompt: 'Please pick valid date'
+					}
+				]
+			},
+			location: {
+				identifier: 'location',
+				rules: [
+					{
+						type: 'empty',
+						prompt: 'Please describe your event location'
+					}
+				]
+			},
+			address: {
+				identifier: 'address',
+				rules: [
+					{
+						type: 'empty',
+						prompt: 'Please enter address'
+					}
+				]
+			},
+			website: {
+				identifier: 'website',
+				optional: true,
+				rules: [
+					{
+						type: 'url',
+						prompt: 'Please enter valid URL'
+					}
+				]
+			}
+		};
+
+		if (this.state.enabledReg) {
+
+			this.state.fields.quota = this.refs.registration.quota;
+			this.state.fields.deadline = this.refs.registration.deadline;
+
+			// Using built-in registration
+			fields['quota'] = {
+				identifier: 'quota',
+				rules: [
+					{
+						type: 'minCount[1]',
+						prompt: 'You have to set a valid number'
+					}
+				]
+			};
+
+			fields['deadline'] = {
+				identifier: 'deadline',
+				rules: [
+					{
+						type: 'empty',
+						prompt: 'Please pick valid date'
+					}
+				]
+			};
+		} else {
+			fields['registration'] = {
+				identifier: 'registration',
+				rules: [
+					{
+						type: 'url',
+						prompt: 'Please enter valid registration URL'
+					}
+				]
+			};
+		}
 
 		// Initializing form verification
 		$(this.refs.form).form({
@@ -222,72 +402,14 @@ class HackathonRegPage extends React.Component {
 			onSuccess: function() {
 				this.confirm();
 			}.bind(this),
-			fields: {
-				name: {
-					identifier: 'name',
-			        rules: [
-						{
-							type: 'empty',
-							prompt: 'Please enter a event name'
-						}
-					]
-				},
-				desc: {
-					identifier: 'desc',
-			        rules: [
-						{
-							type: 'empty',
-							prompt: 'Please describe your event'
-						}
-					]
-				},
-				daterange: {
-					identifier: 'daterange',
-			        rules: [
-						{
-							type: 'empty',
-							prompt: 'Please pick valid date'
-						}
-					]
-				},
-				location: {
-					identifier: 'location',
-			        rules: [
-						{
-							type: 'empty',
-							prompt: 'Please describe your event location'
-						}
-					]
-				},
-				address: {
-					identifier: 'address',
-			        rules: [
-						{
-							type: 'empty',
-							prompt: 'Please enter address'
-						}
-					]
-				},
-				registration: {
-					identifier: 'registration',
-			        rules: [
-						{
-							type: 'url',
-							prompt: 'Please enter valid registration URL'
-						}
-					]
-				},
-				website: {
-					identifier: 'website',
-					optional: true,
-			        rules: [
-						{
-							type: 'url',
-							prompt: 'Please enter valid URL'
-						}
-					]
-				}
-			}
+			fields: fields
+		});
+	}
+
+	onChange = () => {
+
+		this.setState({
+			user: this.flux.getState('User')
 		});
 	}
 
@@ -305,6 +427,17 @@ class HackathonRegPage extends React.Component {
 		this.setState({
 			registered: store.registered
 		});
+	}
+
+	onEventRegisterChanged = () => {
+
+		var eventRegister = this.flux.getState('EventRegister');
+
+		if (eventRegister.success) {
+			this.setState({
+				registered: eventRegister.data
+			});
+		}
 	}
 
 	verify = () => {
@@ -339,19 +472,39 @@ class HackathonRegPage extends React.Component {
 					return;
 				}
 
-				this.flux.dispatch('action.HackathonMap.register', {
+				this.flux.dispatch('action.EventRegister.create', {
 					name: this.state.fields.name,
 					desc: this.state.fields.desc,
 					daterange: dateRange,
 					loc: this.state.fields.loc,
 					address: this.state.fields.address,
-					registration: this.state.fields.registration,
+					quota: this.state.fields.quota,
+					deadline: this.state.fields.deadline,
 					website: this.state.fields.website,
+					registration: !this.state.enabledReg ? this.state.fields.registration : '',
 					latlng: [
 						results[0].geometry.location.lat(),
 						results[0].geometry.location.lng()
 					]
 				});
+/*
+				if (this.state.enabledReg) {
+				} else {
+					this.flux.dispatch('action.HackathonMap.register', {
+						name: this.state.fields.name,
+						desc: this.state.fields.desc,
+						daterange: dateRange,
+						loc: this.state.fields.loc,
+						address: this.state.fields.address,
+						registration: this.state.fields.registration,
+						website: this.state.fields.website,
+						latlng: [
+							results[0].geometry.location.lat(),
+							results[0].geometry.location.lng()
+						]
+					});
+				}
+*/
 			}.bind(this));
 		}
 	}
@@ -375,20 +528,31 @@ class HackathonRegPage extends React.Component {
 		var desc = this.refs.desc.value;
 		var loc = this.refs.location.value;
 		var address = this.refs.address.value;
-		var registration = this.refs.registration.value;
 		var website = this.refs.website.value;
 		var daterange = this.refs.daterange.value;
 
+		var fields = {
+			name: name,
+			desc: desc,
+			daterange: daterange,
+			loc: loc,
+			address: address,
+			website: website,
+			quota: this.state.fields.quota,
+			deadline: this.state.fields.deadline,
+			registration: this.state.fields.registration
+		};
+
+		// Using built-in registration
+		if (this.state.enabledReg) {
+			fields['quota'] = this.refs.registration.quota;
+			fields['deadline'] = this.refs.registration.deadline;
+		} else {
+			fields['registration'] = this.refs.registration.value;
+		}
+
 		this.setState({
-			fields: {
-				name: name,
-				desc: desc,
-				daterange: daterange,
-				loc: loc,
-				address: address,
-				registration: registration,
-				website: website
-			}
+			fields: fields
 		});
 	}
 
@@ -396,11 +560,11 @@ class HackathonRegPage extends React.Component {
 		var fieldClass = 'field';
 
 		if (Object.keys(this.state.registered).length) {
-			return <RegisteredPage data={this.state.registered} />;
+			return <RegisteredPage data={this.state.registered} enabledReg={this.state.enabledReg} />;
 		}
 
 		if (this.state.confirm) {
-			return <ConfirmPage data={this.state.fields} edit={this.edit} register={this.register} />;
+			return <ConfirmPage data={this.state.fields} enabledReg={this.state.enabledReg} edit={this.edit} register={this.register} />;
 		}
 
 		return (
@@ -421,6 +585,27 @@ class HackathonRegPage extends React.Component {
 							</h1>
 
 							<div ref='form' className={'ui form segment shadow'}>
+
+									{(() => {
+										if (!this.state.user.permissions.admin)
+											return;
+
+										return (
+											<div className='ui olive icon message'>
+												<i className='star icon' />
+												<div className='content'>
+													<div className='header'>新功能上線！</div>
+													<p>你現在可以開始使用黑客松台灣提供的「報名系統」，為您的活動開放報名。</p>
+													<div className='ui toggle checkbox' ref='msg_builtin_registration'>
+														<input type='checkbox' checked={this.state.enabledReg} />
+														<label>
+															<span>關閉/啟用</span>
+														</label>
+													</div>
+												</div>
+											</div>
+										);
+									})()}
 
 									<div className='ui red ribbon label'><I18n sign='hackathon_reg.name'>Hackathon Name or Topic</I18n></div>
 									<div className={fieldClass}>
@@ -498,20 +683,36 @@ class HackathonRegPage extends React.Component {
 									</div>
 
 									<div className='ui yellow ribbon label'><I18n sign='hackathon_reg.registration'>Registration Page</I18n></div>
-									<div className={fieldClass}>
-										<label></label>
-										<div className={'ui left icon input'}>
-											<i className={'flag icon'} />
-											<input
-												type='text'
-												ref='registration'
-												name='registration'
-												value={this.state.fields.registration}
-												onChange={this.handleChange}
-												onBlur={this.handleChange}
-												placeholder='https://hackathon.tw/registration' />
-										</div>
+									<div className='ui checkbox' ref='builtin_registration'>
+										<input type='checkbox' checked={this.state.enabledReg} />
+										<label>
+											<span>使用內建的活動報名機制</span>
+											<div className='ui left pointing red mini basic label'>新功能！</div>
+										</label>
 									</div>
+									{(() => {
+										if (this.state.enabledReg) {
+											var dates = this.state.daterange.getSelectedRaw();
+											return <EventRegistrationSettings ref='registration' defaultDeadline={dates[0].subtract({ days: 1 })} onChange={this.handleChange} />;
+										} else {
+											return (
+												<div className={fieldClass}>
+													<label></label>
+													<div className={'ui left icon input'}>
+														<i className={'flag icon'} />
+														<input
+															type='text'
+															ref='registration'
+															name='registration'
+															value={this.state.fields.registration}
+															onChange={this.handleChange}
+															onBlur={this.handleChange}
+															placeholder='https://hackathon.tw/registration' />
+													</div>
+												</div>
+											);
+										}
+									})()}
 
 									<div className='ui brown ribbon label'><I18n sign='hackathon_reg.website'>Official Website</I18n></div>
 									<div className={fieldClass}>
@@ -521,7 +722,6 @@ class HackathonRegPage extends React.Component {
 											<input
 												type='text'
 												ref='website'
-												name='website'
 												value={this.state.fields.website}
 												onChange={this.handleChange}
 												onBlur={this.handleChange}

@@ -174,7 +174,16 @@ co(function *() {
 		if (route.redirect) {
 			(function(route) {
 				router.get(route.path, function *() {
-					this.redirect(route.redirect);
+					var redirectPath = route.redirect;
+
+					// Reuse params
+					for (var key in this.params) {
+						var param = this.params[key];
+
+						redirectPath = redirectPath.replace(':' + key, param);
+					}
+
+					this.redirect(redirectPath);
 				});
 			})(route);
 			continue;

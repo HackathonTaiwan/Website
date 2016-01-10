@@ -20,6 +20,7 @@ module.exports = [
 		handler: require('./components/HackathonMapPage.jsx')
 	},
 	{
+		allow: 'user.access',
 		path: '/hackathon/reg',
 		handler: require('./components/HackathonRegPage.jsx')
 	},
@@ -27,6 +28,19 @@ module.exports = [
 		allow: 'user.access',
 		path: '/self/tickets',
 		handler: require('./components/MyTicketsPage.jsx')
+	},
+	{
+		allow: 'user.access',
+		path: '/self/events',
+		handler: require('./components/MyEventsPage.jsx')
+	},
+	{
+		path: '/self/event/:id',
+		redirect: '/self/event/:id/profile'
+	},
+	{
+		path: '/self/event/:id/:category',
+		handler: require('./components/Event/EventMgrPage.jsx')
 	},
 	{
 		path: '/event/:id',

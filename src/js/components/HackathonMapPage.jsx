@@ -73,6 +73,10 @@ class EventList extends React.Component {
 
 		var list = [];
 		this.state.sorted.map(function(e, index) {
+
+			if (!e.available)
+				return;
+
 			list.push(
 				<div className='item' onMouseEnter={this.takeFocus.bind(this, e._id)} key={index}>
 					<div className='left floated content'>

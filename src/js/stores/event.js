@@ -13,6 +13,8 @@ export default function *() {
 		available: false,
 		registered: 0,
 		quota: 0,
+		deadline: '',
+		available: false,
 		pos: [],
 		hasTicket: false
 	});
@@ -41,10 +43,21 @@ export default function *() {
 			store.hasTicket = event['hasTicket'];
 			store.available = event['available'];
 
-			console.log(store);
 			this.dispatch('state.Event');
 		} catch(e) {
 			console.log(e);
 		}
+	});
+
+	this.on('store.Event.update', function *(updates) {
+		for (var key in updates) {
+			store[key] = updates[key];
+		}
+
+		this.dispatch('state.Event');
+	});
+
+	this.on('action.Event.failure', function(err) {
+		this.dispatch('state.EventRegister');
 	});
 };

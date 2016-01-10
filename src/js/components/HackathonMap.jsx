@@ -54,6 +54,10 @@ class HackathonMap extends React.Component {
 			var bounds = [];
 			for (var index in this.state.events) {
 				var event = this.state.events[index];
+
+				if (!event.available)
+					continue;
+
 				bounds.push(event.pos);
 
 				this.addMarker(event);

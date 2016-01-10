@@ -1,6 +1,7 @@
 var Router = require('koa-router');
 var Middleware = require('../lib/middleware');
 var Hackathon = require('../lib/hackathon');
+var Event = require('../lib/event');
 
 var router = module.exports = new Router();
 
@@ -24,11 +25,22 @@ router.post('/api/map/hackathon', function *() {
 	var enddate = this.request.body.enddate || null;
 	var website = this.request.body.website || '';
 	var registration = this.request.body.registration || '';
+	var enabledReg = this.request.body.enabled_reg || false;
+	var quota = this.request.body.quota || 100;
+	var deadline = this.request.body.deadline;
 
 	if (!name || !desc || !address || !loc || !latlng ||
-		!startdate || !enddate || !registration) {
+		!startdate || !enddate) {
 		this.status = 400;
 		return;
+	}
+
+	if (!enabledReg) {
+		// Using external registration service
+		if (!registration) {
+			this.status = 400;
+			return;
+		}
 	}
 
 	try {
@@ -46,6 +58,31 @@ router.post('/api/map/hackathon', function *() {
 		});
 	} catch(e) {
 		throw e;
+	}
+
+	// Using built-in registration service
+	if (enabledReg) {
+
+		var event = yield Event.create({
+			name: name,
+			desc: desc,
+			geo: geo,
+			start: startdate,
+			end: enddate,
+			loc: loc,
+			address: address,
+			website: website,
+			available: true,
+			quota: quota,
+			deadline: deadline
+		});
+
+		this.body = {
+			success: true,
+			hackathon: event 
+		};
+
+		return;
 	}
 
 	this.body = {

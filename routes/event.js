@@ -46,6 +46,92 @@ router.get('/api/event/:id', function *() {
 	};
 });
 
+router.put('/api/event/:id', Middleware.requireAuthorized, function *() {
+	var available = this.request.body.available;
+
+	var updates = {};
+
+	if (available != undefined) {
+		updates.available = available;
+	}
+	try {
+		var updated = yield Event.update(this.params.id, updates);
+	} catch(e) {
+		this.status = 500;
+		return;
+	}
+
+	this.body = updates;
+});
+
+router.get('/api/events', function *() {
+
+	var data = yield Event.list();
+
+	this.body = {
+		event: data.results
+	};
+});
+
+router.post('/api/events', Middleware.requireAuthorized, function *() {
+	var name = this.request.body.name || null;
+	var desc = this.request.body.desc || null;
+	var address = this.request.body.address || null;
+	var loc = this.request.body.loc || null;
+	var latlng = this.request.body.latlng || null;
+	var startdate = this.request.body.startdate || null;
+	var enddate = this.request.body.enddate || null;
+	var website = this.request.body.website || '';
+	var quota = this.request.body.quota || 100;
+	var deadline = this.request.body.deadline;
+	var registration = this.request.body.registration || '';
+
+	if (!name || !desc || !address || !loc || !latlng ||
+		!startdate || !enddate) {
+		this.status = 400;
+		return;
+	}
+
+	var event = yield Event.create({
+		name: name,
+		desc: desc,
+		geo: latlng,
+		start: startdate,
+		end: enddate,
+		loc: loc,
+		address: address,
+		website: website,
+		registration: registration,
+		available: false,
+		quota: quota,
+		deadline: deadline,
+		admins: [ this.state.user.id ]
+	});
+
+	this.body = {
+		success: true,
+		event: event 
+	};
+});
+
+router.get('/api/self/events', Middleware.requireAuthorized, function *() {
+
+	try {
+		var events = yield Event.getEventsByAdmin(this.state.user.id);
+		if (!events) {
+			this.status = 404;
+			return;
+		}
+	} catch(e) {
+		this.status = 500;
+		return;
+	}
+
+	this.body = {
+		events: events
+	};
+});
+
 router.get('/api/self/tickets', Middleware.requireAuthorized, function *() {
 
 	try {

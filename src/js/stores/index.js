@@ -21,7 +21,9 @@ export default {
 	hackathon_map: require('./hackathon_map'),
 	room: require('./room'),
 	event: require('./event'),
+	Events: require('./Events'),
 	ticket: require('./Ticket'),
 	tickets: require('./Tickets'),
-	EventRegistration: require('./EventRegistration')
+	EventRegistration: require('./EventRegistration'),
+	EventRegister: require('./EventRegister')
 };

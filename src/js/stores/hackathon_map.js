@@ -12,13 +12,14 @@ export default function *() {
 
 		try {
 			var res = yield this.request
-				.get('/api/map/hackathons')
+				.get('/api/events')
+//				.get('/api/map/hackathons')
 				.query();
 
 			// Update store
 			store.hackathons = [];
 
-			var data = res.body.hackathons;
+			var data = res.body.event;
 			for (var index in data) {
 				var event = data[index];
 
@@ -36,10 +37,11 @@ export default function *() {
 					address: event['address'],
 					start: m.valueOf(),
 					startdate: m.format('YYYY/MM/DD'),
-					registration: event['registration'],
+					registration: event['registration'] || null,
 					website: event['website'],
 					expired: expired,
-					pos: event['geo']
+					available: event.available,
+					pos: event['geo'] || [ -1, -1 ]
 				});
 			}
 

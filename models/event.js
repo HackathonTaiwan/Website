@@ -10,12 +10,14 @@ var Event = new mongoose.Schema({
 	address: String,
 	geo: {type: [Number], index: '2d'},
 	website: String,
+	registration: String,
 	order_num: { type: Number, default: 0 },
 	available: { type: Boolean, default: false },
 	sellout: { type: Boolean, default: false },
 	quota: { type: Number, default: 0 },
 	registered: { type: Number, default: 0 },
 	deadline: Date,
+	admins: [ { type: Schema.Types.ObjectId, ref: 'Member' } ],
 	created: { type: Date, default: Date.now },
 	updated: { type: Date, default: Date.now }
 });
