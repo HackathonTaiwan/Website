@@ -107,6 +107,12 @@ class EventPage extends React.Component {
 				<Header ref='header' autoTransform={true} />
 
 				<div className={'ui basic center aligned segment landing-page-header'} style={bannerStyle}>
+					<h1 className={'ui inverted header'}>
+						<span>{this.state.event.name}</span>
+					</h1>
+					<h2 className={'ui inverted header'}>
+						{this.state.event.startdate} @{this.state.event.location}
+					</h2>
 					<div className='ui basic segment' style={{ position: 'absolute', bottom: 0, width: '96%' }}>
 						{(() => {
 							if (!this.state.event.registered) {

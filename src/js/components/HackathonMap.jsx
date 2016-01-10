@@ -126,7 +126,7 @@ class HackathonMap extends React.Component {
 		//var $links = $('<div>').addClass('ui two bottom attached buttons');
 		var $links = $('<div>').addClass('ui two attached buttons');
 		var $registration = $('<a>')
-			.attr('href', event['registration'])
+			.attr('href', event['registration'] || '/event/' + event._id)
 			.attr('target', '_blank')
 			.appendTo($links);
 		var $website = $('<a>')

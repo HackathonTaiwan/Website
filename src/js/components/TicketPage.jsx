@@ -164,6 +164,12 @@ class TicketPage extends React.Component {
 				<RefundConfirm ref='refundConfirm' onApprove={this.handleRefund} />
 
 				<div className={'ui basic center aligned segment landing-page-header'} style={bannerStyle}>
+					<h1 className={'ui inverted header'}>
+						<span>{ticket.event.name}</span>
+					</h1>
+					<h2 className={'ui inverted header'}>
+						{ticket.event.startdate} @{ticket.event.loc}
+					</h2>
 					<div className='ui basic segment' style={{ position: 'absolute', bottom: 0, width: '96%' }}>
 						<a href={'/event/' + ticket.event._id}>
 							<button className={'big ui inverted animated fade button'}>
