@@ -91,11 +91,11 @@ class LandingPage extends React.Component {
 							<I18n sign='landing_page.map_button'>Hackathon Map</I18n>
 						</button>
 					</Link>
-					<Link to='/hackathon/reg'>
+					<a href='/hackathon/reg'>
 						<button className={'big ui inverted button'}>
 							<I18n sign='landing_page.reg_event_button'>Register Your Event</I18n>
 						</button>
-					</Link>
+					</a>
 					<Link to='/hackathon/room'>
 						<button className={'big ui inverted button'}>
 							<I18n sign='landing_page.join_room_button'>Join Chat Channel</I18n>
