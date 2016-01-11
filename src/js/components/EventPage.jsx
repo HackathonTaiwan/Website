@@ -95,7 +95,8 @@ class EventPage extends React.Component {
 		};
 
 		var bannerStyle = {
-			background: 'rgb(21, 177, 201) url(\'' + bannerImage + '\') no-repeat center center'
+			background: 'rgb(21, 177, 201) url(\'' + bannerImage + '\') no-repeat center center',
+			backgroundSize: 'cover'
 		};
 
 		var progressStyle = {
@@ -107,12 +108,6 @@ class EventPage extends React.Component {
 				<Header ref='header' autoTransform={true} />
 
 				<div className={'ui basic center aligned segment landing-page-header'} style={bannerStyle}>
-					<h1 className={'ui inverted header'}>
-						<span>{this.state.event.name}</span>
-					</h1>
-					<h2 className={'ui inverted header'}>
-						{this.state.event.startdate} @{this.state.event.location}
-					</h2>
 					<div className='ui basic segment' style={{ position: 'absolute', bottom: 0, width: '96%' }}>
 						{(() => {
 							if (!this.state.event.registered) {
@@ -133,7 +128,10 @@ class EventPage extends React.Component {
 							return (
 								<div>
 									<div className='ui inverted statistic'>
-										<div className='value'>{this.state.event.registered}/{this.state.event.quota}</div>
+										<div className='value'>{this.state.event.registered}
+											<span style={{ fontSize: '28pt', position: 'relative', top: '5px' }}>/</span>
+											<span style={{ fontSize: '18pt', position: 'relative', top: '5px' }}>{this.state.event.quota}</span>
+										</div>
 										<div className='label'>目前報名人數</div>
 									</div>
 									<div className='ui centered grid'>
@@ -151,7 +149,7 @@ class EventPage extends React.Component {
 							if (this.state.event.hasTicket) {
 								return (
 									<a href={'/ticket/' + this.state.event.hasTicket}>
-										<button className={'big ui inverted yellow animated fade button'}>
+										<button className={'big ui blue animated fade button'}>
 											<div className='visible content'>
 												<i className='check circle icon' />
 												<I18n sign='this.state.event.register_button1'>您已經報名了本活動</I18n>
@@ -183,6 +181,10 @@ class EventPage extends React.Component {
 				<div className={'ui hidden divider'} />
 
 				<div className={'ui basic center aligned padded segment'}>
+					<h1 className={'ui header'}>
+						<span>{this.state.event.name}</span>
+					</h1>
+
 					<div className='ui centered stackable grid'>
 						<div className='twelve wide column' style={style}>
 							<div className='ui basic segment'>

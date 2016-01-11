@@ -152,7 +152,8 @@ class TicketPage extends React.Component {
 		};
 
 		var bannerStyle = {
-			background: 'rgb(21, 177, 201) url(\'' + bannerImage + '\') no-repeat center center'
+			background: 'rgb(21, 177, 201) url(\'' + bannerImage + '\') no-repeat center center',
+			backgroundSize: 'cover'
 		};
 
 		var ticket = this.flux.getState('Ticket');
@@ -164,12 +165,6 @@ class TicketPage extends React.Component {
 				<RefundConfirm ref='refundConfirm' onApprove={this.handleRefund} />
 
 				<div className={'ui basic center aligned segment landing-page-header'} style={bannerStyle}>
-					<h1 className={'ui inverted header'}>
-						<span>{ticket.event.name}</span>
-					</h1>
-					<h2 className={'ui inverted header'}>
-						{ticket.event.startdate} @{ticket.event.loc}
-					</h2>
 					<div className='ui basic segment' style={{ position: 'absolute', bottom: 0, width: '96%' }}>
 						<a href={'/event/' + ticket.event._id}>
 							<button className={'big ui inverted animated fade button'}>
@@ -199,6 +194,9 @@ class TicketPage extends React.Component {
 				<div className={'ui basic center aligned padded segment'}>
 					<h1 className={'ui header'} style={{ fontSize: '40px' }}>
 						<span>您已經報名了此活動</span>
+					</h1>
+					<h1 className={'ui inverted header'}>
+						<span>{ticket.event.name}</span>
 					</h1>
 					<div className='ui centered stackable grid'>
 						<div className='twelve wide column' style={style}>
