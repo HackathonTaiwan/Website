@@ -587,7 +587,7 @@ class HackathonRegPage extends React.Component {
 							<div ref='form' className={'ui form segment shadow'}>
 
 									{(() => {
-										if (!this.state.user.permissions.admin)
+										if (!this.state.user.permissions.admin.access)
 											return;
 
 										return (
@@ -683,14 +683,24 @@ class HackathonRegPage extends React.Component {
 									</div>
 
 									<div className='ui yellow ribbon label'><I18n sign='hackathon_reg.registration'>Registration Page</I18n></div>
-									<div className='ui checkbox' ref='builtin_registration'>
-										<input type='checkbox' checked={this.state.enabledReg} />
-										<label>
-											<span>使用內建的活動報名機制</span>
-											<div className='ui left pointing red mini basic label'>新功能！</div>
-										</label>
-									</div>
+
 									{(() => {
+										if (!this.state.user.permissions.admin.access)
+											return;
+
+										return (
+											<div className='ui checkbox' ref='builtin_registration'>
+												<input type='checkbox' checked={this.state.enabledReg} />
+												<label>
+													<span>使用內建的活動報名機制</span>
+													<div className='ui left pointing red mini basic label'>新功能！</div>
+												</label>
+											</div>
+										);
+									})()}
+
+									{(() => {
+
 										if (this.state.enabledReg) {
 											var dates = this.state.daterange.getSelectedRaw();
 											return <EventRegistrationSettings ref='registration' defaultDeadline={dates[0].subtract({ days: 1 })} onChange={this.handleChange} />;
