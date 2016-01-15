@@ -12,7 +12,7 @@ import Header from './Header.jsx';
 import bannerImage from 'Source/images/event_banner.jpg';
 
 // Decorators
-import { flux, router, page, i18n, loader, preAction } from 'Decorator';
+import { flux, router, page, i18n, loader, preAction, wait } from 'Decorator';
 
 class RefundConfirm extends React.Component {
 
@@ -73,6 +73,7 @@ class RefundConfirm extends React.Component {
 @preAction((handle) => {
 	handle.doAction('Ticket.fetch', handle.props.params.id);
 })
+@wait('Ticket')
 @page((handle) => {
 	return {
 		title: handle.i18n.getFmtMessage('ticket_page.title', '%s', handle.flux.getState('Ticket').event.name)
@@ -167,7 +168,7 @@ class TicketPage extends React.Component {
 				<div className={'ui basic center aligned segment landing-page-header'} style={bannerStyle}>
 					<div className='ui basic segment' style={{ position: 'absolute', bottom: 0, width: '96%' }}>
 						<a href={'/event/' + ticket.event._id}>
-							<button className={'big ui inverted animated fade button'}>
+							<button className={'big ui green animated fade button'}>
 								<div className='visible content'>
 									<I18n sign='event.register_button1'>查看更多活動資訊</I18n>
 								</div>
@@ -177,7 +178,7 @@ class TicketPage extends React.Component {
 							</button>
 						</a>
 
-						<button className={'big ui red inverted animated fade button'} onClick={this.refund}>
+						<button className={'big ui red animated fade button'} onClick={this.refund}>
 							<div className='visible content'>
 								<i className='remove circle icon' />
 								<I18n sign='event.register_button1'>取消報名</I18n>
@@ -192,11 +193,11 @@ class TicketPage extends React.Component {
 				<div className={'ui hidden divider'} />
 
 				<div className={'ui basic center aligned padded segment'}>
-					<h1 className={'ui header'} style={{ fontSize: '40px' }}>
-						<span>您已經報名了此活動</span>
+					<h1 className={'ui green header'} style={{ fontSize: '40px' }}>
+						<span>報名序號 {ticket.number}</span>
 					</h1>
-					<h1 className={'ui inverted header'}>
-						<span>{ticket.event.name}</span>
+					<h1 className={'ui header'} style={{ fontSize: '40px' }}>
+						<span>您已經報名了此活動！</span>
 					</h1>
 					<div className='ui centered stackable grid'>
 						<div className='twelve wide column' style={style}>

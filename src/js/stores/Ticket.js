@@ -19,7 +19,8 @@ export default function *() {
 		birthday: null,
 		owner: null,
 		event: {},
-		refunded: false
+		refunded: false,
+		number: -1
 	});
 
 	this.on('store.Ticket.fetch', function *(id) {
