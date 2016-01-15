@@ -12,17 +12,22 @@ import Header from './Header.jsx';
 import bannerImage from 'Source/images/event_banner.jpg';
 
 // Decorators
-import { flux, page, i18n, loader, preAction } from 'Decorator';
+import { flux, page, i18n, loader, preAction, wait } from 'Decorator';
 
-@flux
 @preAction((handle) => {
 	handle.doAction('Event.fetch', handle.props.params.id);
 })
+@wait('Event')
 @page((handle) => {
 	return {
-		title: handle.i18n.getFmtMessage('event_page.title', '%s', handle.flux.getState('Event').name)
+		title: handle.i18n.getFmtMessage('event_page.title', '%s', handle.flux.getState('Event').name),
+		ogMeta: {
+			'og:title': handle.i18n.getFmtMessage('event_page.title', '%s', handle.flux.getState('Event').name),
+			'og:image': handle.flux.getState('Service').externalUrl + bannerImage
+		}
 	};
 })
+@flux
 class EventPage extends React.Component {
 	constructor(props, context) {
 		super();
