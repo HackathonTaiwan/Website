@@ -44,7 +44,7 @@ class Room extends React.Component {
 		this.setState({
 			inputHeight: $inputPanel.height()
 		});
-	}
+	};
 
 	render() {
 
@@ -188,7 +188,7 @@ class InputPanel extends React.Component {
 				this.send();
 			}
 		}
-	}
+	};
 
 	handleChange = () => {
 		var rows = this.refs.input.value.split('\n').length;
@@ -196,7 +196,7 @@ class InputPanel extends React.Component {
 		this.setState({
 			rows: rows > 10 ? 10 : rows
 		});
-	}
+	};
 
 	send = () => {
 
@@ -216,12 +216,12 @@ class InputPanel extends React.Component {
 
 		this.refs.input.value = '';
 		this.handleChange();
-	}	
+	};
 
 	sizeChange = () => {
 		if (this.props.onResize)
 			this.props.onResize();
-	}
+	};
 
 	render() {
 
@@ -302,7 +302,8 @@ class HackathonLobby extends React.Component {
 				return b.start - a.start;
 			})
 		});
-	}
+	};
+
 	render() {
 		var style = {
 			background: 'rgba(0,0,0,0.8)',
@@ -409,7 +410,7 @@ class HackathonRoomPage extends React.Component {
 			winWidth: win.width,
 			winHeight: win.height
 		});
-	}
+	};
 
 	updateRoom = () => {
 		var store = this.flux.getState('Room');
@@ -417,7 +418,7 @@ class HackathonRoomPage extends React.Component {
 		this.setState({
 			rooms: store.rooms
 		});
-	}
+	};
 
 	render() {
 		var style = {

@@ -53,13 +53,13 @@ class LandingPage extends React.Component {
 		this.setState({
 			'scroll': null
 		});
-	}
+	};
 
 	removeScroll = () => {
 		this.setState({
 			'scroll': 'scroll-off'
 		});
-	}
+	};
 
 	about = () => {
 		var $node = $(this.refs.app_section);

@@ -21,20 +21,20 @@ class EventMgrMenu extends React.Component {
 		};
 	}
 
-	componentWillMount = () => {
+	componentWillMount() {
 		this.flux.on('state.User', this.flux.bindListener(this.onChange));
 	}
 
-	componentWillUnmount = () => {
+	componentWillUnmount() {
 		this.flux.off('state.User', this.onChange);
 	}
 
-	componentDidUpdate = () => {
+	componentDidUpdate() {
 //		$(this.refs.sidebar.getDOMNode()).sidebar();
 	}
 
 	onChange = () => {
-	}
+	};
 
 	render() {
 

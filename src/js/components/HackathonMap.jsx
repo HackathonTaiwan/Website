@@ -11,7 +11,7 @@ import { flux, loader, i18n, preAction } from 'Decorator';
 class HackathonMap extends React.Component {
 	static propTypes: {
 		height: React.propTypes.number
-	}
+	};
 
 	constructor(props, context) {
 		super();
@@ -188,7 +188,7 @@ class HackathonMap extends React.Component {
 			});
 
 		this.state.markers[event._id] = marker;
-	}
+	};
 
 	onChange = () => {
 		var store = this.flux.getState('HackathonMap');
@@ -229,7 +229,7 @@ class HackathonMap extends React.Component {
 			focused: store.focused,
 			events: store.hackathons
 		});
-	}
+	};
 
 	render() {
 		var scrollStyle = this.props.scrollStyle;

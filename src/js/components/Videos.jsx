@@ -26,7 +26,7 @@ class Videos extends React.Component {
 	            $('#player').attr('src', 'http://www.youtube.com/embed/pKpYgspXQAA');
 	        }
 	    }).modal('show');
-    }
+    };
 
 	render() {
 		return (

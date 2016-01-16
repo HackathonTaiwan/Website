@@ -119,7 +119,7 @@ class EventRegistrationForm extends React.Component {
 			idno: idno,
 			birthday: birthday
 		});
-	}
+	};
 
 	getFieldStatus = (fieldName, prefix) => {
 
@@ -130,7 +130,7 @@ class EventRegistrationForm extends React.Component {
 		}
 
 		return (prefix || '') + ' required field';
-	}
+	};
 
 	render() {
 		return (

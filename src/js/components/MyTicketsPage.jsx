@@ -51,19 +51,19 @@ class MyTicketsPage extends React.Component {
 		this.setState({
 			tickets: store.tickets
 		});
-	}
+	};
 
 	makeScroll = () => {
 		this.setState({
 			'scroll': null
 		});
-	}
+	};
 
 	removeScroll = () => {
 		this.setState({
 			'scroll': 'scroll-off'
 		});
-	}
+	};
 
 	render() {
 

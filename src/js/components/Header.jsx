@@ -94,7 +94,7 @@ class Header extends React.Component {
 				}, 400, 'easeOutCubic');
 			}
 		}
-	}
+	};
 
 	onChange = () => {
 

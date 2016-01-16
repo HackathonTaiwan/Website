@@ -25,7 +25,7 @@ var makerbot = require('../../images/logos/makerbot.png');
 class Sponsors extends React.Component {
 	openModal = () => {
 		$('.ui.modal').modal('show');
-    }
+    };
 
 	render() {
 

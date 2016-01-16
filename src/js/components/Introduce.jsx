@@ -4,7 +4,7 @@ import I18n from 'Extension/I18n.jsx';
 class Introduce extends React.Component {
 	openModal = () => {
 		$('.ui.modal').modal('show');
-    }
+    };
 
 	render() {
 		var stackedStyle = {

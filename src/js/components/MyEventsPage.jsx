@@ -51,19 +51,19 @@ class MyEventsPage extends React.Component {
 		this.setState({
 			events: store.myEvents
 		});
-	}
+	};
 
 	makeScroll = () => {
 		this.setState({
 			'scroll': null
 		});
-	}
+	};
 
 	removeScroll = () => {
 		this.setState({
 			'scroll': 'scroll-off'
 		});
-	}
+	};
 
 	render() {
 

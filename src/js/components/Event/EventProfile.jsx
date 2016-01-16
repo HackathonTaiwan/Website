@@ -37,7 +37,7 @@ class UserProfile extends React.Component {
 		this.setState({
 			event: event
 		});
-	}
+	};
 
 	render() {
 

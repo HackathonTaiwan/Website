@@ -49,11 +49,11 @@ class EventList extends React.Component {
 				return b.start - a.start;
 			})
 		});
-	}
+	};
 
 	takeFocus = (id) => {
 		this.flux.dispatch('action.HackathonMap.takeFocus', id);
-	}
+	};
 
 	render() {
 		var style = {
@@ -155,7 +155,7 @@ class HackathonMapPage extends React.Component {
 			winWidth: win.width,
 			winHeight: win.height
 		});
-	}
+	};
 
 	render() {
 		var style = {

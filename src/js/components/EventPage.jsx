@@ -56,19 +56,19 @@ class EventPage extends React.Component {
 		this.setState({
 			event: event
 		});
-	}
+	};
 
 	makeScroll = () => {
 		this.setState({
 			'scroll': null
 		});
-	}
+	};
 
 	removeScroll = () => {
 		this.setState({
 			'scroll': 'scroll-off'
 		});
-	}
+	};
 
 	about = () => {
 		var $node = $(this.refs.app_section);
@@ -77,7 +77,7 @@ class EventPage extends React.Component {
 		$('html, body').stop().animate({
 			scrollTop: $node.offset().top - $header.height() + 1
 		}, 400);
-	}
+	};
 
 	getProgressBarStyle = () => {
 
@@ -90,7 +90,7 @@ class EventPage extends React.Component {
 		}
 
 		return 'ui active red tiny inverted progress';
-	}
+	};
 
 	render() {
 

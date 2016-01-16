@@ -34,7 +34,7 @@ class RefundConfirm extends React.Component {
 
 	open = () => {
 		$(this.refs.component).modal('show');
-	}
+	};
 
 	render() {
 		return (
@@ -114,19 +114,19 @@ class TicketPage extends React.Component {
 		this.setState({
 			ticket: ticket
 		});
-	}
+	};
 
 	makeScroll = () => {
 		this.setState({
 			'scroll': null
 		});
-	}
+	};
 
 	removeScroll = () => {
 		this.setState({
 			'scroll': 'scroll-off'
 		});
-	}
+	};
 
 	about = () => {
 		var $node = $(this.refs.app_section);
@@ -135,15 +135,15 @@ class TicketPage extends React.Component {
 		$('html, body').stop().animate({
 			scrollTop: $node.offset().top - $header.height() + 1
 		}, 400);
-	}
+	};
 
 	refund = () => {
 		this.refs.refundConfirm.open();
-	}
+	};
 
 	handleRefund = (reason) => {
 		this.flux.dispatch('action.Ticket.refund', this.state.ticket._id, reason);
-	}
+	};
 
 	render() {
 

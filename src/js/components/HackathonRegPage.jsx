@@ -404,14 +404,14 @@ class HackathonRegPage extends React.Component {
 			}.bind(this),
 			fields: fields
 		});
-	}
+	};
 
 	onChange = () => {
 
 		this.setState({
 			user: this.flux.getState('User')
 		});
-	}
+	};
 
 	updateDimensions = () => {
 		var win = this.flux.getState('Window');
@@ -419,7 +419,7 @@ class HackathonRegPage extends React.Component {
 			winWidth: win.width,
 			winHeight: win.height
 		});
-	}
+	};
 
 	onHackathonMapChanged = () => {
 		var store = this.flux.getState('HackathonMap');
@@ -427,7 +427,7 @@ class HackathonRegPage extends React.Component {
 		this.setState({
 			registered: store.registered
 		});
-	}
+	};
 
 	onEventRegisterChanged = () => {
 
@@ -438,14 +438,14 @@ class HackathonRegPage extends React.Component {
 				registered: eventRegister.data
 			});
 		}
-	}
+	};
 
 	verify = () => {
 
 		this.initializeForm();
 
 		$(this.refs.form).form('validate form');
-	}
+	};
 
 	register = () => {
 
@@ -507,7 +507,7 @@ class HackathonRegPage extends React.Component {
 */
 			}.bind(this));
 		}
-	}
+	};
 
 	confirm = () => {
 		$('html, body').scrollTop(0);
@@ -515,13 +515,13 @@ class HackathonRegPage extends React.Component {
 		this.setState({
 			confirm: true
 		});
-	}
+	};
 
 	edit = () => {
 		this.setState({
 			confirm: false
 		});
-	}
+	};
 
 	handleChange = () => {
 		var name = this.refs.name.value;
@@ -554,7 +554,7 @@ class HackathonRegPage extends React.Component {
 		this.setState({
 			fields: fields
 		});
-	}
+	};
 
 	render() {
 		var fieldClass = 'field';

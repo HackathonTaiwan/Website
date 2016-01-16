@@ -53,7 +53,7 @@ class EventRegistrationPage extends React.Component {
 		this.setState({
 			done: this.flux.getState('EventRegistration').done
 		});
-	}
+	};
 
 	render() {
 		var event = this.flux.getState('Event');

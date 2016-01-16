@@ -57,7 +57,7 @@ class StateCheckbox extends React.Component {
 			event: event,
 			checking: false
 		});
-	}
+	};
 
 	render() {
 		return (
