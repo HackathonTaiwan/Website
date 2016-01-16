@@ -68,7 +68,7 @@ class LandingPage extends React.Component {
 		$('html, body').stop().animate({
 			scrollTop: $node.offset().top - $header.height() + 1
 		}, 400);
-	}
+	};
 
 	render() {
 		var scrollStyle = this.state.scroll;
