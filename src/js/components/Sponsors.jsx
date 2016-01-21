@@ -6,7 +6,6 @@ var averger = require('../../images/logos/averger.png');
 var taiwanLand = require('../../images/logos/taiwan-land.png');
 var custard = require('../../images/logos/custard.png');
 var accupass = require('../../images/logos/accupass.png');
-var azul = require('../../images/logos/azul.png');
 var buyic = require('../../images/logos/buyic.png');
 var doit = require('../../images/logos/doit.png');
 var ibmLogo = require('../../images/logos/ibmLogo.png');
@@ -21,6 +20,15 @@ var vivotek = require('../../images/logos/vivotek.png');
 var letschool = require('../../images/logos/letschool.png');
 var ucrobotics = require('../../images/logos/ucrobotics.png');
 var makerbot = require('../../images/logos/makerbot.png');
+var taichungComputer = require('../../images/logos/taichungComputer.png');
+var wda = require('../../images/logos/1wda.png');
+var systex = require('../../images/logos/systex.png');
+var honix = require('../../images/logos/honix.png');
+var kodorobot = require('../../images/logos/kodorobot.png');
+var arklab = require('../../images/logos/arklab.png');
+var siwahochi = require('../../images/logos/siwahochi.png');
+var cmoreCloud = require('../../images/logos/cmoreCloud.png');
+var taichungUniversity = require('../../images/logos/taichungUniversity.png');
 
 class Sponsors extends React.Component {
 	openModal = () => {
@@ -57,9 +65,6 @@ class Sponsors extends React.Component {
 							</div>
 							<div className="column">
 								<a href="http://www.accupass.com/" target="_blank"><img className="ui fluid rounded image" src={ accupass } /></a>
-							</div>
-							<div className="column">
-								<a href="http://www.azul.com.tw/" target="_blank"><img className="ui fluid rounded image" src={ azul } /></a>
 							</div>
 							<div className="column">
 								<a href="http://www.buyic.com.tw/" target="_blank"><img className="ui fluid rounded image" src={ buyic } /></a>
@@ -99,6 +104,33 @@ class Sponsors extends React.Component {
 							</div>
 							<div className="column">
 								<a href="http://makerbot3d.asia" target="_blank"><img className="ui fluid rounded image" src={ makerbot } /></a>
+							</div>
+							<div className="column">
+								<a href="http://www.tcca.org.tw" target="_blank"><img className="ui fluid rounded image" src={ taichungComputer } /></a>
+							</div>
+							<div className="column">
+								<a href="http://59.120.134.70/CareerGuide/index.aspx" target="_blank"><img className="ui fluid rounded image" src={ wda } /></a>
+							</div>
+							<div className="column">
+								<a href="http://www.systex.com" target="_blank"><img className="ui fluid rounded image" src={ systex } /></a>
+							</div>
+							<div className="column">
+								<a href="http://www.honixtech.com/" target="_blank"><img className="ui fluid rounded image" src={ honix } /></a>
+							</div>
+							<div className="column">
+								<a href="https://www.facebook.com/kodorobot" target="_blank"><img className="ui fluid rounded image" src={ kodorobot } /></a>
+							</div>
+							<div className="column">
+								<a href="https://www.facebook.com/ArkLab.OpenSkyler/timeline?ref=page_internal" target="_blank"><img className="ui fluid rounded image" src={ arklab } /></a>
+							</div>
+							<div className="column">
+								<a href="http://www.yo-mi.com/" target="_blank"><img className="ui fluid rounded image" src={ siwahochi } /></a>
+							</div>
+							<div className="column">
+								<a href="http://www.emt.com.tw/webPage/" target="_blank"><img className="ui fluid rounded image" src={ cmoreCloud } /></a>
+							</div>
+							<div className="column">
+								<a href="http://www.nutc.edu.tw/bin/home.php" target="_blank"><img className="ui fluid rounded image" src={ taichungUniversity } /></a>
 							</div>
 						</div>
 					</div>
