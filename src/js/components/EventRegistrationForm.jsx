@@ -16,6 +16,7 @@ class EventRegistrationForm extends React.Component {
 
 		this.state = {
 			error: false,
+			processing: false,
 			fields: {
 				name: [],
 				email: [],
@@ -35,6 +36,10 @@ class EventRegistrationForm extends React.Component {
 	}
 
 	submit = () => {
+
+		if (this.state.processing)
+			return;
+
 		var name = this.refs.name.value.trim();
 		var email = this.refs.email.value.trim();
 		var phone = this.refs.phone.value.trim();
@@ -109,6 +114,9 @@ class EventRegistrationForm extends React.Component {
 			return;
 		}
 
+		this.setState({
+			processing: true
+		});
 		this.flux.dispatch('action.EventRegistration.signUp', this.props.eventId, {
 			name: name,
 			email: email,
@@ -222,7 +230,7 @@ class EventRegistrationForm extends React.Component {
 						</div>
 					</div>
 
-					<div className='ui right floated green labeled icon button' onClick={this.submit}>
+					<div className={(this.state.processing ? 'loading ' : '') + 'ui right floated green labeled icon button'} onClick={this.submit}>
 						<i className='send icon' />
 						送出報名
 					</div>
