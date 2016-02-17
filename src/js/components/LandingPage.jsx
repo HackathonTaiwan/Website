@@ -15,7 +15,7 @@ import Speakers from './Speakers.jsx';
 import I18n from 'Extension/I18n.jsx';
 
 // Decorators
-import { flux } from 'Decorator';
+import { flux, page } from 'Decorator';
 
 // Section image
 import appIcon from 'Source/images/app-icon.png';
@@ -31,6 +31,7 @@ import speaker from 'Source/images/speaker.png';
 import event from 'Source/images/event.png';
 import jobs from 'Source/images/jobs.png';
 import compones from 'Source/images/compones.png';
+import hackathonTaiwan from 'Source/images/hackathonTaiwan.png';
 
 var descStyle = {
 	fontSize: '1.5em'
@@ -39,6 +40,14 @@ var descStyle = {
 var sectionStyle = {
 };
 
+@page((handle) => {
+	return {
+		ogMeta: {
+			'og:title': handle.i18n.getFmtMessage('landing_page.title', '%s', 'Hackathon Taiwan'),
+			'og:image': hackathonTaiwan
+		}
+	};
+})
 @flux
 class LandingPage extends React.Component {
 	constructor() {
@@ -109,7 +118,7 @@ class LandingPage extends React.Component {
 				
 				<section style={ sectionStyle }>
 					<div className='ui basic segment'>
-						<div className='ui centered link cards'>
+						<div className='ui centered cards'>
 
 							<div className='card remove-border'>
 								<div className='image'>

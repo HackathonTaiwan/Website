@@ -3,6 +3,7 @@ var translation = module.exports = {
 	'header.menu.admin_panel': '系統管理',
 	'header.menu.sign_in': '登入',
 	'header.menu.sign_out': '登出',
+	'landing_page.title': '黑客松台灣',
 	'landing_page.subtitle': '創意，深不見底。',
 	'landing_page.entry_button': '瞭解更多',
 	'landing_page.map_button': '哪裡有黑客松活動',
