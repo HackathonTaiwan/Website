@@ -8,7 +8,6 @@ var configs = module.exports = [
 		name: 'Browser',
 		entry: {
 			app: [
-				'webpack-hot-middleware/client',
 				'./src/js/browser.jsx'
 			],
 			vendors: [
@@ -29,12 +28,14 @@ var configs = module.exports = [
 			new webpack.ProvidePlugin({
 				'window.moment': 'moment'
 			}),
+			new CopyWebpackPlugin([
+				{ from: './src/public', to: '../' }
+			]),
 			new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js'),
 			new CopyWebpackPlugin([
 				{ from: 'node_modules/socket.io-client/socket.io.js' }
 			]),
 			new webpack.optimize.OccurenceOrderPlugin(),
-		    new webpack.HotModuleReplacementPlugin(),
 			new webpack.NoErrorsPlugin()
 		],
 		module: {

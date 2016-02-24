@@ -24,7 +24,7 @@ export default function *() {
 					address: event.address,
 					latlng: event.latlng,
 					website: event.website,
-					registration: event.registraion,
+					registration: event.registration,
 					deadline: event.deadline,
 					quota: event.quota
 				});
@@ -47,6 +47,7 @@ export default function *() {
 				website: e['website'],
 				pos: e['geo'],
 				quota: e['quota'],
+				registration: e['registration'],
 				deadline: dm.format('YYYY/MM/DD HH:mm'),
 				registered: e['registered'],
 				available: e['available']
