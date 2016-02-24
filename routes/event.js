@@ -102,7 +102,7 @@ router.post('/api/events', Middleware.requireAuthorized, function *() {
 		address: address,
 		website: website,
 		registration: registration,
-		available: false,
+		available: registration ? true : false,
 		quota: quota,
 		deadline: deadline,
 		admins: [ this.state.user.id ]
