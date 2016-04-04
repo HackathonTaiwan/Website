@@ -44,7 +44,7 @@ var sectionStyle = {
 	return {
 		ogMeta: {
 			'og:title': handle.i18n.getFmtMessage('landing_page.title', '%s', 'Hackathon Taiwan'),
-			'og:image': hackathonTaiwan
+			'og:image': handle.flux.getState('Service').externalUrl + hackathonTaiwan
 		}
 	};
 })
