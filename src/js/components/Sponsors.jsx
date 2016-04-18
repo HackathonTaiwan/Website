@@ -29,6 +29,7 @@ var arklab = require('../../images/logos/arklab.png');
 var siwahochi = require('../../images/logos/siwahochi.png');
 var cmoreCloud = require('../../images/logos/cmoreCloud.png');
 var taichungUniversity = require('../../images/logos/taichungUniversity.png');
+var tsa = require('../../images/logos/tsa.png');
 
 class Sponsors extends React.Component {
 	openModal = () => {
@@ -49,12 +50,6 @@ class Sponsors extends React.Component {
 					<div className="ten wide column">
 						<div className="ui doubling six column grid">
 							<div className="column">
-								<a href="http://www.startupstadium.tw/" target="_blank"><img className="ui fluid rounded image" src={ tss } /></a>
-							</div>
-							<div className="column">
-								<a href="#" target="_blank"><img className="ui fluid rounded image" src={ averger } /></a>
-							</div>
-							<div className="column">
 								<a href="http://www.custardcream.org/" target="_blank"><img className="ui fluid rounded image" src={ custard } /></a>
 							</div>
 							<div className="column">
@@ -62,6 +57,15 @@ class Sponsors extends React.Component {
 							</div>
 							<div className="column">
 								<a href="http://letschool.com" target="_blank"><img className="ui fluid rounded image" src={ letschool } /></a>
+							</div>
+							<div className="column">
+								<a href="#" target="_blank"><img className="ui fluid rounded image" src={ averger } /></a>
+							</div>
+							<div className="column">
+								<a href="//tsataiwan.strikingly.com" target="_blank"><img className="ui fluid rounded image" src={ tsa } /></a>
+							</div>
+							<div className="column">
+								<a href="http://www.startupstadium.tw/" target="_blank"><img className="ui fluid rounded image" src={ tss } /></a>
 							</div>
 							<div className="column">
 								<a href="http://www.accupass.com/" target="_blank"><img className="ui fluid rounded image" src={ accupass } /></a>
