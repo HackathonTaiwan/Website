@@ -1,7 +1,7 @@
 {
 	"service": {
 		"name": "Hackathon Taiwan",
-		"external_url": "http://localhost:3001"
+		"external_url": "https://hackathon.tw"
 	},
 	"server": {
 		"port": 3001
