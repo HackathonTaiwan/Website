@@ -62,7 +62,7 @@ class Sponsors extends React.Component {
 								<a href="#" target="_blank"><img className="ui fluid rounded image" src={ averger } /></a>
 							</div>
 							<div className="column">
-								<a href="//tsataiwan.strikingly.com" target="_blank"><img className="ui fluid rounded image" src={ tsa } /></a>
+								<a href="//www.taiwanskills.org" target="_blank"><img className="ui fluid rounded image" src={ tsa } /></a>
 							</div>
 							<div className="column">
 								<a href="http://www.startupstadium.tw/" target="_blank"><img className="ui fluid rounded image" src={ tss } /></a>
