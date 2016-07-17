@@ -38,7 +38,8 @@ class HackathonMap extends React.Component {
 			'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.5/leaflet.js',
 			'https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-minimap/v1.0.0/Control.MiniMap.js'
 		], function() {
-			var tileUrl = 'http://otile{s}.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpg';
+//			var tileUrl = 'http://otile{s}.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpg';
+			var tileUrl = 'http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png';
 
 			// Initialzing map
 			var zoomControl = L.control.zoom({ position: 'topright' });
@@ -68,7 +69,7 @@ class HackathonMap extends React.Component {
 
 			// add an OpenStreetMap tile layer
 			L.tileLayer(tileUrl, {
-				subdomains: '1234',
+//				subdomains: '1234',
 				attribution: '<a href="https://hackathon.tw/">黑客松台灣 Hackathon Taiwan</a> | &copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 			}).addTo(map);
 		}.bind(this));
